@@ -42,7 +42,7 @@ syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\@!/       end=/\\\@<
 syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=_\@<!___\@!/         end=/\\\@<!_\@<!___\@!\($\|\A\)\@=/       contains=htmlItalic,@Spell
 syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<!_\@<!__\@!\($\|\A\)\@=/        contains=htmlBold,@Spell
 syn region htmlString   start="]("ms=s+2             end=")"me=e-1
-syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1 contains=@Spell
+syn region htmlLink     start="\\\@<!\["ms=s+1            end="\\\@<!\]"me=e-1 contains=@Spell
 syn region htmlString   start="\(\[.*]: *\)\@<=.*"  end="$"
 
 "define Markdown groups
@@ -55,9 +55,10 @@ syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\+\.\s\+"
 syn match  mkdCode      /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
-syn region mkdCode      start=/`/                   end=/`/
+syn match  mkdLineBreak /  \+$/
+syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/
 syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
-syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineContinue,@Spell
+syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineBreak,mkdLineContinue,@Spell
 syn region mkdCode      start="<pre[^>]*>"         end="</pre>"
 syn region mkdCode      start="<code[^>]*>"        end="</code>"
 
@@ -78,7 +79,7 @@ HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
 HtmlHiLink mkdRule          Identifier
-
+HtmlHiLink mkdLineBreak     Todo
 
 let b:current_syntax = "mkd"
 

@@ -7,7 +7,6 @@
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
 "		easily conflict with HTML syntax
-" TODO: 	Do something appropriate with image syntax
 " TODO: 	Handle stuff contained within stuff (e.g. headings within blockquotes)
 
 
@@ -41,9 +40,19 @@ syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\*\@!/     end=/\\\@<
 syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\@!/       end=/\\\@<!\*\@<!\*\*\@!\($\|\A\)\@=/      contains=htmlBold,@Spell
 syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=_\@<!___\@!/         end=/\\\@<!_\@<!___\@!\($\|\A\)\@=/       contains=htmlItalic,@Spell
 syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<!_\@<!__\@!\($\|\A\)\@=/        contains=htmlBold,@Spell
-syn region htmlString   start="]("ms=s+2             end=")"me=e-1
-syn region htmlLink     start="\\\@<!\["ms=s+1            end="\\\@<!\]"me=e-1 contains=@Spell
-syn region htmlString   start="\(\[.*]: *\)\@<=.*"  end="$"
+
+" [link](URL) | [link][id] | [link][]
+syn region mkdLink matchgroup=mkdDelimiter      start="\!\?\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite oneline
+syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained
+syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained
+
+" Link definitions: [id]: URL (Optional Title)
+" TODO handle automatic links without colliding with htmlTag (<URL>)
+syn region mkdLinkDef matchgroup=mkdDelimiter   start="^ \{,3}\zs\[" end="]:" oneline nextgroup=mkdLinkDefTarget skipwhite
+syn region mkdLinkDefTarget start="<\?\zs\S" excludenl end="\ze[>[:space:]\n]"   contained nextgroup=mkdLinkTitle,mkdLinkDef skipwhite skipnl oneline
+syn region mkdLinkTitle matchgroup=mkdDelimiter start=+"+     end=+"+  contained
+syn region mkdLinkTitle matchgroup=mkdDelimiter start=+'+     end=+'+  contained
+syn region mkdLinkTitle matchgroup=mkdDelimiter start=+(+     end=+)+  contained
 
 "define Markdown groups
 syn match  mkdLineContinue ".$" contained
@@ -80,6 +89,14 @@ HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
 HtmlHiLink mkdRule          Identifier
 HtmlHiLink mkdLineBreak     Todo
+HtmlHiLink mkdLink          htmlLink
+HtmlHiLink mkdURL           htmlString
+HtmlHiLink mkdID            Identifier
+HtmlHiLink mkdLinkDef       mkdID
+HtmlHiLink mkdLinkDefTarget mkdURL
+HtmlHiLink mkdLinkTitle     htmlString
+
+HtmlHiLink mkdDelimiter     Delimiter
 
 let b:current_syntax = "mkd"
 

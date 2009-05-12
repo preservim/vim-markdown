@@ -37,10 +37,10 @@ syn case ignore
 syn sync linebreaks=1
 
 "additions to HTML groups
-syn region htmlBold     start=/\(^\|\s\)\*\@<!\*\*\*\@!/     end=/\*\@<!\*\*\*\@!\($\|\s\)/   contains=@Spell,htmlItalic
-syn region htmlItalic   start=/\(^\|\s\)\*\@<!\*\*\@!/       end=/\*\@<!\*\*\@!\($\|\s\)/      contains=htmlBold,@Spell
-syn region htmlBold     start=/\(^\|\s\)_\@<!___\@!/         end=/_\@<!___\@!\($\|\s\)/       contains=htmlItalic,@Spell
-syn region htmlItalic   start=/\(^\|\s\)_\@<!__\@!/          end=/_\@<!__\@!\($\|\s\)/        contains=htmlBold,@Spell
+syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\*\@!/     end=/\\\@<!\*\@<!\*\*\*\@!\($\|\A\)\@=/   contains=@Spell,htmlItalic
+syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\@!/       end=/\\\@<!\*\@<!\*\*\@!\($\|\A\)\@=/      contains=htmlBold,@Spell
+syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=_\@<!___\@!/         end=/\\\@<!_\@<!___\@!\($\|\A\)\@=/       contains=htmlItalic,@Spell
+syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<!_\@<!__\@!\($\|\A\)\@=/        contains=htmlBold,@Spell
 syn region htmlString   start="]("ms=s+2             end=")"me=e-1
 syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1 contains=@Spell
 syn region htmlString   start="\(\[.*]: *\)\@<=.*"  end="$"

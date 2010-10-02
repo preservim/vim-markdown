@@ -45,6 +45,9 @@ syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<
 syn region mkdLink matchgroup=mkdDelimiter      start="\!\?\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite oneline
 syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained
 syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained
+" mkd  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment
+"                            ------------ _____________________ --------------------------- ________________________ ----------------- __
+syntax match   mkdInlineURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
 
 " Link definitions: [id]: URL (Optional Title)
 " TODO handle automatic links without colliding with htmlTag (<URL>)
@@ -91,6 +94,7 @@ HtmlHiLink mkdRule          Identifier
 HtmlHiLink mkdLineBreak     Todo
 HtmlHiLink mkdLink          htmlLink
 HtmlHiLink mkdURL           htmlString
+HtmlHiLink mkdInlineURL     htmlLink
 HtmlHiLink mkdID            Identifier
 HtmlHiLink mkdLinkDef       mkdID
 HtmlHiLink mkdLinkDefTarget mkdURL

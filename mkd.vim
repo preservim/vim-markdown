@@ -70,6 +70,7 @@ syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
 syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineBreak,mkdLineContinue,@Spell
 syn region mkdCode      start="<pre[^>]*>"         end="</pre>"
 syn region mkdCode      start="<code[^>]*>"        end="</code>"
+syn region mkdMath      start="\$"     end="\$"
 
 "HTML headings
 syn region htmlH1       start="^\s*#"                   end="\($\|#\+\)" contains=@Spell
@@ -84,6 +85,7 @@ syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String
+HtmlHiLink mkdMath          String
 HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier

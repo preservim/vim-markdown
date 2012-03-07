@@ -114,6 +114,7 @@ HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
 HtmlHiLink mkdRule          Identifier
 HtmlHiLink mkdLineBreak     Todo
+HtmlHiLink mkdFootnotes     htmlLink
 HtmlHiLink mkdLink          htmlLink
 HtmlHiLink mkdURL           htmlString
 HtmlHiLink mkdInlineURL     htmlLink

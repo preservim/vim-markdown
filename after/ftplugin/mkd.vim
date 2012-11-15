@@ -7,8 +7,8 @@
 " original version from Steve Losh's gist: https://gist.github.com/1038710
 
 func! Foldexpr_markdown(lnum)
-    if (a:lnum == 0)
-        let l0 = getline(a:lnum)
+    if (a:lnum == 1)
+        let l0 = ''
     else
         let l0 = getline(a:lnum-1)
     endif
@@ -29,9 +29,6 @@ func! Foldexpr_markdown(lnum)
     elseif l0 =~ '^#'
         " current line starts with hashes
         return '>'.matchend(l0, '^#\+')
-    elseif a:lnum == 1
-        " fold any 'preamble'
-        return '>1'
     else
         " keep previous foldlevel
         return '='

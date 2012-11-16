@@ -45,9 +45,9 @@ syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" 
 
 " [link](URL) | [link][id] | [link][]
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
-syn region mkdLink matchgroup=mkdDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite
-syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained
-syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained
+syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" oneline
+syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained oneline
+syn region mkdLink matchgroup=mkdDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite oneline
 " mkd  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment
 "                            ------------ _____________________ --------------------------- ________________________ ----------------- __
 syntax match   mkdInlineURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/

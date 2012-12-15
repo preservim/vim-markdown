@@ -16,6 +16,16 @@ To install without Pathogen, download the [tarball](https://github.com/plasticbo
 
 [Homepage](http://plasticboy.com/markdown-vim-mode/)
 
+## Options
+
+**Disable Folding**
+
+Add the following line to your `.vimrc` to disable folding.
+
+```vim
+let g:vim_markdown_folding_disabled=1
+```
+
 ## License
 
 The MIT License (MIT)

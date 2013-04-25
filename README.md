@@ -29,10 +29,11 @@ let g:vim_markdown_folding_disabled=1
 ## Mappings
 
 - `nn ]]`: go to next header
-- `nn ][`: go to next sibling header if any
-- `nn ]u`: go to parent header (Up)
 - `nn [[`: go to previous header
+- `nn ][`: go to next sibling header if any
 - `nn []`: go to previous sibling header if any
+- `nn ]c`: go to Current header
+- `nn ]u`: go to parent header (Up)
 
 ## License
 

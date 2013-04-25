@@ -28,12 +28,14 @@ let g:vim_markdown_folding_disabled=1
 
 ## Mappings
 
-- `nn ]]`: go to next header
-- `nn [[`: go to previous header
-- `nn ][`: go to next sibling header if any
-- `nn []`: go to previous sibling header if any
-- `nn ]c`: go to Current header
-- `nn ]u`: go to parent header (Up)
+the following work on normal and visual modes:
+
+- `]]`: go to next header
+- `[[`: go to previous header
+- `][`: go to next sibling header if any
+- `[]`: go to previous sibling header if any
+- `]c`: go to Current header
+- `]u`: go to parent header (Up)
 
 ## License
 

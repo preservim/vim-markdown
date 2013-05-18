@@ -111,6 +111,8 @@ HtmlHiLink mkdDelimiter     Delimiter
 
 " Automatically insert bullets
 set formatoptions+=r
+" Accept various markers as bullets
+set comments=b:*,b:+,b:-
 
 let b:current_syntax = "mkd"
 

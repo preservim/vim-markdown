@@ -70,9 +70,12 @@ syn region mkdCode         start=/^```\s*\w*\s*$/          end=/^```\s*$/
 syn region mkdCode         start="<pre[^>]*>"              end="</pre>"
 syn region mkdCode         start="<code[^>]*>"             end="</code>"
 syn region mkdFootnote     start="\[^"                     end="\]"
-syn match  mkdCode         /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
+syn match  mkdCode         /^\s*\n\(\(\s\{8,}[^ ]\|\t\t\+[^\t]\).*\n\)\+/
+syn match  mkdIndentCode   /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/ contained
 syn match  mkdListItem     "^\s*[-*+]\s\+"
 syn match  mkdListItem     "^\s*\d\+\.\s\+"
+syn region mkdNonListItemBlock start="\n\(\_^\_$\|\s\{4,}[^ ]\|\t+[^\t]\)\@!" end="^\(\s*[-*+]\s\+\)\@=" contains=@mkdNonListItem
+syn region mkdNonListItemBlock start="\n\(\_^\_$\|\s\{4,}[^ ]\|\t+[^\t]\)\@!" end="^\(\s*\d\+\.\s\+\)\@=" contains=@mkdNonListItem
 syn match  mkdRule         /^\s*\*\s\{0,1}\*\s\{0,1}\*$/
 syn match  mkdRule         /^\s*-\s\{0,1}-\s\{0,1}-$/
 syn match  mkdRule         /^\s*_\s\{0,1}_\s\{0,1}_$/
@@ -89,9 +92,12 @@ syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contain
 syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
+syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdID,mkdURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
+
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String
+HtmlHiLink mkdIndentCode    String
 HtmlHiLink mkdFootnote    Comment
 HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment

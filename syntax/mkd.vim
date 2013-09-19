@@ -109,6 +109,11 @@ HtmlHiLink mkdLinkTitle     htmlString
 
 HtmlHiLink mkdDelimiter     Delimiter
 
+" Automatically insert bullets
+setlocal formatoptions+=r
+" Accept various markers as bullets
+setlocal comments=b:*,b:+,b:-
+
 let b:current_syntax = "mkd"
 
 delcommand HtmlHiLink

@@ -1,6 +1,6 @@
 # Markdown Vim Mode
 
-Syntax highlighting and matching rules for [Markdown](http://daringfireball.net/projects/markdown/).
+Syntax highlighting, matching rules and mappings for [Markdown](http://daringfireball.net/projects/markdown/).
 
 ## Installation
 
@@ -25,6 +25,17 @@ Add the following line to your `.vimrc` to disable folding.
 ```vim
 let g:vim_markdown_folding_disabled=1
 ```
+
+## Mappings
+
+the following work on normal and visual modes:
+
+- `]]`: go to next header
+- `[[`: go to previous header
+- `][`: go to next sibling header if any
+- `[]`: go to previous sibling header if any
+- `]c`: go to Current header
+- `]u`: go to parent header (Up)
 
 ## License
 

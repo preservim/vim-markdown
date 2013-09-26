@@ -89,6 +89,10 @@ syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contain
 syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
+"highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+syn match ExtraWhitespace /\s\+$/
+
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String

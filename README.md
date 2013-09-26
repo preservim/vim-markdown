@@ -36,6 +36,18 @@ is disabled.
 let g:vim_markdown_initial_foldlevel=1
 ```
 
+**Enable Expanded GitHub Flavored Markdown Syntax**
+
+Add the following line to your `.vimrc` to enable extra GFM sytax.  Currently
+this includes support for at-mentions, emoji, and commit/issue references.
+See the
+[GFM reference](https://help.github.com/articles/github-flavored-markdown)
+for details of the syntax.  This option is disabled by default.
+
+```vim
+let g:vim_markdown_expanded_gfm_syntax=1
+```
+
 ## Mappings
 
 the following work on normal and visual modes:

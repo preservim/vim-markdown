@@ -43,7 +43,7 @@ this includes support for at-mentions, emoji, and commit/issue references.
 See the
 [GFM reference](https://help.github.com/articles/github-flavored-markdown)
 for details of the syntax.  This option is disabled by default.  Note that
-syntax highlighting of GFM's fence-style code blocks are enabled regardless of
+syntax highlighting of GFM's fence-style code blocks is enabled regardless of
 this setting.
 
 ```vim

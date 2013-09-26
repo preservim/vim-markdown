@@ -42,7 +42,9 @@ Add the following line to your `.vimrc` to enable extra GFM sytax.  Currently
 this includes support for at-mentions, emoji, and commit/issue references.
 See the
 [GFM reference](https://help.github.com/articles/github-flavored-markdown)
-for details of the syntax.  This option is disabled by default.
+for details of the syntax.  This option is disabled by default.  Note that
+syntax highlighting of GFM's fence-style code blocks are enabled regardless of
+this setting.
 
 ```vim
 let g:vim_markdown_expanded_gfm_syntax=1

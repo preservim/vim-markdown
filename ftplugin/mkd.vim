@@ -1,130 +1,138 @@
 "TODO print messages when on visual mode. I only see VISUAL, not the messages.
 
-"this is how you should view things:
+" This is how you should view things:
 "
-"  |BUFFER
-"  |
-"  |outside any header
-"  |
-"a-+# a
-"  |
-"  |inside a
-"  |
-"a-+
-"b-+## b
-"  |
-"  |inside b
-"  |
-"b-+
-"c-+### c
-"  |
-"  |inside c
-"  |
-"c-+
-"d-|# d
-"  |
-"  |inside d
-"  |
-"d-+
+"   |BUFFER
+"   |
+"   |Outside any header
+"   |
+" a-+# a
+"   |
+"   |Inside a
+"   |
+" a-+
+" b-+## b
+"   |
+"   |inside b
+"   |
+" b-+
+" c-+### c
+"   |
+"   |Inside c
+"   |
+" c-+
+" d-|# d
+"   |
+"   |Inside d
+"   |
+" d-+
 
-let s:headerExpr = '\v^#'
+let s:headerExpr = '\v^(\s*#|.+\n(\=+|-+)$)'
 
-"0 if not found
-fu! b:Markdown_GetLineNumCurHeader()
-    retu search( s:headerExpr, 'bcnW' )
-endf
+" Return 0 if not found, else the actual line number.
+"
+function! b:Markdown_GetLineNumCurHeader()
+    echo s:headerExpr
+    return search(s:headerExpr, 'bcnW')
+endfunction
 
-"- if inside a header goes to it
-"   returns its hashes
-"- if on top level outside any headers,
-"   print a warning
-"   return ''
-fu! b:Markdown_GoCurHeaderGetHashes()
+" - if inside a header goes to it.
+"    Return its line number.
+"
+" - if on top level outside any headers,
+"    print a warning
+"    Return `0`.
+"
+function! b:Markdown_GoCurHeader()
     let l:lineNum = b:Markdown_GetLineNumCurHeader()
     if l:lineNum != 0
-        cal cursor( l:lineNum, 1 )
-        retu matchstr( getline( lineNum ), '\v^#+' )
-    el  
-        retu ''
-    en
-endf
+        call cursor(l:lineNum, 1)
+    else
+        echo 'error: outside any header'
+        "normal! gg
+    end
+    return l:lineNum
+endfunction
 
-"- if inside a header goes to it
-"   returns its line number
-"- if on top level outside any headers,
-"   print a warning
-"   return 0
-fu! b:Markdown_GoCurHeader()
-    let l:lineNum = b:Markdown_GetLineNumCurHeader()
-    if l:lineNum != 0
-        cal cursor( l:lineNum, 1 )
-    el
-        ec 'outside any header'
-        "norm! gg
-    en
-    retu l:lineNum
-endf
-
-"goes to next header of any level
+" Put cursor on next header of any level.
 "
-"if no there are no more headers print a warning
-fu! b:Markdown_GoNextHeader()
-    if search( s:headerExpr, 'W' ) == 0
-        "norm! G
-        ec 'no next header'
-    en
-endf
-
-"goes to previous header of any level
+" If there are no more headers, print a warning.
 "
-"if it does not exist, print a warning
-fu! b:Markdown_GoPreviousHeader()
+function! b:Markdown_GoNextHeader()
+    if search(s:headerExpr, 'W') == 0
+        "normal! G
+        echo 'error: no next header'
+    end
+endfunction
+
+" Put cursor on previous header (before current) of any level.
+"
+" If it does not exist, print a warning.
+"
+function! b:Markdown_GoPreviousHeader()
     let l:oldPos = getpos('.')
     let l:curHeaderLineNumber = b:Markdown_GoCurHeader()
     if l:curHeaderLineNumber == 0
-        cal setpos('.',l:oldPos)
-    en
-    if search( s:headerExpr, 'bW' ) == 0
-        "norm! gg
-        cal setpos('.',l:oldPos)
-        ec 'no previous header'
-    en
-endf
+        call setpos('.', l:oldPos)
+    end
+    if search(s:headerExpr, 'bW') == 0
+        "normal! gg
+        call setpos('.', l:oldPos)
+        echo 'error: no previous header'
+    end
+endfunction
 
-"goes to previous header of any level
+"- if inside a header, cursor goes to it.
+"   Return its hashes.
 "
-"if it exists, return its lines number
+"- if on top level outside any headers,
+"   print a warning
+"   return ''
 "
-"otherwise, print a warning and return 0
-fu! b:Markdown_GoHeaderUp()
+function! b:Markdown_GoCurHeaderGetHashes()
+    let l:linenum = b:Markdown_GetLineNumCurHeader()
+    if l:linenum != 0
+        call cursor(l:linenum, 1)
+        return matchlist(getline(linenum), '\v^\s*(#+)')[1]
+    else
+        return ''
+    end
+endfunction
+
+" Put cursor on previous header of any level.
+"
+" If it exists, return its lines number.
+"
+" Otherwise, print a warning and return `0`.
+"
+function! b:Markdown_GoHeaderUp()
     let l:oldPos = getpos('.')
     let l:hashes = b:Markdown_GoCurHeaderGetHashes()
-    if len( l:hashes ) > 1
-        cal search( '^' . l:hashes[1:] . '[^#]', 'b' )
-    el
-        cal setpos('.',l:oldPos)
-        ec 'already at top level'
-    en
-endf
+    if len(l:hashes) > 1
+        call search('^\s*' . l:hashes[1:] . '[^#]', 'b')
+    else
+        call setpos('.', l:oldPos)
+        echo 'error: already at top level'
+    end
+endfunction
 
-"if no more next siblings, print error message and do nothing.
-fu! b:Markdown_GoNextSiblingHeader()
+" If no more next siblings, print error message and do nothing.
+"
+function! b:Markdown_GoNextSiblingHeader()
     let l:oldPos = getpos('.')
     let l:hashes = b:Markdown_GoCurHeaderGetHashes()
     let l:noSibling = 0
-
     if l:hashes ==# ''
         let l:noSibling = 1
-    el
+    else
         let l:nhashes = len(l:hashes)
         if l:nhashes == 1
             "special case, just add the largest possible value
-            let l:nextLowerLevelLine  = line('$') + 1
-        el
-            let l:nextLowerLevelLine  = search( '\v^#{1,' . ( l:nhashes - 1 ) . '}[^#]' , 'nW' )
-        en
-
-        let l:nextSameLevelLine   = search( '\v^' . l:hashes . '[^#]', 'nW' )
+            let l:nextLowerLevelLine = line('$') + 1
+        else
+            let l:nextLowerLevelLine = search('\v^\s*#{1,' . (l:nhashes - 1) . '}[^#]' , 'nW')
+        end
+        let l:nextSameLevelLine = search('\v^\s*' . l:hashes . '[^#]', 'nW')
         if (
                 \ l:nextSameLevelLine > 0
                 \ &&
@@ -134,36 +142,33 @@ fu! b:Markdown_GoNextSiblingHeader()
                 \   l:nextLowerLevelLine > l:nextSameLevelLine
                 \ )
             \ )
-            cal cursor( l:nextSameLevelLine, 1 )
-        el
+            call cursor(l:nextSameLevelLine, 1)
+        else
             let l:noSibling = 1
-        en
-    en
-
+        end
+    end
     if l:noSibling
-        cal setpos('.',l:oldPos)
-        ec 'no next sibling'
-    en
-endf
+        call setpos('.', l:oldPos)
+        echo 'error: no next sibling'
+    end
+endfunction
 
 "if no more next siblings, print error message and do nothing.
-fu! b:Markdown_GoPreviousSiblingHeader()
+function! b:Markdown_GoPreviousSiblingHeader()
     let l:oldPos = getpos('.')
     let l:hashes = b:Markdown_GoCurHeaderGetHashes()
     let l:noSibling = 0
-
     if l:hashes ==# ''
         let l:noSibling = 1
-    el
+    else
         let l:nhashes = len(l:hashes)
         if l:nhashes == 1
             "special case, just add the largest possible value
-            let l:prevLowerLevelLine  = -1
-        el
-            let l:prevLowerLevelLine  = search( '\v^#{1,' . ( l:nhashes - 1 ) . '}[^#]' , 'bnW' )
-        en
-
-        let l:prevSameLevelLine   = search( '\v^' . l:hashes . '[^#]', 'bnW' )
+            let l:prevLowerLevelLine = -1
+        else
+            let l:prevLowerLevelLine = search('\v^\s*#{1,' . (l:nhashes - 1) . '}[^#]' , 'bnW')
+        end
+        let l:prevSameLevelLine = search('\v^\s*' . l:hashes . '[^#]', 'bnW')
         if (
                 \ l:prevSameLevelLine > 0
                 \ &&
@@ -172,37 +177,35 @@ fu! b:Markdown_GoPreviousSiblingHeader()
                 \   ||
                 \   l:prevLowerLevelLine < l:prevSameLevelLine
                 \ )
-            \ )
-            cal cursor( l:prevSameLevelLine, 1 )
-        el
+            \)
+            call cursor(l:prevSameLevelLine, 1)
+        else
             let l:noSibling = 1
-        en
-    en
-    
+        end
+    end
     if l:noSibling
-        cal setpos('.',l:oldPos)
-        ec 'no previous sibling'
-    en
-
-endf
+        call setpos('.', l:oldPos)
+        echo 'error: no previous sibling'
+    end
+endfunction
 
 "wrapper to do move commands in visual mode
-fu! s:VisMove(f)
+function! s:VisMove(f)
     norm! gv
-    cal function(a:f)()
-endf
+    call function(a:f)()
+endfunction
 
 "map in both normal and visual modes
-fu! s:MapNormVis(rhs,lhs)
-    exe 'nn <buffer><silent> ' . a:rhs . ' :cal ' . a:lhs . '()<cr>'
-    exe 'vn <buffer><silent> ' . a:rhs . ' <esc>:cal <sid>VisMove(''' . a:lhs . ''')<cr>'
-endf
+function! s:MapNormVis(rhs,lhs)
+    execute 'nn <buffer><silent> ' . a:rhs . ' :call ' . a:lhs . '()<cr>'
+    execute 'vn <buffer><silent> ' . a:rhs . ' <esc>:call <sid>VisMove(''' . a:lhs . ''')<cr>'
+endfunction
 
-cal <sid>MapNormVis( ']]', 'b:Markdown_GoNextHeader' )
-cal <sid>MapNormVis( '[[', 'b:Markdown_GoPreviousHeader' )
-cal <sid>MapNormVis( '][', 'b:Markdown_GoNextSiblingHeader' )
-cal <sid>MapNormVis( '[]', 'b:Markdown_GoPreviousSiblingHeader' )
+call <sid>MapNormVis(']]', 'b:Markdown_GoNextHeader')
+call <sid>MapNormVis('[[', 'b:Markdown_GoPreviousHeader')
+call <sid>MapNormVis('][', 'b:Markdown_GoNextSiblingHeader')
+call <sid>MapNormVis('[]', 'b:Markdown_GoPreviousSiblingHeader')
 "menmonic: Up
-cal <sid>MapNormVis( ']u', 'b:Markdown_GoHeaderUp' )
+call <sid>MapNormVis(']u', 'b:Markdown_GoHeaderUp')
 "menmonic: Current
-cal <sid>MapNormVis( ']c', 'b:Markdown_GoCurHeader' )
+call <sid>MapNormVis(']c', 'b:Markdown_GoCurHeader')

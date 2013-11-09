@@ -26,6 +26,16 @@ Add the following line to your `.vimrc` to disable folding.
 let g:vim_markdown_folding_disabled=1
 ```
 
+**Set Initial Foldlevel**
+
+Add the following line to your `.vimrc` to set the initial foldlevel.  This
+option defaults to 0 (i.e. all folds are closed) and is ignored if folding
+is disabled.
+
+```vim
+let g:vim_markdown_initial_foldlevel=1
+```
+
 ## Mappings
 
 the following work on normal and visual modes:

@@ -1,6 +1,18 @@
 "TODO print messages when on visual mode. I only see VISUAL, not the messages.
 
-" This is how you should view things:
+" Function interface phylosophy:
+"
+" - functions take arbitrary line numbers as parameters.
+"    Current cursor line is only a suitable default parameter.
+"
+" - only functions that bind directly to user actions:
+"
+"    - print error messages.
+"       All intermediate functions limit themselves return `0` to indicate an error.
+"
+"    - move the cursor. All other functions do not move the cursor.
+"
+" This is how you should view headers:
 "
 "   |BUFFER
 "   |
@@ -26,14 +38,50 @@
 "   |Inside d
 "   |
 " d-+
+" e-|e
+"   |====
+"   |
+"   |Inside e
+"   |
+" e-+
 
-let s:headerExpr = '\v^(\s*#|.+\n(\=+|-+)$)'
+" For each level, contains the regexp that matches at that level only.
+let s:levelRegexpDict = {
+    \ 1: '\v^(\s*#[^#]|.+\n\=+$)',
+    \ 2: '\v^(\s*##[^#]|.+\n-+$)',
+    \ 3: '\v^\s*###[^#]',
+    \ 4: '\v^\s*####[^#]',
+    \ 5: '\v^\s*#####[^#]',
+    \ 6: '\v^\s*######[^#]'
+\ }
 
-" Return 0 if not found, else the actual line number.
+" Maches any header level of any type.
 "
-function! b:Markdown_GetLineNumCurHeader()
-    echo s:headerExpr
-    return search(s:headerExpr, 'bcnW')
+" This could be deduced from `s:levelRegexpDict`, but it is more
+" efficient to have a single regexp for this.
+"
+let s:headersRegexp = '\v^(\s*#|.+\n(\=+|-+)$)'
+
+" Returns the line number of the first header before `line`, called the
+" current header.
+"
+" If there is no current header, return `0`.
+"
+" @param a:1 The line to look the header of. Default value: `getpos('.')`.
+"
+function! b:Markdown_GetHeaderLineNum(...)
+    if a:0 == 0
+        let l:l = line('.')
+    else
+        let l:l = a:1
+    endif
+    while(l:l > 0)
+        if join(getline(l:l, l:l + 1), "\n") =~ s:headersRegexp
+            return l:l
+        endif
+        let l:l -= 1
+    endwhile
+    return 0
 endfunction
 
 " - if inside a header goes to it.
@@ -43,169 +91,228 @@ endfunction
 "    print a warning
 "    Return `0`.
 "
-function! b:Markdown_GoCurHeader()
-    let l:lineNum = b:Markdown_GetLineNumCurHeader()
+function! b:Markdown_MoveToCurHeader()
+    let l:lineNum = b:Markdown_GetHeaderLineNum()
     if l:lineNum != 0
         call cursor(l:lineNum, 1)
     else
-        echo 'error: outside any header'
+        echo 'outside any header'
         "normal! gg
-    end
+    endif
     return l:lineNum
 endfunction
 
-" Put cursor on next header of any level.
+" Move cursor to next header of any level.
 "
 " If there are no more headers, print a warning.
 "
-function! b:Markdown_GoNextHeader()
-    if search(s:headerExpr, 'W') == 0
+function! b:Markdown_MoveToNextHeader()
+    if search(s:headersRegexp, 'W') == 0
         "normal! G
-        echo 'error: no next header'
-    end
+        echo 'no next header'
+    endif
 endfunction
 
-" Put cursor on previous header (before current) of any level.
+" Move cursor to previous header (before current) of any level.
 "
 " If it does not exist, print a warning.
 "
-function! b:Markdown_GoPreviousHeader()
-    let l:oldPos = getpos('.')
-    let l:curHeaderLineNumber = b:Markdown_GoCurHeader()
-    if l:curHeaderLineNumber == 0
-        call setpos('.', l:oldPos)
-    end
-    if search(s:headerExpr, 'bW') == 0
-        "normal! gg
-        call setpos('.', l:oldPos)
-        echo 'error: no previous header'
-    end
+function! b:Markdown_MoveToPreviousHeader()
+    let l:curHeaderLineNumber = b:Markdown_GetHeaderLineNum()
+    let l:noPreviousHeader = 0
+    if l:curHeaderLineNumber <= 1
+        let l:noPreviousHeader = 1
+    else
+        let l:previousHeaderLineNumber = b:Markdown_GetHeaderLineNum(l:curHeaderLineNumber - 1)
+        if l:previousHeaderLineNumber == 0
+            let l:noPreviousHeader = 1
+        else
+            call cursor(l:previousHeaderLineNumber, 1)
+        endif
+    endif
+    if l:noPreviousHeader
+        echo 'no previous header'
+    endif
 endfunction
 
-"- if inside a header, cursor goes to it.
-"   Return its hashes.
+" - if line is inside a header, return the header level (h1 -> 1, h2 -> 2, etc.).
 "
-"- if on top level outside any headers,
-"   print a warning
-"   return ''
+" - if line is at top level outside any headers, return `0`.
 "
-function! b:Markdown_GoCurHeaderGetHashes()
-    let l:linenum = b:Markdown_GetLineNumCurHeader()
+function! b:Markdown_GetHeaderLevel(...)
+    if a:0 == 0
+        let l:line = line('.')
+    else
+        let l:line = a:1
+    endif
+    let l:linenum = b:Markdown_GetHeaderLineNum(l:line)
+    if l:linenum != 0
+        return b:Markdown_GetLevelOfHeaderAtLine(l:linenum)
+    else
+        return 0
+    endif
+endfunction
+
+" Returns the level of the header at the given line.
+"
+" If there is no header at the given line, returns `0`.
+"
+function! b:Markdown_GetLevelOfHeaderAtLine(linenum)
+    let l:lines = join(getline(a:linenum, a:linenum + 1), "\n")
+    for l:key in keys(s:levelRegexpDict)
+        if l:lines =~ get(s:levelRegexpDict, l:key)
+            return l:key
+        endif
+    endfor
+    return 0
+endfunction
+
+" Move cursor to parent header of the current header.
+"
+" If it does not exit, print a warning and do nothing.
+"
+function! b:Markdown_MoveToParentHeader()
+    let l:linenum = b:Markdown_GetParentHeaderLineNumber()
     if l:linenum != 0
         call cursor(l:linenum, 1)
-        return matchlist(getline(linenum), '\v^\s*(#+)')[1]
     else
-        return ''
-    end
+        echo 'no parent header'
+    endif
 endfunction
 
-" Put cursor on previous header of any level.
+" Return the line number of the parent header of line `line`.
 "
-" If it exists, return its lines number.
+" If it has no parent, return `0`.
 "
-" Otherwise, print a warning and return `0`.
-"
-function! b:Markdown_GoHeaderUp()
-    let l:oldPos = getpos('.')
-    let l:hashes = b:Markdown_GoCurHeaderGetHashes()
-    if len(l:hashes) > 1
-        call search('^\s*' . l:hashes[1:] . '[^#]', 'b')
+function! b:Markdown_GetParentHeaderLineNumber(...)
+    if a:0 == 0
+        let l:line = line('.')
     else
-        call setpos('.', l:oldPos)
-        echo 'error: already at top level'
-    end
+        let l:line = a:1
+    endif
+    let l:level = b:Markdown_GetHeaderLevel(l:line)
+    if l:level > 1
+        let l:linenum = b:Markdown_GetPreviousHeaderLineNumberAtLevel(l:level - 1, l:line)
+        return l:linenum
+    endif
+    return 0
 endfunction
 
-" If no more next siblings, print error message and do nothing.
+" Return the line number of the previous header of given level.
+" in relation to line `a:1`. If not given, `a:1 = getline()`
 "
-function! b:Markdown_GoNextSiblingHeader()
-    let l:oldPos = getpos('.')
-    let l:hashes = b:Markdown_GoCurHeaderGetHashes()
-    let l:noSibling = 0
-    if l:hashes ==# ''
-        let l:noSibling = 1
+" `a:1` line is included, and this may return the current header.
+"
+" If none return 0.
+"
+function! b:Markdown_GetNextHeaderLineNumberAtLevel(level, ...)
+    if a:0 < 1
+        let l:line = line('.')
     else
-        let l:nhashes = len(l:hashes)
-        if l:nhashes == 1
-            "special case, just add the largest possible value
-            let l:nextLowerLevelLine = line('$') + 1
-        else
-            let l:nextLowerLevelLine = search('\v^\s*#{1,' . (l:nhashes - 1) . '}[^#]' , 'nW')
-        end
-        let l:nextSameLevelLine = search('\v^\s*' . l:hashes . '[^#]', 'nW')
-        if (
-                \ l:nextSameLevelLine > 0
-                \ &&
-                \ (
-                \   l:nextLowerLevelLine == 0
-                \   ||
-                \   l:nextLowerLevelLine > l:nextSameLevelLine
-                \ )
-            \ )
-            call cursor(l:nextSameLevelLine, 1)
-        else
-            let l:noSibling = 1
-        end
-    end
-    if l:noSibling
-        call setpos('.', l:oldPos)
-        echo 'error: no next sibling'
-    end
+        let l:line = a:1
+    endif
+    let l:l = l:line
+    while(l:l <= line('$'))
+        if join(getline(l:l, l:l + 1), "\n") =~ get(s:levelRegexpDict, a:level)
+            return l:l
+        endif
+        let l:l += 1
+    endwhile
+    return 0
 endfunction
 
-"if no more next siblings, print error message and do nothing.
-function! b:Markdown_GoPreviousSiblingHeader()
-    let l:oldPos = getpos('.')
-    let l:hashes = b:Markdown_GoCurHeaderGetHashes()
-    let l:noSibling = 0
-    if l:hashes ==# ''
-        let l:noSibling = 1
+" Return the line number of the previous header of given level.
+" in relation to line `a:1`. If not given, `a:1 = getline()`
+"
+" `a:1` line is included, and this may return the current header.
+"
+" If none return 0.
+"
+function! b:Markdown_GetPreviousHeaderLineNumberAtLevel(level, ...)
+    if a:0 == 0
+        let l:line = line('.')
     else
-        let l:nhashes = len(l:hashes)
-        if l:nhashes == 1
-            "special case, just add the largest possible value
-            let l:prevLowerLevelLine = -1
-        else
-            let l:prevLowerLevelLine = search('\v^\s*#{1,' . (l:nhashes - 1) . '}[^#]' , 'bnW')
-        end
-        let l:prevSameLevelLine = search('\v^\s*' . l:hashes . '[^#]', 'bnW')
-        if (
-                \ l:prevSameLevelLine > 0
-                \ &&
-                \ (
-                \   l:prevLowerLevelLine == 0
-                \   ||
-                \   l:prevLowerLevelLine < l:prevSameLevelLine
-                \ )
-            \)
-            call cursor(l:prevSameLevelLine, 1)
-        else
-            let l:noSibling = 1
-        end
-    end
-    if l:noSibling
-        call setpos('.', l:oldPos)
-        echo 'error: no previous sibling'
-    end
+        let l:line = a:1
+    endif
+    let l:l = l:line
+    while(l:l > 0)
+        if join(getline(l:l, l:l + 1), "\n") =~ get(s:levelRegexpDict, a:level)
+            return l:l
+        endif
+        let l:l -= 1
+    endwhile
+    return 0
 endfunction
 
-"wrapper to do move commands in visual mode
+" Move cursor to next sibling header.
+"
+" If there is no next siblings, print a warning and don't move.
+"
+function! b:Markdown_MoveToNextSiblingHeader()
+    let l:curHeaderLineNumber = b:Markdown_GetHeaderLineNum()
+    let l:curHeaderLevel = b:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
+    let l:curHeaderParentLineNumber = b:Markdown_GetParentHeaderLineNumber()
+    let l:nextHeaderSameLevelLineNumber = b:Markdown_GetNextHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber + 1)
+    let l:noNextSibling = 0
+    if l:nextHeaderSameLevelLineNumber == 0
+        let l:noNextSibling = 1
+    else
+        let l:nextHeaderSameLevelParentLineNumber = b:Markdown_GetParentHeaderLineNumber(l:nextHeaderSameLevelLineNumber) 
+        if l:curHeaderParentLineNumber == l:nextHeaderSameLevelParentLineNumber
+            call cursor(l:nextHeaderSameLevelLineNumber, 1)
+        else
+            let l:noNextSibling = 1
+        endif
+    endif
+    if l:noNextSibling
+        echo 'no next sibling header'
+    endif
+endfunction
+
+" Move cursor to previous sibling header.
+"
+" If there is no previous siblings, print a warning and do nothing.
+"
+function! b:Markdown_MoveToPreviousSiblingHeader()
+    let l:curHeaderLineNumber = b:Markdown_GetHeaderLineNum()
+    let l:curHeaderLevel = b:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
+    let l:curHeaderParentLineNumber = b:Markdown_GetParentHeaderLineNumber()
+    let l:previousHeaderSameLevelLineNumber = b:Markdown_GetPreviousHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber - 1)
+    let l:noPreviousSibling = 0
+    if l:previousHeaderSameLevelLineNumber == 0
+        let l:noPreviousSibling = 1
+    else
+        let l:previousHeaderSameLevelParentLineNumber = b:Markdown_GetParentHeaderLineNumber(l:previousHeaderSameLevelLineNumber) 
+        if l:curHeaderParentLineNumber == l:previousHeaderSameLevelParentLineNumber
+            call cursor(l:previousHeaderSameLevelLineNumber, 1)
+        else
+            let l:noPreviousSibling = 1
+        endif
+    endif
+    if l:noPreviousSibling
+        echo 'no previous sibling header'
+    endif
+endfunction
+
+" Wrapper to do move commands in visual mode.
+"
 function! s:VisMove(f)
     norm! gv
     call function(a:f)()
 endfunction
 
-"map in both normal and visual modes
+" Map in both normal and visual modes.
+"
 function! s:MapNormVis(rhs,lhs)
     execute 'nn <buffer><silent> ' . a:rhs . ' :call ' . a:lhs . '()<cr>'
     execute 'vn <buffer><silent> ' . a:rhs . ' <esc>:call <sid>VisMove(''' . a:lhs . ''')<cr>'
 endfunction
 
-call <sid>MapNormVis(']]', 'b:Markdown_GoNextHeader')
-call <sid>MapNormVis('[[', 'b:Markdown_GoPreviousHeader')
-call <sid>MapNormVis('][', 'b:Markdown_GoNextSiblingHeader')
-call <sid>MapNormVis('[]', 'b:Markdown_GoPreviousSiblingHeader')
-"menmonic: Up
-call <sid>MapNormVis(']u', 'b:Markdown_GoHeaderUp')
-"menmonic: Current
-call <sid>MapNormVis(']c', 'b:Markdown_GoCurHeader')
+call <sid>MapNormVis(']]', 'b:Markdown_MoveToNextHeader')
+call <sid>MapNormVis('[[', 'b:Markdown_MoveToPreviousHeader')
+call <sid>MapNormVis('][', 'b:Markdown_MoveToNextSiblingHeader')
+call <sid>MapNormVis('[]', 'b:Markdown_MoveToPreviousSiblingHeader')
+" Menmonic: Up
+call <sid>MapNormVis(']u', 'b:Markdown_MoveToParentHeader')
+" Menmonic: Current
+call <sid>MapNormVis(']c', 'b:Markdown_MoveToCurHeader')

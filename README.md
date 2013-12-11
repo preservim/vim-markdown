@@ -38,14 +38,14 @@ let g:vim_markdown_initial_foldlevel=1
 
 ## Mappings
 
-the following work on normal and visual modes:
+The following work on normal and visual modes:
 
-- `]]`: go to next header
-- `[[`: go to previous header
-- `][`: go to next sibling header if any
-- `[]`: go to previous sibling header if any
-- `]c`: go to Current header
-- `]u`: go to parent header (Up)
+- `]]`: go to next header.
+- `[[`: go to previous header. Contrast with `]c`.
+- `][`: go to next sibling header if any.
+- `[]`: go to previous sibling header if any.
+- `]c`: go to Current header.
+- `]u`: go to parent header (Up).
 
 ## License
 

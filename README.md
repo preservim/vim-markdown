@@ -1,6 +1,6 @@
 # Markdown Vim Mode
 
-Syntax highlighting, matching rules and mappings for [Markdown](http://daringfireball.net/projects/markdown/).
+Syntax highlighting, matching rules and mappings for [the original Markdown](http://daringfireball.net/projects/markdown/) and extensions.
 
 ## Installation
 
@@ -28,9 +28,7 @@ let g:vim_markdown_folding_disabled=1
 
 **Set Initial Foldlevel**
 
-Add the following line to your `.vimrc` to set the initial foldlevel.  This
-option defaults to 0 (i.e. all folds are closed) and is ignored if folding
-is disabled.
+Add the following line to your `.vimrc` to set the initial foldlevel. This option defaults to 0 (i.e. all folds are closed) and is ignored if folding is disabled.
 
 ```vim
 let g:vim_markdown_initial_foldlevel=1

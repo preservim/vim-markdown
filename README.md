@@ -4,12 +4,21 @@ Syntax highlighting, matching rules and mappings for [Markdown](http://daringfir
 
 ## Installation
 
-If you use [Pathogen](http://www.vim.org/scripts/script.php?script_id=2332)(and you should), do this:
+If you use [Vundle](https://github.com/gmarik/vundle), add the following line to your `~/.vimrc`:
+
+    Bundle 'plasticboy/vim-markdown'
+
+And then run inside Vim:
+
+    :so ~/.vimrc
+    :BundleInstall
+
+If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:
 
     $ cd ~/.vim/bundle
     $ git clone https://github.com/plasticboy/vim-markdown.git
 
-To install without Pathogen, download the [tarball](https://github.com/plasticboy/vim-markdown/archive/master.tar.gz) and do this:
+If you are not using any package manager, download the [tarball](https://github.com/plasticboy/vim-markdown/archive/master.tar.gz) and do this:
 
     $ cd ~/.vim
     $ tar --strip=1 -zxf vim-markdown-master.tar.gz

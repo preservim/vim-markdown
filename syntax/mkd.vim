@@ -15,7 +15,10 @@ if version < 600
   so <sfile>:p:h/html.vim
 else
   runtime! syntax/html.vim
-  unlet b:current_syntax
+
+  if exists('b:current_syntax')
+    unlet b:current_syntax
+  endif
 endif
 
 if version < 600

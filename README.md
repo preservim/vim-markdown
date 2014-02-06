@@ -18,6 +18,13 @@ If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:
     $ cd ~/.vim/bundle
     $ git clone https://github.com/plasticboy/vim-markdown.git
 
+To install without Pathogen using the Debian [vim-addon-manager](http://packages.qa.debian.org/v/vim-addon-manager.html), do this:
+
+    $ git clone https://github.com/plasticboy/vim-markdown.git
+    $ cd vim-markdown
+    $ sudo make install
+    $ vim-addon-manager install mkd
+
 If you are not using any package manager, download the [tarball](https://github.com/plasticboy/vim-markdown/archive/master.tar.gz) and do this:
 
     $ cd ~/.vim

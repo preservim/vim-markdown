@@ -84,6 +84,32 @@ syn match  mkdRule         /^\s*_\s\{0,1}_\s\{0,1}_$/
 syn match  mkdRule         /^\s*-\{3,}$/
 syn match  mkdRule         /^\s*\*\{3,5}$/
 
+if exists("g:vim_markdown_expanded_gfm_syntax") && g:vim_markdown_expanded_gfm_syntax == 1
+  " GFM username @-mention
+  " NOTE: This pattern fails in a few cases, some of which are reasonable.
+  "   `@xyz - Caught by mkdCode (I think)
+  "   #@xyz - Treated as a header when at the beginning of a line
+  "   &@xyz - ???
+  "   _@xyz - Causes Github to ignore the @mention
+  "   >@xyz - Caught by mkdBlockquote (I think)
+  "   <@xyz - ???
+  syn match  mkdGFMSocial    /[^0-9A-Za-z_]\zs@[0-9A-Za-z][\-0-9A-Za-z]\+\>/
+
+  " GFM emoji
+  syn match  mkdGFMSocial    /:[\-0-9A-Za-z_]\+:/
+
+  " GFM commit reference
+  syn match  mkdGFMSocial    /\<\x\{7,40}\>/
+  syn match  mkdGFMSocial    /\<[0-9A-Za-z][\-0-9A-Za-z]\+@\x\{7,40}\>/
+  syn match  mkdGFMSocial    /\<[0-9A-Za-z][\-0-9A-Za-z]\+\/[\-0-9A-Za-z_]\+@\x\{7,40}\>/
+
+  " GFM issue reference
+  " NOTE: This first pattern has the same limitations as the username pattern.
+  syn match  mkdGFMSocial    /[^0-9A-Za-z_]\zs#\d\+\>/
+  syn match  mkdGFMSocial    /\<[0-9A-Za-z][\-0-9A-Za-z]\+#\d\+\>/
+  syn match  mkdGFMSocial    /\<[0-9A-Za-z][\-0-9A-Za-z]\+\/[\-0-9A-Za-z_]\+#\d\+\>/
+endif
+
 "HTML headings
 syn region htmlH1       start="^\s*#"                   end="\($\|#\+\)" contains=@Spell
 syn region htmlH2       start="^\s*##"                  end="\($\|#\+\)" contains=@Spell
@@ -114,6 +140,8 @@ HtmlHiLink mkdID            Identifier
 HtmlHiLink mkdLinkDef       mkdID
 HtmlHiLink mkdLinkDefTarget mkdURL
 HtmlHiLink mkdLinkTitle     htmlString
+
+HtmlHiLink mkdGFMSocial     Label
 
 HtmlHiLink mkdDelimiter     Delimiter
 

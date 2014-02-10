@@ -48,6 +48,20 @@ Add the following line to your `.vimrc` to set the initial foldlevel. This optio
 let g:vim_markdown_initial_foldlevel=1
 ```
 
+**Enable Expanded GitHub Flavored Markdown Syntax**
+
+Add the following line to your `.vimrc` to enable extra GFM sytax.  Currently
+this includes support for at-mentions, emoji, and commit/issue references.
+See the
+[GFM reference](https://help.github.com/articles/github-flavored-markdown)
+for details of the syntax.  This option is disabled by default.  Note that
+syntax highlighting of GFM's fence-style code blocks is enabled regardless of
+this setting.
+
+```vim
+let g:vim_markdown_expanded_gfm_syntax=1
+```
+
 ## Mappings
 
 The following work on normal and visual modes:

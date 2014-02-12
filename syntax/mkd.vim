@@ -96,6 +96,10 @@ syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
 syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdID,mkdURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
 
+" highlight YAML frontmatter
+syn include @yamlTop syntax/yaml.vim
+syntax match Comment /\%^---\_$\_.\{-}\_^---$/ contains=@yamlTop
+
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String

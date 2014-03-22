@@ -63,7 +63,7 @@ The following work on normal and visual modes:
 
 The main contributors of vim-markdown are:
 
-- **Ben Williams** (A.K.A. **platicboy**). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
+- **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
 
 If you feel that your name should be on this list, please make a pull request listing your contributions.
 

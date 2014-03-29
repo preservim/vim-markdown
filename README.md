@@ -59,6 +59,18 @@ The following work on normal and visual modes:
 - `]c`: go to Current header.
 - `]u`: go to parent header (Up).
 
+## Commands
+
+The following commands currently only work for atx style headers (`#`). Pull request are welcome to extend them to Setext style headers (`===`).
+
+- `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
+
+    Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.
+
+- `:Toch`: Same as `:Toc` but in an horizontal window.
+- `:Toct`: Same as `:Toc` but in a new tab.
+- `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
+
 ## Credits
 
 The main contributors of vim-markdown are:

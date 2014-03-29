@@ -294,6 +294,39 @@ function! b:Markdown_MoveToPreviousSiblingHeader()
     endif
 endfunction
 
+function! b:Markdown_Toc(...)
+    if a:0 > 0
+        let l:window_type = a:1
+    else
+        let l:window_type = 'vertical'
+    endif
+    silent vimgrep '^#' %
+    if l:window_type ==# 'horizontal'
+        copen
+    elseif l:window_type ==# 'vertical'
+        vertical copen
+        let &winwidth=(&columns/2)
+    elseif l:window_type ==# 'tab'
+        tab copen
+    else
+        copen
+    endif
+    set modifiable
+    %s/\v^([^|]*\|){2,2} #//
+    for i in range(1, line('$'))
+        let l:line = getline(i)
+        let l:header =  matchstr(l:line, '^#*')
+        let l:length = len(l:header)
+        let l:line = substitute(l:line, '\v^#*[ ]*', '', '')
+        let l:line = substitute(l:line, '\v[ ]*#*$', '', '')
+        let l:line = repeat(' ', (2 * l:length)) . l:line
+        call setline(i, l:line)
+    endfor
+    set nomodified
+    set nomodifiable
+    normal! gg
+endfunction
+
 " Wrapper to do move commands in visual mode.
 "
 function! s:VisMove(f)
@@ -316,3 +349,8 @@ call <sid>MapNormVis('[]', 'b:Markdown_MoveToPreviousSiblingHeader')
 call <sid>MapNormVis(']u', 'b:Markdown_MoveToParentHeader')
 " Menmonic: Current
 call <sid>MapNormVis(']c', 'b:Markdown_MoveToCurHeader')
+
+command! -buffer Toc call b:Markdown_Toc()
+command! -buffer Toch call b:Markdown_Toc('horizontal')
+command! -buffer Tocv call b:Markdown_Toc('vertical')
+command! -buffer Toct call b:Markdown_Toc('tab')

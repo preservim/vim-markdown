@@ -48,16 +48,24 @@ Add the following line to your `.vimrc` to set the initial foldlevel. This optio
 let g:vim_markdown_initial_foldlevel=1
 ```
 
+**Disable Default Key Mappings**
+
+Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings
+
+```vim
+let g:markdown_no_default_key_mappings=1
+```
+
 ## Mappings
 
 The following work on normal and visual modes:
 
-- `]]`: go to next header.
-- `[[`: go to previous header. Contrast with `]c`.
-- `][`: go to next sibling header if any.
-- `[]`: go to previous sibling header if any.
-- `]c`: go to Current header.
-- `]u`: go to parent header (Up).
+- `]]`: go to next header. `<Plug>(Markdown_MoveToNextHeader)`
+- `[[`: go to previous header. Contrast with `]c`. `<Plug>(Markdown_MoveToPreviousHeader)`
+- `][`: go to next sibling header if any. `<Plug>(Markdown_MoveToNextSiblingHeader)`
+- `[]`: go to previous sibling header if any. `<Plug>(Markdown_MoveToPreviousSiblingHeader)`
+- `]c`: go to Current header. `<Plug>(Markdown_MoveToCurHeader)`
+- `]u`: go to parent header (Up). `<Plug>(Markdown_MoveToParentHeader)`
 
 ## Commands
 

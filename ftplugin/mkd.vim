@@ -341,14 +341,32 @@ function! s:MapNormVis(rhs,lhs)
     execute 'vn <buffer><silent> ' . a:rhs . ' <esc>:call <sid>VisMove(''' . a:lhs . ''')<cr>'
 endfunction
 
-call <sid>MapNormVis(']]', 'b:Markdown_MoveToNextHeader')
-call <sid>MapNormVis('[[', 'b:Markdown_MoveToPreviousHeader')
-call <sid>MapNormVis('][', 'b:Markdown_MoveToNextSiblingHeader')
-call <sid>MapNormVis('[]', 'b:Markdown_MoveToPreviousSiblingHeader')
+
+call <sid>MapNormVis('<Plug>(Markdown_MoveToNextHeader)', 'b:Markdown_MoveToNextHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousHeader)', 'b:Markdown_MoveToPreviousHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToNextSiblingHeader)', 'b:Markdown_MoveToNextSiblingHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousSiblingHeader)', 'b:Markdown_MoveToPreviousSiblingHeader')
 " Menmonic: Up
-call <sid>MapNormVis(']u', 'b:Markdown_MoveToParentHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToParentHeader)', 'b:Markdown_MoveToParentHeader')
 " Menmonic: Current
-call <sid>MapNormVis(']c', 'b:Markdown_MoveToCurHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToCurHeader)', 'b:Markdown_MoveToCurHeader')
+
+if ! exists('g:markdown_no_default_key_mappings')
+\ || !g:markdown_no_default_key_mappings
+    nmap ]] <Plug>(Markdown_MoveToNextHeader)
+    nmap [[ <Plug>(Markdown_MoveToPreviousHeader)
+    nmap ][ <Plug>(Markdown_MoveToNextSiblingHeader)
+    nmap [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
+    nmap ]u <Plug>(Markdown_MoveToParentHeader)
+    nmap ]c <Plug>(Markdown_MoveToCurHeader)
+
+    vmap ]] <Plug>(Markdown_MoveToNextHeader)
+    vmap [[ <Plug>(Markdown_MoveToPreviousHeader)
+    vmap ][ <Plug>(Markdown_MoveToNextSiblingHeader)
+    vmap [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
+    vmap ]u <Plug>(Markdown_MoveToParentHeader)
+    vmap ]c <Plug>(Markdown_MoveToCurHeader)
+endif
 
 command! -buffer Toc call b:Markdown_Toc()
 command! -buffer Toch call b:Markdown_Toc('horizontal')

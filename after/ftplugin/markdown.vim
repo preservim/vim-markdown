@@ -6,16 +6,24 @@
 "
 " original version from Steve Losh's gist: https://gist.github.com/1038710
 
+func! s:is_mkdCode(lnum)
+    return synIDattr(synID(a:lnum, 1, 0), 'name') == 'mkdCode'
+endfunc
+
+func! s:effective_line(lnum)
+    return s:is_mkdCode(a:lnum) ? '' : getline(a:lnum)
+endfunc
+
 func! Foldexpr_markdown(lnum)
     if (a:lnum == 1)
         let l0 = ''
     else
-        let l0 = getline(a:lnum-1)
+        let l0 = s:effective_line(a:lnum-1)
     endif
 
-    let l1 = getline(a:lnum)
+    let l1 = s:effective_line(a:lnum)
 
-    let l2 = getline(a:lnum+1)
+    let l2 = s:effective_line(a:lnum+1)
 
     if  l2 =~ '^==\+\s*'
         " next line is underlined (level 1)

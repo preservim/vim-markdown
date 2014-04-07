@@ -50,10 +50,10 @@ let g:vim_markdown_initial_foldlevel=1
 
 **Disable Default Key Mappings**
 
-Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings
+Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings.
 
 ```vim
-let g:markdown_no_default_key_mappings=1
+let g:vim_markdown_no_default_key_mappings=1
 ```
 
 ## Mappings

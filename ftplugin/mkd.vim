@@ -351,8 +351,8 @@ call <sid>MapNormVis('<Plug>(Markdown_MoveToParentHeader)', 'b:Markdown_MoveToPa
 " Menmonic: Current
 call <sid>MapNormVis('<Plug>(Markdown_MoveToCurHeader)', 'b:Markdown_MoveToCurHeader')
 
-if ! exists('g:markdown_no_default_key_mappings')
-\ || !g:markdown_no_default_key_mappings
+if ! exists('g:vim_markdown_no_default_key_mappings')
+\ || !g:vim_markdown_no_default_key_mappings
     nmap ]] <Plug>(Markdown_MoveToNextHeader)
     nmap [[ <Plug>(Markdown_MoveToPreviousHeader)
     nmap ][ <Plug>(Markdown_MoveToNextSiblingHeader)

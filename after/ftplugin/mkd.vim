@@ -11,7 +11,8 @@ func! s:is_mkdCode(lnum)
 endfunc
 
 func! s:effective_line(lnum)
-    return s:is_mkdCode(a:lnum) ? '' : getline(a:lnum)
+    let line = getline(a:lnum)
+    return (line !~ '^=\|^#' || s:is_mkdCode(a:lnum)) ? '' : line
 endfunc
 
 func! Foldexpr_markdown(lnum)

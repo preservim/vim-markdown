@@ -28,6 +28,12 @@ There are many flavors of markdown, each one with an unique feature set. This pl
 
     Next, if there are many more than one Jekyll feature options, create a `g:vim_markdown_jekyll` option that turns them all on at once.
 
+# Style
+
+When choosing between multiple valid Markdown syntaxes, the default behavior must be that specified at: <http://www.cirosantilli.com/markdown-styleguide>
+
+If you wish to have a behavior that differs from that style guide, add an option to turn it on or off, and leave it off by default.
+
 # Tests
 
 All new features must have tests. We don't require unit tests: tests that require users to open markdown code in Vim and check things manually are accepted, but you should point clearly to where the tests are.

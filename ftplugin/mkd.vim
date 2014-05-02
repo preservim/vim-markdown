@@ -69,7 +69,7 @@ let s:headersRegexp = '\v^(\s*#|.+\n(\=+|-+)$)'
 "
 " @param a:1 The line to look the header of. Default value: `getpos('.')`.
 "
-function! b:Markdown_GetHeaderLineNum(...)
+function! s:Markdown_GetHeaderLineNum(...)
     if a:0 == 0
         let l:l = line('.')
     else
@@ -91,8 +91,8 @@ endfunction
 "    print a warning
 "    Return `0`.
 "
-function! b:Markdown_MoveToCurHeader()
-    let l:lineNum = b:Markdown_GetHeaderLineNum()
+function! s:Markdown_MoveToCurHeader()
+    let l:lineNum = s:Markdown_GetHeaderLineNum()
     if l:lineNum != 0
         call cursor(l:lineNum, 1)
     else
@@ -106,7 +106,7 @@ endfunction
 "
 " If there are no more headers, print a warning.
 "
-function! b:Markdown_MoveToNextHeader()
+function! s:Markdown_MoveToNextHeader()
     if search(s:headersRegexp, 'W') == 0
         "normal! G
         echo 'no next header'
@@ -117,13 +117,13 @@ endfunction
 "
 " If it does not exist, print a warning.
 "
-function! b:Markdown_MoveToPreviousHeader()
-    let l:curHeaderLineNumber = b:Markdown_GetHeaderLineNum()
+function! s:Markdown_MoveToPreviousHeader()
+    let l:curHeaderLineNumber = s:Markdown_GetHeaderLineNum()
     let l:noPreviousHeader = 0
     if l:curHeaderLineNumber <= 1
         let l:noPreviousHeader = 1
     else
-        let l:previousHeaderLineNumber = b:Markdown_GetHeaderLineNum(l:curHeaderLineNumber - 1)
+        let l:previousHeaderLineNumber = s:Markdown_GetHeaderLineNum(l:curHeaderLineNumber - 1)
         if l:previousHeaderLineNumber == 0
             let l:noPreviousHeader = 1
         else
@@ -139,15 +139,15 @@ endfunction
 "
 " - if line is at top level outside any headers, return `0`.
 "
-function! b:Markdown_GetHeaderLevel(...)
+function! s:Markdown_GetHeaderLevel(...)
     if a:0 == 0
         let l:line = line('.')
     else
         let l:line = a:1
     endif
-    let l:linenum = b:Markdown_GetHeaderLineNum(l:line)
+    let l:linenum = s:Markdown_GetHeaderLineNum(l:line)
     if l:linenum != 0
-        return b:Markdown_GetLevelOfHeaderAtLine(l:linenum)
+        return s:Markdown_GetLevelOfHeaderAtLine(l:linenum)
     else
         return 0
     endif
@@ -157,7 +157,7 @@ endfunction
 "
 " If there is no header at the given line, returns `0`.
 "
-function! b:Markdown_GetLevelOfHeaderAtLine(linenum)
+function! s:Markdown_GetLevelOfHeaderAtLine(linenum)
     let l:lines = join(getline(a:linenum, a:linenum + 1), "\n")
     for l:key in keys(s:levelRegexpDict)
         if l:lines =~ get(s:levelRegexpDict, l:key)
@@ -171,8 +171,8 @@ endfunction
 "
 " If it does not exit, print a warning and do nothing.
 "
-function! b:Markdown_MoveToParentHeader()
-    let l:linenum = b:Markdown_GetParentHeaderLineNumber()
+function! s:Markdown_MoveToParentHeader()
+    let l:linenum = s:Markdown_GetParentHeaderLineNumber()
     if l:linenum != 0
         call cursor(l:linenum, 1)
     else
@@ -184,15 +184,15 @@ endfunction
 "
 " If it has no parent, return `0`.
 "
-function! b:Markdown_GetParentHeaderLineNumber(...)
+function! s:Markdown_GetParentHeaderLineNumber(...)
     if a:0 == 0
         let l:line = line('.')
     else
         let l:line = a:1
     endif
-    let l:level = b:Markdown_GetHeaderLevel(l:line)
+    let l:level = s:Markdown_GetHeaderLevel(l:line)
     if l:level > 1
-        let l:linenum = b:Markdown_GetPreviousHeaderLineNumberAtLevel(l:level - 1, l:line)
+        let l:linenum = s:Markdown_GetPreviousHeaderLineNumberAtLevel(l:level - 1, l:line)
         return l:linenum
     endif
     return 0
@@ -205,7 +205,7 @@ endfunction
 "
 " If none return 0.
 "
-function! b:Markdown_GetNextHeaderLineNumberAtLevel(level, ...)
+function! s:Markdown_GetNextHeaderLineNumberAtLevel(level, ...)
     if a:0 < 1
         let l:line = line('.')
     else
@@ -228,7 +228,7 @@ endfunction
 "
 " If none return 0.
 "
-function! b:Markdown_GetPreviousHeaderLineNumberAtLevel(level, ...)
+function! s:Markdown_GetPreviousHeaderLineNumberAtLevel(level, ...)
     if a:0 == 0
         let l:line = line('.')
     else
@@ -248,16 +248,16 @@ endfunction
 "
 " If there is no next siblings, print a warning and don't move.
 "
-function! b:Markdown_MoveToNextSiblingHeader()
-    let l:curHeaderLineNumber = b:Markdown_GetHeaderLineNum()
-    let l:curHeaderLevel = b:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
-    let l:curHeaderParentLineNumber = b:Markdown_GetParentHeaderLineNumber()
-    let l:nextHeaderSameLevelLineNumber = b:Markdown_GetNextHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber + 1)
+function! s:Markdown_MoveToNextSiblingHeader()
+    let l:curHeaderLineNumber = s:Markdown_GetHeaderLineNum()
+    let l:curHeaderLevel = s:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
+    let l:curHeaderParentLineNumber = s:Markdown_GetParentHeaderLineNumber()
+    let l:nextHeaderSameLevelLineNumber = s:Markdown_GetNextHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber + 1)
     let l:noNextSibling = 0
     if l:nextHeaderSameLevelLineNumber == 0
         let l:noNextSibling = 1
     else
-        let l:nextHeaderSameLevelParentLineNumber = b:Markdown_GetParentHeaderLineNumber(l:nextHeaderSameLevelLineNumber) 
+        let l:nextHeaderSameLevelParentLineNumber = s:Markdown_GetParentHeaderLineNumber(l:nextHeaderSameLevelLineNumber)
         if l:curHeaderParentLineNumber == l:nextHeaderSameLevelParentLineNumber
             call cursor(l:nextHeaderSameLevelLineNumber, 1)
         else
@@ -273,16 +273,16 @@ endfunction
 "
 " If there is no previous siblings, print a warning and do nothing.
 "
-function! b:Markdown_MoveToPreviousSiblingHeader()
-    let l:curHeaderLineNumber = b:Markdown_GetHeaderLineNum()
-    let l:curHeaderLevel = b:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
-    let l:curHeaderParentLineNumber = b:Markdown_GetParentHeaderLineNumber()
-    let l:previousHeaderSameLevelLineNumber = b:Markdown_GetPreviousHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber - 1)
+function! s:Markdown_MoveToPreviousSiblingHeader()
+    let l:curHeaderLineNumber = s:Markdown_GetHeaderLineNum()
+    let l:curHeaderLevel = s:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
+    let l:curHeaderParentLineNumber = s:Markdown_GetParentHeaderLineNumber()
+    let l:previousHeaderSameLevelLineNumber = s:Markdown_GetPreviousHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber - 1)
     let l:noPreviousSibling = 0
     if l:previousHeaderSameLevelLineNumber == 0
         let l:noPreviousSibling = 1
     else
-        let l:previousHeaderSameLevelParentLineNumber = b:Markdown_GetParentHeaderLineNumber(l:previousHeaderSameLevelLineNumber) 
+        let l:previousHeaderSameLevelParentLineNumber = s:Markdown_GetParentHeaderLineNumber(l:previousHeaderSameLevelLineNumber)
         if l:curHeaderParentLineNumber == l:previousHeaderSameLevelParentLineNumber
             call cursor(l:previousHeaderSameLevelLineNumber, 1)
         else
@@ -294,7 +294,7 @@ function! b:Markdown_MoveToPreviousSiblingHeader()
     endif
 endfunction
 
-function! b:Markdown_Toc(...)
+function! s:Markdown_Toc(...)
     if a:0 > 0
         let l:window_type = a:1
     else
@@ -342,14 +342,14 @@ function! s:MapNormVis(rhs,lhs)
 endfunction
 
 
-call <sid>MapNormVis('<Plug>(Markdown_MoveToNextHeader)', 'b:Markdown_MoveToNextHeader')
-call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousHeader)', 'b:Markdown_MoveToPreviousHeader')
-call <sid>MapNormVis('<Plug>(Markdown_MoveToNextSiblingHeader)', 'b:Markdown_MoveToNextSiblingHeader')
-call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousSiblingHeader)', 'b:Markdown_MoveToPreviousSiblingHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToNextHeader)', '<sid>Markdown_MoveToNextHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousHeader)', '<sid>Markdown_MoveToPreviousHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToNextSiblingHeader)', '<sid>Markdown_MoveToNextSiblingHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousSiblingHeader)', '<sid>Markdown_MoveToPreviousSiblingHeader')
 " Menmonic: Up
-call <sid>MapNormVis('<Plug>(Markdown_MoveToParentHeader)', 'b:Markdown_MoveToParentHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToParentHeader)', '<sid>Markdown_MoveToParentHeader')
 " Menmonic: Current
-call <sid>MapNormVis('<Plug>(Markdown_MoveToCurHeader)', 'b:Markdown_MoveToCurHeader')
+call <sid>MapNormVis('<Plug>(Markdown_MoveToCurHeader)', '<sid>Markdown_MoveToCurHeader')
 
 if ! exists('g:vim_markdown_no_default_key_mappings')
 \ || !g:vim_markdown_no_default_key_mappings
@@ -368,7 +368,7 @@ if ! exists('g:vim_markdown_no_default_key_mappings')
     vmap ]c <Plug>(Markdown_MoveToCurHeader)
 endif
 
-command! -buffer Toc call b:Markdown_Toc()
-command! -buffer Toch call b:Markdown_Toc('horizontal')
-command! -buffer Tocv call b:Markdown_Toc('vertical')
-command! -buffer Toct call b:Markdown_Toc('tab')
+command! -buffer Toc call s:Markdown_Toc()
+command! -buffer Toch call s:Markdown_Toc('horizontal')
+command! -buffer Tocv call s:Markdown_Toc('vertical')
+command! -buffer Toct call s:Markdown_Toc('tab')

@@ -69,8 +69,6 @@ The following work on normal and visual modes:
 
 ## Commands
 
-The following commands currently only work for atx style headers (`#`). Pull request are welcome to extend them to Setext style headers (`===`).
-
 - `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
 
     Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.

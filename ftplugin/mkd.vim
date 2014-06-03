@@ -300,7 +300,14 @@ function! s:Markdown_Toc(...)
     else
         let l:window_type = 'vertical'
     endif
-    silent vimgrep '^#' %
+
+    try
+        silent vimgrep /\(^\S.*\(\n[=-]\+\)\@=\|^#\+\)/ %
+    catch /E480/
+        echom "Toc: No headers."
+        return
+    endtry
+
     if l:window_type ==# 'horizontal'
         copen
     elseif l:window_type ==# 'vertical'
@@ -314,13 +321,23 @@ function! s:Markdown_Toc(...)
     set modifiable
     %s/\v^([^|]*\|){2,2} #//
     for i in range(1, line('$'))
-        let l:line = getline(i)
-        let l:header =  matchstr(l:line, '^#*')
-        let l:length = len(l:header)
-        let l:line = substitute(l:line, '\v^#*[ ]*', '', '')
-        let l:line = substitute(l:line, '\v[ ]*#*$', '', '')
-        let l:line = repeat(' ', (2 * l:length)) . l:line
-        call setline(i, l:line)
+        " this is the quickfix data for the current item
+        let d = getqflist()[i-1]
+        " atx headers
+        if match(d.text, "^#") > -1
+            let l:level = len(matchstr(d.text, '#*', 'g'))-1
+            let d.text = substitute(d.text, '\v^#*[ ]*', '', '')
+            let d.text = substitute(d.text, '\v[ ]*#*$', '', '')
+        " setex headers
+        else
+            let l:next_line = getbufline(bufname(d.bufnr), d.lnum+1)
+            if match(l:next_line, "=") > -1
+                let l:level = 0
+            elseif match(l:next_line, "-") > -1
+                let l:level = 1
+            endif
+        endif
+        call setline(i, repeat('  ', l:level). d.text)
     endfor
     set nomodified
     set nomodifiable

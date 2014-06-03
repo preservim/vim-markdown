@@ -304,7 +304,7 @@ function! s:Markdown_Toc(...)
     try
         silent vimgrep /\(^\S.*\(\n[=-]\+\)\@=\|^#\+\)/ %
     catch /E480/
-	echom "Toc: No headers."
+        echom "Toc: No headers."
         return
     endtry
 
@@ -326,8 +326,9 @@ function! s:Markdown_Toc(...)
         " atx headers
         if match(d.text, "^#") > -1
             let l:level = len(matchstr(d.text, '#*', 'g'))-1
-            let d.text = d.text[l:level+2:]
-            " setex headers
+            let d.text = substitute(d.text, '\v^#*[ ]*', '', '')
+            let d.text = substitute(d.text, '\v[ ]*#*$', '', '')
+        " setex headers
         else
             let l:next_line = getbufline(bufname(d.bufnr), d.lnum+1)
             if match(l:next_line, "=") > -1

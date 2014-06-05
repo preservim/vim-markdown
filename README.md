@@ -77,6 +77,24 @@ The following work on normal and visual modes:
 - `:Toct`: Same as `:Toc` but in a new tab.
 - `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
 
+- `:SetexToAtx`:
+
+    Convert all Setex style headers in buffer to Atx.
+
+    If a range is given, e.g. hit `:` from visual mode, only operate on the range.
+
+- `:HeaderDecrease`:
+
+    Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.
+
+    If range is given, only operate in the range.
+
+    If an `h1` would be decreased, abort.
+
+    For simplicity of implementation, Setex headers are converted to Atx.
+
+- `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
+
 ## Credits
 
 The main contributors of vim-markdown are:

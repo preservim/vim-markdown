@@ -396,6 +396,22 @@ function! s:HeaderDecrease(line1, line2, ...)
     endfor
 endfunction
 
+" Format table under cursor.
+" Depends on Tabularize.
+function! s:TableFormat()
+  let l:pos = getpos('.')
+  normal! {
+  " Search instead of `normal! j` because of the table at beginning of file edge case.
+  call search('|')
+  normal! j
+  " Remove everything that is not a pipe othewise well formated tables would grow
+  " because of addition of 2 spaces on the separator line by Tabularize /|.
+  s/[^|]//g
+  Tabularize /|
+  s/ /-/g
+  call setpos('.', l:pos)
+endfunction
+
 call <sid>MapNormVis('<Plug>(Markdown_MoveToNextHeader)', '<sid>Markdown_MoveToNextHeader')
 call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousHeader)', '<sid>Markdown_MoveToPreviousHeader')
 call <sid>MapNormVis('<Plug>(Markdown_MoveToNextSiblingHeader)', '<sid>Markdown_MoveToNextSiblingHeader')
@@ -421,10 +437,11 @@ if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     vmap <buffer> ]c <Plug>(Markdown_MoveToCurHeader)
 endif
 
+command! -buffer -range=% HeaderDecrease call s:HeaderDecrease(<line1>, <line2>)
+command! -buffer -range=% HeaderIncrease call s:HeaderDecrease(<line1>, <line2>, 1)
+command! -buffer -range=% SetexToAtx call s:SetexToAtx(<line1>, <line2>)
+command! -buffer TableFormat call s:TableFormat()
 command! -buffer Toc call s:Markdown_Toc()
 command! -buffer Toch call s:Markdown_Toc('horizontal')
 command! -buffer Tocv call s:Markdown_Toc('vertical')
 command! -buffer Toct call s:Markdown_Toc('tab')
-command! -buffer -range=% SetexToAtx call s:SetexToAtx(<line1>, <line2>)
-command! -buffer -range=% HeaderDecrease call s:HeaderDecrease(<line1>, <line2>)
-command! -buffer -range=% HeaderIncrease call s:HeaderDecrease(<line1>, <line2>, 1)

@@ -6,9 +6,12 @@ Syntax highlighting, matching rules and mappings for [the original Markdown](htt
 
 If you use [Vundle](https://github.com/gmarik/vundle), add the following line to your `~/.vimrc`:
 
+    Plugin 'godlygeek/tabular'
     Plugin 'plasticboy/vim-markdown'
 
-And then run inside Vim:
+The `tabular` plugin come *before* `vim-markdown`.
+
+Then run inside Vim:
 
     :so ~/.vimrc
     :PluginInstall
@@ -69,20 +72,6 @@ The following work on normal and visual modes:
 
 ## Commands
 
-- `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
-
-    Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.
-
-- `:Toch`: Same as `:Toc` but in an horizontal window.
-- `:Toct`: Same as `:Toc` but in a new tab.
-- `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
-
-- `:SetexToAtx`:
-
-    Convert all Setex style headers in buffer to Atx.
-
-    If a range is given, e.g. hit `:` from visual mode, only operate on the range.
-
 - `:HeaderDecrease`:
 
     Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.
@@ -94,6 +83,29 @@ The following work on normal and visual modes:
     For simplicity of implementation, Setex headers are converted to Atx.
 
 - `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
+
+- `:SetexToAtx`:
+
+    Convert all Setex style headers in buffer to Atx.
+
+    If a range is given, e.g. hit `:` from visual mode, only operate on the range.
+
+- `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
+
+    Requires [Tabular](https://github.com/godlygeek/tabular).
+
+    The input table *must* already have a separator line as the second line of the table.
+    That line only needs to contain the correct pipes `|`, nothing else is required.
+
+- `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
+
+    Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.
+
+- `:Toch`: Same as `:Toc` but in an horizontal window.
+
+- `:Toct`: Same as `:Toc` but in a new tab.
+
+- `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
 
 ## Credits
 

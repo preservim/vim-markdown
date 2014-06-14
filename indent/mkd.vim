@@ -10,7 +10,7 @@ setlocal autoindent
 if exists("*GetMkdIndent") | finish | endif
 
 function! s:is_li_start(line)
-    return a:line =~ '^\s*[\*+-]'
+    return a:line =~ '^\s*[*+-]'
 endfunction
 
 function! s:is_blank_line(line)

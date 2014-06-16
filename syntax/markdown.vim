@@ -75,6 +75,8 @@ syn region mkdCode         start=/\s*``[^`]*/              end=/[^`]*``\s*/
 syn region mkdCode         start=/^\s*```\s*[0-9A-Za-z_+-]*\s*$/          end=/^\s*```\s*$/
 syn region mkdCode         start=/\s*\~\~[^\~]*/              end=/[^\~]*\~\~\s*/
 syn region mkdCode         start=/^\s*\~\~\~\s*[0-9A-Za-z_+-]*\s*$/          end=/^\s*\~\~\~\s*$/
+syn match  mkdCodeStart    /^```\w*$/
+syn match  mkdCodeEnd      /^```$/
 syn region mkdCode         start="<pre[^>]*>"              end="</pre>"
 syn region mkdCode         start="<code[^>]*>"             end="</code>"
 syn region mkdFootnote     start="\[^"                     end="\]"
@@ -110,7 +112,7 @@ if get(g:, 'vim_markdown_math', 0)
   syn region mkdMath matchgroup=mkdDelimiter start="\\\@<!\$\$" end="\$\$" contains=@tex
 endif
 
-syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath
+syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,mkdCodeStart,mkdCodeEnd
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString        String

@@ -36,7 +36,7 @@ func! Foldexpr_markdown(lnum)
 endfunc
 
 
-if !exists("g:vim_markdown_folding_disabled")
+if !get(g:, "vim_markdown_folding_disabled", 0)
   setlocal foldexpr=Foldexpr_markdown(v:lnum)
   setlocal foldmethod=expr
 

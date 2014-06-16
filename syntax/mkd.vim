@@ -123,6 +123,8 @@ setlocal formatoptions+=r
 setlocal formatoptions-=c
 " Accept various markers as bullets
 setlocal comments=b:*,b:+,b:-
+" Linebreak at word boundaries
+setlocal linebreak
 
 let b:current_syntax = "mkd"
 

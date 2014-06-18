@@ -6,12 +6,12 @@ Syntax highlighting, matching rules and mappings for [the original Markdown](htt
 
 If you use [Vundle](https://github.com/gmarik/vundle), add the following line to your `~/.vimrc`:
 
-    Bundle 'plasticboy/vim-markdown'
+    Plugin 'plasticboy/vim-markdown'
 
 And then run inside Vim:
 
     :so ~/.vimrc
-    :BundleInstall
+    :PluginInstall
 
 If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:
 

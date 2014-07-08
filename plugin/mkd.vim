@@ -22,7 +22,7 @@ function! s:Markdown_highlight_sources()
 
             let group = 'mkdSnippet' . toupper(ft)
             let include = s:syntax_include(ft)
-            let command = 'syntax region %s matchgroup=%s start="```%s" matchgroup=%s end="```" keepend contains=%s%s'
+            let command = 'syntax region %s matchgroup=%s start="```%s$" matchgroup=%s end="```" keepend contains=%s%s'
             execute printf(command, group, startgroup, ft, endgroup, include, has('conceal') ? ' concealends' : '')
             execute printf('syntax cluster mkdNonListItem add=%s', group)
 

@@ -319,7 +319,7 @@ function! s:Markdown_Toc(...)
         copen
     endif
     set modifiable
-    %s/\v^([^|]*\|){2,2} #//
+    %s/\v^([^|]*\|){2,2} #//e
     for i in range(1, line('$'))
         " this is the quickfix data for the current item
         let d = getqflist()[i-1]

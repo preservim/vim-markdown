@@ -58,6 +58,11 @@ setex h1 single punctuation
 setex h1 punctuation longer than header
 ================================
 
+Prevent list vs Setex confusion:
+
+- not Setex
+- because list
+
 ---
 
 Mixed tests.

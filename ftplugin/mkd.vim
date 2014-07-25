@@ -302,21 +302,21 @@ function! s:Markdown_Toc(...)
     endif
 
     try
-        silent vimgrep /\(^\S.*\(\n[=-]\+\n\)\@=\|^#\+\)/ %
+        silent lvimgrep /\(^\S.*\(\n[=-]\+\n\)\@=\|^#\+\)/ %
     catch /E480/
         echom "Toc: No headers."
         return
     endtry
 
     if l:window_type ==# 'horizontal'
-        copen
+        lopen
     elseif l:window_type ==# 'vertical'
-        vertical copen
+        vertical lopen
         let &winwidth=(&columns/2)
     elseif l:window_type ==# 'tab'
-        tab copen
+        tab lopen
     else
-        copen
+        lopen
     endif
     set modifiable
     %s/\v^([^|]*\|){2,2} #//

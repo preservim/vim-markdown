@@ -47,12 +47,12 @@
 
 " For each level, contains the regexp that matches at that level only.
 let s:levelRegexpDict = {
-    \ 1: '\v^(#[^#]|.+\n\=+$)',
-    \ 2: '\v^(##[^#]|.+\n-+$)',
-    \ 3: '\v^###[^#]',
-    \ 4: '\v^####[^#]',
-    \ 5: '\v^#####[^#]',
-    \ 6: '\v^######[^#]'
+    \ 1: '\v^(#[^#]@=|.+\n\=+$)',
+    \ 2: '\v^(##[^#]@=|.+\n-+$)',
+    \ 3: '\v^###[^#]@=',
+    \ 4: '\v^####[^#]@=',
+    \ 5: '\v^#####[^#]@=',
+    \ 6: '\v^######[^#]@='
 \ }
 
 " Maches any header level of any type.
@@ -392,7 +392,7 @@ function! s:HeaderDecrease(line1, line2, ...)
     endfor
     let l:numSubstitutions = s:SetexToAtx(a:line1, a:line2)
     for l:level in range(replaceLevels[0], replaceLevels[1], -l:levelDelta)
-        execute 'silent! ' . a:line1 . ',' . (a:line2 - l:numSubstitutions) . 'substitute/' . s:levelRegexpDict[l:level] . '/' . repeat('#', l:level + l:levelDelta) . '\1/g'
+        execute 'silent! ' . a:line1 . ',' . (a:line2 - l:numSubstitutions) . 'substitute/' . s:levelRegexpDict[l:level] . '/' . repeat('#', l:level + l:levelDelta) . '/g'
     endfor
 endfunction
 

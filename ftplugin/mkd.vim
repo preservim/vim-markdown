@@ -302,7 +302,7 @@ function! s:Markdown_Toc(...)
     endif
 
     try
-        silent vimgrep /\(^\S.*\(\n[=-]\+\)\@=\|^#\+\)/ %
+        silent vimgrep /\(^\S.*\(\n[=-]\+\n\)\@=\|^#\+\)/ %
     catch /E480/
         echom "Toc: No headers."
         return

@@ -49,8 +49,9 @@ syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" 
 " [link](URL) | [link][id] | [link][]
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
 syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained oneline
-syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained oneline
+syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained contains=mkdURLInnerParen oneline
 syn region mkdLink matchgroup=mkdDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite oneline
+syn match  mkdURLInnerParen                     "([^)]*)" contained
 " mkd  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment
 "                            ------------ _____________________ --------------------------- ________________________ ----------------- __
 syntax match   mkdInlineURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
@@ -100,7 +101,7 @@ syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootno
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String
 HtmlHiLink mkdIndentCode    String
-HtmlHiLink mkdFootnote    Comment
+HtmlHiLink mkdFootnote      Comment
 HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
@@ -109,6 +110,7 @@ HtmlHiLink mkdLineBreak     Todo
 HtmlHiLink mkdFootnotes     htmlLink
 HtmlHiLink mkdLink          htmlLink
 HtmlHiLink mkdURL           htmlString
+HtmlHiLink mkdURLInnerParen mkdURL
 HtmlHiLink mkdInlineURL     htmlLink
 HtmlHiLink mkdID            Identifier
 HtmlHiLink mkdLinkDef       mkdID

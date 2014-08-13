@@ -74,7 +74,7 @@ The following work on normal and visual modes:
 
 - `:HeaderDecrease`:
 
-    Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.
+    Decrease level of all headers in buffer: `h1` to `h2`, `h3` to `h2`, etc.
 
     If range is given, only operate in the range.
 

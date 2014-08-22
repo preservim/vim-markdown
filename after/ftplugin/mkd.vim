@@ -54,3 +54,10 @@ if !get(g:, "vim_markdown_folding_disabled", 0)
   set foldmethod=expr
   set foldopen-=search
 endif
+
+" Enable snippet plugins which do not recognize 'mkd' filetype
+if exists(':UltiSnipsAddFiletypes') == 2
+  UltiSnipsAddFiletypes markdown
+elseif exists(':SnipMateLoadScope') == 2
+  SnipMateLoadScope markdown
+endif

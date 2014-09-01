@@ -321,8 +321,8 @@ function! s:Markdown_Toc(...)
     set modifiable
     %s/\v^([^|]*\|){2,2} #//
     for i in range(1, line('$'))
-        " this is the quickfix data for the current item
-        let d = getqflist()[i-1]
+        " this is the location-list data for the current item
+        let d = getloclist(0)[i-1]
         " atx headers
         if match(d.text, "^#") > -1
             let l:level = len(matchstr(d.text, '#*', 'g'))-1

@@ -57,7 +57,8 @@ endif
 
 " Enable snippet plugins which do not recognize 'mkd' filetype
 if exists(':UltiSnipsAddFiletypes') == 2
-  UltiSnipsAddFiletypes markdown
+    UltiSnipsAddFiletypes markdown
 elseif exists(':SnipMateLoadScope') == 2
-  SnipMateLoadScope markdown
+    SnipMateLoadScope markdown
 endif
+

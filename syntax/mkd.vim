@@ -124,6 +124,9 @@ setlocal formatoptions-=c
 " Accept various markers as bullets
 setlocal comments=b:*,b:+,b:-
 
+" Automatically continue blockquote on line break
+setlocal comments+=b:>
+
 let b:current_syntax = "mkd"
 
 delcommand HtmlHiLink

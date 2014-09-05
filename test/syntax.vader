@@ -31,6 +31,55 @@ Given mkd;
 Execute (multiple links on a line):
   AssertEqual SyntaxOf('c'), ''
 
+# Autolinks
+
+Given mkd;
+a <http://b> c
+
+Execute (autolink):
+  AssertNotEqual SyntaxOf('a'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('<'), 'mkdDelimiter'
+  AssertEqual SyntaxOf('b'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('>'), 'mkdDelimiter'
+  AssertNotEqual SyntaxOf('c'), 'mkdInlineURL'
+
+Given mkd;
+<HtTp://a>
+
+Execute (autolink with scheme case is insensitive):
+  AssertEqual SyntaxOf('a'), 'mkdInlineURL'
+
+Given mkd;
+<notascheme://a>
+
+Execute (autolink without known scheme is not a link):
+  AssertNotEqual SyntaxOf('n'), 'mkdInlineURL'
+
+Given mkd;
+<a>
+
+Execute (autolink without scheme is not a link):
+  AssertNotEqual SyntaxOf('a'), 'mkdInlineURL'
+
+Given mkd;
+< http://a >
+<http://b c>
+<http://d
+e>
+
+Execute (autolink with space is not a link):
+  AssertNotEqual SyntaxOf('a'), 'mkdInlineURL'
+  AssertNotEqual SyntaxOf('b'), 'mkdInlineURL'
+  AssertNotEqual SyntaxOf('c'), 'mkdInlineURL'
+  AssertNotEqual SyntaxOf('d'), 'mkdInlineURL'
+  AssertNotEqual SyntaxOf('e'), 'mkdInlineURL'
+
+Given mkd;
+\<http://a>
+
+Execute (autolinks can be backslash escaped):
+  AssertNotEqual SyntaxOf('<'), 'mkdDelimiter'
+
 # Math
 
 Given mkd;

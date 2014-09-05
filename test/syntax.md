@@ -1,4 +1,4 @@
-Fenced code living in an indented environment is correctly highlighted:
+# Fenced code living in an indented environment is correctly highlighted
 
 1. run this command to do this:
 

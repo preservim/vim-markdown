@@ -94,7 +94,12 @@ syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contain
 syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
-syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
+if get(g:, 'vim_markdown_math', 0)
+  syn region mkdMath matchgroup=mkdDelimiter start="\\\@<!\$" end="\$"
+  syn region mkdMath matchgroup=mkdDelimiter start="\\\@<!\$\$" end="\$\$"
+endif
+
+syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdID,mkdURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdMath,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
@@ -114,7 +119,7 @@ HtmlHiLink mkdID            Identifier
 HtmlHiLink mkdLinkDef       mkdID
 HtmlHiLink mkdLinkDefTarget mkdURL
 HtmlHiLink mkdLinkTitle     htmlString
-
+HtmlHiLink mkdMath          Statement
 HtmlHiLink mkdDelimiter     Delimiter
 
 " Automatically insert bullets

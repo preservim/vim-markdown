@@ -1,0 +1,12 @@
+language: vim
+
+install: |
+  sudo apt-get update
+  sudo apt-get install vim
+  cd ..
+  git clone https://github.com/godlygeek/tabular
+  git clone https://github.com/junegunn/vader.vim
+
+script: |
+  cd "$TRAVIS_BUILD_DIR"
+  ./test/run-tests.sh

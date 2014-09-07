@@ -1,0 +1,8 @@
+set nocompatible
+set rtp+=../
+set rtp+=../../tabular/
+set rtp+=../../vader.vim/
+filetype on
+filetype plugin on
+filetype indent on
+syntax on

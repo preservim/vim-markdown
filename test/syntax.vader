@@ -1,0 +1,11 @@
+Given mkd (bold);
+**bold** not bold
+
+Execute (SyntaxOf(pattern)):
+  AssertEqual SyntaxOf('b'), 'htmlBold'
+
+Given mkd (italic);
+*italic*
+
+Execute (SyntaxOf(pattern)):
+  AssertEqual SyntaxOf('i'), 'htmlItalic'

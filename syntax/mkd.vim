@@ -49,8 +49,9 @@ syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" 
 " [link](URL) | [link][id] | [link][]
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
 syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained oneline
-syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained oneline
+syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained contains=mkdURLInnerParen oneline
 syn region mkdLink matchgroup=mkdDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite oneline
+syn match  mkdURLInnerParen                     "([^)]*)" contained
 " mkd  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment
 "                            ------------ _____________________ --------------------------- ________________________ ----------------- __
 syntax match   mkdInlineURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
@@ -69,9 +70,9 @@ syn match  mkdLineBreak    /  \+$/
 syn region mkdBlockquote   start=/^\s*>/                   end=/$/ contains=mkdLineBreak,mkdLineContinue,@Spell
 syn region mkdCode         start=/\(\([^\\]\|^\)\\\)\@<!`/ end=/\(\([^\\]\|^\)\\\)\@<!`/
 syn region mkdCode         start=/\s*``[^`]*/              end=/[^`]*``\s*/
-syn region mkdCode         start=/^\s*```\s*[0-9A-Za-z_-]*\s*$/          end=/^\s*```\s*$/
-syn region mkdCode         start="<pre[^>]*>"              end="</pre>"
-syn region mkdCode         start="<code[^>]*>"             end="</code>"
+syn region mkdCode         start=/^\s*```.*$/              end=/^\s*```\s*$/
+syn region mkdCode         start="<pre[^>\\]*>"            end="</pre>"
+syn region mkdCode         start="<code[^>\\]*>"           end="</code>"
 syn region mkdFootnote     start="\[^"                     end="\]"
 syn match  mkdCode         /^\s*\n\(\(\s\{8,}[^ ]\|\t\t\+[^\t]\).*\n\)\+/
 syn match  mkdIndentCode   /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/ contained
@@ -85,22 +86,22 @@ syn match  mkdRule         /^\s*-\{3,}$/
 syn match  mkdRule         /^\s*\*\{3,5}$/
 
 "HTML headings
-syn region htmlH1       start="^\s*#"                   end="\($\|#\+\)" contains=@Spell
-syn region htmlH2       start="^\s*##"                  end="\($\|#\+\)" contains=@Spell
-syn region htmlH3       start="^\s*###"                 end="\($\|#\+\)" contains=@Spell
-syn region htmlH4       start="^\s*####"                end="\($\|#\+\)" contains=@Spell
-syn region htmlH5       start="^\s*#####"               end="\($\|#\+\)" contains=@Spell
-syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contains=@Spell
+syn region htmlH1       start="^\s*#"                   end="\($\|[^\\]#\+\)" contains=@Spell
+syn region htmlH2       start="^\s*##"                  end="\($\|[^\\]#\+\)" contains=@Spell
+syn region htmlH3       start="^\s*###"                 end="\($\|[^\\]#\+\)" contains=@Spell
+syn region htmlH4       start="^\s*####"                end="\($\|[^\\]#\+\)" contains=@Spell
+syn region htmlH5       start="^\s*#####"               end="\($\|[^\\]#\+\)" contains=@Spell
+syn region htmlH6       start="^\s*######"              end="\($\|[^\\]#\+\)" contains=@Spell
 syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
-syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdID,mkdURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
+syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdID,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String
 HtmlHiLink mkdIndentCode    String
-HtmlHiLink mkdFootnote    Comment
+HtmlHiLink mkdFootnote      Comment
 HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
@@ -109,6 +110,7 @@ HtmlHiLink mkdLineBreak     Todo
 HtmlHiLink mkdFootnotes     htmlLink
 HtmlHiLink mkdLink          htmlLink
 HtmlHiLink mkdURL           htmlString
+HtmlHiLink mkdURLInnerParen mkdURL
 HtmlHiLink mkdInlineURL     htmlLink
 HtmlHiLink mkdID            Identifier
 HtmlHiLink mkdLinkDef       mkdID

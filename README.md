@@ -1,6 +1,6 @@
 # Markdown Vim Mode
 
-Syntax highlighting, matching rules and mappings for [the original Markdown](http://daringfireball.net/projects/markdown/) and extensions.
+Syntax highlighting, matching rules and mappings for [Common Markdown](http://jgm.github.io/stmd/spec.html) and extensions.
 
 ## Installation
 

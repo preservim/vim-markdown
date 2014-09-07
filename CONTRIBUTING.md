@@ -14,7 +14,7 @@ Every new feature must be documented under in the [README.md](README.md). Docume
 
 There are many flavors of markdown, each one with an unique feature set. This plugin uses the following strategy to deal with all those flavors:
 
-- Features from the [original markdown](http://daringfireball.net/projects/markdown/syntax) are turned on by default. They may not even have an option that turns them off.
+- Features from the [Common Markdown](http://jgm.github.io/stmd/spec.html) are turned on by default. They may not even have an option that turns them off.
 
 - Features from other markdown flavors *must* have an option that turns them on or off. If the feature is common enough across multiple versions of markdown, it may be turned on by default. This shall be decided by the community when the merge request is done.
 
@@ -22,9 +22,9 @@ There are many flavors of markdown, each one with an unique feature set. This pl
 
 - Do not use the name of a flavor for a feature that is used across multiple flavors. Instead, create a separate flavor option, that automatically sets each feature.
 
-    For example, fenced code blocks (putting code between pairs of three backticks) is not part of the original markdown, but is supported by [GFM](https://help.github.com/articles/github-flavored-markdown#fenced-code-blocks) and [Jekyll](http://jekyllrb.com/docs/configuration/).
+    For example, front matter metadata  is not part of Common Markdown, but is supported by Jekyll and Pandoc.
 
-    Therefore, instead of creating an option `g:vim_markdown_gfm_fenced_code_block`, and an option `g:vim_markdown_jekyll_fenced_code_block`, create a single option `g:vim_markdown_fenced_code_block`.
+    Therefore, instead of creating an option `g:vim_markdown_jekyll_frontmatter`, and an option `g:vim_markdown_pandoc_frontmatter`, create a single option `g:vim_markdown_frontmatter`.
 
     Next, if there are many more than one Jekyll feature options, create a `g:vim_markdown_jekyll` option that turns them all on at once.
 
@@ -38,7 +38,7 @@ If you wish to have a behavior that differs from that style guide, add an option
 
 All new features must have tests. We don't require unit tests: tests that require users to open markdown code in Vim and check things manually are accepted, but you should point clearly to where the tests are.
 
-Wherever possible, use test cases from the [karlcow's Markdown Test Suite](https://github.com/karlcow/markdown-testsuite), and link to the relevant test files on your merge request.
+Wherever possible, use test cases from [Common Markdown](https://github.com/jgm/stmd) (embedded in the spec), and link to it.
 
 If a test does not exist there yet, make a pull request to them, and link to that pull request on the pull request you make here.
 

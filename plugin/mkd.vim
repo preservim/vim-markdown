@@ -1,5 +1,5 @@
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
-function! s:Markdown_highlight_sources()
+function! s:Markdown_highlight_sources(force)
     " Syntax highlight source code embedded in notes.
     " Look for code blocks in the current file
     let filetypes = {}
@@ -10,7 +10,7 @@ function! s:Markdown_highlight_sources()
     if !exists('b:mkd_known_filetypes')
         let b:mkd_known_filetypes = {}
     endif
-    if b:mkd_known_filetypes == filetypes || empty(filetypes)
+    if !a:force && (b:mkd_known_filetypes == filetypes || empty(filetypes))
         return
     endif
 
@@ -18,7 +18,7 @@ function! s:Markdown_highlight_sources()
     let startgroup = 'mkdCodeStart'
     let endgroup = 'mkdCodeEnd'
     for ft in keys(filetypes)
-        if !has_key(b:mkd_known_filetypes, ft)
+        if a:force || !has_key(b:mkd_known_filetypes, ft)
 
             let group = 'mkdSnippet' . toupper(ft)
             let include = s:syntax_include(ft)
@@ -56,16 +56,16 @@ function! s:syntax_include(filetype)
 endfunction
 
 
-function! s:Markdown_refresh_syntax()
+function! s:Markdown_refresh_syntax(force)
     if &filetype == 'mkd' && line('$') > 1
-        call s:Markdown_highlight_sources()
+        call s:Markdown_highlight_sources(a:force)
     endif
 endfunction
 
 augroup Mkd
     autocmd!
-    au BufReadPost * call s:Markdown_refresh_syntax()
-    au BufReadPost,BufWritePost * call s:Markdown_refresh_syntax()
-    au InsertEnter,InsertLeave * call s:Markdown_refresh_syntax()
-    au CursorHold,CursorHoldI * call s:Markdown_refresh_syntax()
+    au BufReadPost * call s:Markdown_refresh_syntax(1)
+    au BufWritePost * call s:Markdown_refresh_syntax(0)
+    au InsertEnter,InsertLeave * call s:Markdown_refresh_syntax(0)
+    au CursorHold,CursorHoldI * call s:Markdown_refresh_syntax(0)
 augroup END

@@ -9,3 +9,22 @@ Given mkd (italic);
 
 Execute (SyntaxOf(pattern)):
   AssertEqual SyntaxOf('i'), 'htmlItalic'
+
+Given mkd;
+[a](b)
+
+Execute (link with title):
+  AssertEqual SyntaxOf('a'), 'mkdLink'
+  AssertEqual SyntaxOf('b'), 'mkdURL'
+
+Given mkd;
+(a)
+
+Execute (parenthesis not in link):
+  AssertNotEqual SyntaxOf('a'), 'mkdLink'
+
+Given mkd;
+[a](b) c [d](e)
+
+Execute (multiple links on a line):
+  AssertEqual SyntaxOf('c'), ''

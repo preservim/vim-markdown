@@ -36,12 +36,4 @@ If you wish to have a behavior that differs from that style guide, add an option
 
 # Tests
 
-All new features must have tests. We don't require unit tests: tests that require users to open markdown code in Vim and check things manually are accepted, but you should point clearly to where the tests are.
-
-Wherever possible, use test cases from the [karlcow's Markdown Test Suite](https://github.com/karlcow/markdown-testsuite), and link to the relevant test files on your merge request.
-
-If a test does not exist there yet, make a pull request to them, and link to that pull request on the pull request you make here.
-
-If the test you want to do is not appropriate for the Markdown Test Suite, create it only under the `test/` directory here.
-
-If we start disagreeing too often on what is appropriate or not, we will fork off that repository.
+All new features must have unit tests.

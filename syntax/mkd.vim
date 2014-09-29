@@ -107,6 +107,10 @@ if get(g:, 'vim_markdown_frontmatter', 0)
   syn region Comment matchgroup=mkdDelimiter start="\%^---$" end="^---$" contains=@yamlTop
 endif
 
+" highlight YAML frontmatter
+syn include @yamlTop syntax/yaml.vim
+syntax match Comment /\%^---\_$\_.\{-}\_^---$/ contains=@yamlTop
+
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
 HtmlHiLink mkdCode          String

@@ -319,7 +319,6 @@ function! s:Markdown_Toc(...)
         lopen
     endif
     set modifiable
-    %s/\v^([^|]*\|){2,2} #//e
     for i in range(1, line('$'))
         " this is the location-list data for the current item
         let d = getloclist(0)[i-1]

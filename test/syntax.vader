@@ -10,6 +10,8 @@ Given mkd (italic);
 Execute (SyntaxOf(pattern)):
   AssertEqual SyntaxOf('i'), 'htmlItalic'
 
+# Links
+
 Given mkd;
 [a](b)
 
@@ -28,3 +30,45 @@ Given mkd;
 
 Execute (multiple links on a line):
   AssertEqual SyntaxOf('c'), ''
+
+# Math
+
+Given mkd;
+a $x$ b
+c $$y$$ d
+\$e\$
+\$\$f\$\$
+
+Execute (math):
+  AssertNotEqual SyntaxOf('x'), 'mkdMath'
+  AssertNotEqual SyntaxOf('y'), 'mkdMath'
+  let g:vim_markdown_math=1
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'mkdMath'
+  AssertNotEqual SyntaxOf('b'), 'mkdMath'
+  AssertNotEqual SyntaxOf('c'), 'mkdMath'
+  AssertNotEqual SyntaxOf('d'), 'mkdMath'
+  AssertNotEqual SyntaxOf('e'), 'mkdMath'
+  AssertNotEqual SyntaxOf('f'), 'mkdMath'
+  AssertEqual SyntaxOf('x'), 'mkdMath'
+  AssertEqual SyntaxOf('y'), 'mkdMath'
+  let g:vim_markdown_math=0
+  syn off | syn on
+  AssertNotEqual SyntaxOf('x'), 'mkdMath'
+  AssertNotEqual SyntaxOf('y'), 'mkdMath'
+
+Given mkd;
+a
+
+$
+b
+$
+
+c
+
+Execute (multiline math):
+  let g:vim_markdown_math=1
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'mkdMath'
+  AssertEqual SyntaxOf('b'), 'mkdMath'
+  AssertNotEqual SyntaxOf('c'), 'mkdMath'

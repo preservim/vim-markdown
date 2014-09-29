@@ -61,6 +61,15 @@ Add the following line to your `.vimrc` to disable default key mappings. You can
 let g:vim_markdown_no_default_key_mappings=1
 ```
 
+**Syntax extensions**
+
+The following options control which syntax extensions will be turned on.
+
+LaTeX math: `$ $`, `$$ $$`, escapable as `\$ \$` and `\$\$ \$\$`:
+
+```vim
+let g:vim_markdown_math=1
+```
 ## Mappings
 
 The following work on normal and visual modes:

@@ -37,7 +37,7 @@ If you are not using any package manager, download the [tarball](https://github.
 
 ## Options
 
-**Disable Folding**
+### Disable Folding
 
 Add the following line to your `.vimrc` to disable folding.
 
@@ -45,7 +45,7 @@ Add the following line to your `.vimrc` to disable folding.
 let g:vim_markdown_folding_disabled=1
 ```
 
-**Set Initial Foldlevel**
+### Set Initial Foldlevel
 
 Add the following line to your `.vimrc` to set the initial foldlevel. This option defaults to 0 (i.e. all folds are closed) and is ignored if folding is disabled.
 
@@ -53,7 +53,7 @@ Add the following line to your `.vimrc` to set the initial foldlevel. This optio
 let g:vim_markdown_initial_foldlevel=1
 ```
 
-**Disable Default Key Mappings**
+### Disable Default Key Mappings
 
 Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings.
 
@@ -61,15 +61,26 @@ Add the following line to your `.vimrc` to disable default key mappings. You can
 let g:vim_markdown_no_default_key_mappings=1
 ```
 
-**Syntax extensions**
+### Syntax extensions
 
-The following options control which syntax extensions will be turned on.
+The following options control which syntax extensions will be turned on. They are off by default.
 
-LaTeX math: `$ $`, `$$ $$`, escapable as `\$ \$` and `\$\$ \$\$`:
+#### LaTeX math
+
+Used as `$x^2$`, `$$x^2$$`, escapable as `\$x\$` and `\$\$x\$\$`.
 
 ```vim
 let g:vim_markdown_math=1
 ```
+
+#### YAML frontmatter
+
+Highlight YAML frontmatter as used by Jekyll:
+
+```vim
+let g:vim_markdown_frontmatter=1
+```
+
 ## Mappings
 
 The following work on normal and visual modes:

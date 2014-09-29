@@ -72,3 +72,42 @@ Execute (multiline math):
   AssertNotEqual SyntaxOf('a'), 'mkdMath'
   AssertEqual SyntaxOf('b'), 'mkdMath'
   AssertNotEqual SyntaxOf('c'), 'mkdMath'
+
+# YAML frontmatter
+
+Given mkd;
+---
+a: b
+---
+
+Execute (YAML frontmatter is controlled by the option):
+  AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+  let g:vim_markdown_frontmatter=1
+  syn off | syn on
+  AssertEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+  let g:vim_markdown_frontmatter=0
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+
+Given mkd;
+
+---
+a: b
+---
+
+Execute (YAML frontmatter only works if it's the first thing in the file):
+  let g:vim_markdown_frontmatter=1
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+
+Given mkd;
+---
+a: b
+---
+
+---
+
+Execute (rules are not mistaken by YAML frontmatter delimiters):
+  let g:vim_markdown_frontmatter=1
+  syn off | syn on
+  AssertEqual SyntaxAt(5, 1), 'mkdRule'

@@ -39,10 +39,16 @@ If you are not using any package manager, download the [tarball](https://github.
 
 ### Disable Folding
 
-Add the following line to your `.vimrc` to disable folding.
+Add the following line to your `.vimrc` to disable folding configuration.
 
 ```vim
 let g:vim_markdown_folding_disabled=1
+```
+
+This option only controls vim_markdown's folding configuration. To enable/disable folding use Vim's folding configuration.
+
+```vim
+set [no]foldenable
 ```
 
 ### Set Initial Foldlevel

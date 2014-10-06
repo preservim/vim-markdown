@@ -26,8 +26,11 @@ Execute (link with title):
 Given mkd;
 (a)
 
+(b)
+
 Execute (parenthesis not in link):
-  AssertNotEqual SyntaxOf('a'), 'mkdLink'
+  AssertNotEqual SyntaxOf('a'), 'mkdURL'
+  AssertNotEqual SyntaxOf('b'), 'mkdURL'
 
 Given mkd;
 [a](b) c [d](e)

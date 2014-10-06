@@ -8,32 +8,42 @@ Syntax highlighting, matching rules and mappings for [the original Markdown](htt
 
 If you use [Vundle](https://github.com/gmarik/vundle), add the following line to your `~/.vimrc`:
 
-    Plugin 'godlygeek/tabular'
-    Plugin 'plasticboy/vim-markdown'
+```vim
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+```
 
-The `tabular` plugin come *before* `vim-markdown`.
+The `tabular` plugin must come *before* `vim-markdown`.
 
 Then run inside Vim:
 
-    :so ~/.vimrc
-    :PluginInstall
+```vim
+:so ~/.vimrc
+:PluginInstall
+```
 
 If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:
 
-    $ cd ~/.vim/bundle
-    $ git clone https://github.com/plasticboy/vim-markdown.git
+```sh
+cd ~/.vim/bundle
+git clone https://github.com/plasticboy/vim-markdown.git
+```
 
 To install without Pathogen using the Debian [vim-addon-manager](http://packages.qa.debian.org/v/vim-addon-manager.html), do this:
 
-    $ git clone https://github.com/plasticboy/vim-markdown.git
-    $ cd vim-markdown
-    $ sudo make install
-    $ vim-addon-manager install mkd
+```sh
+git clone https://github.com/plasticboy/vim-markdown.git
+cd vim-markdown
+sudo make install
+vim-addon-manager install mkd
+```
 
 If you are not using any package manager, download the [tarball](https://github.com/plasticboy/vim-markdown/archive/master.tar.gz) and do this:
 
-    $ cd ~/.vim
-    $ tar --strip=1 -zxf vim-markdown-master.tar.gz
+```sh
+cd ~/.vim
+tar --strip=1 -zxf vim-markdown-master.tar.gz
+```
 
 ## Options
 

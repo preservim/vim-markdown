@@ -1,14 +1,18 @@
-Given mkd (bold);
-**bold** not bold
+Given mkd;
+a **b** c
 
-Execute (SyntaxOf(pattern)):
+Execute (bold):
+  AssertNotEqual SyntaxOf('a'), 'htmlBold'
   AssertEqual SyntaxOf('b'), 'htmlBold'
+  AssertNotEqual SyntaxOf('c'), 'htmlBold'
 
-Given mkd (italic);
-*italic*
+Given mkd;
+a *b* c
 
-Execute (SyntaxOf(pattern)):
-  AssertEqual SyntaxOf('i'), 'htmlItalic'
+Execute (italic):
+  AssertNotEqual SyntaxOf('a'), 'htmlItalic'
+  AssertEqual SyntaxOf('b'), 'htmlItalic'
+  AssertNotEqual SyntaxOf('c'), 'htmlItalic'
 
 # Links
 

@@ -15,3 +15,16 @@ install:
 	cp -v after/ftplugin/mkd.vim ${ADDONS}/after/ftplugin/mkd.vim
 	mkdir -pv ${REGISTRY}
 	cp -v registry/mkd.yaml ${REGISTRY}/mkd.yaml
+
+test: build/tabular build/vader.vim
+	test/run-tests.sh
+.PHONY: test
+
+build/tabular: | build
+	git clone https://github.com/godlygeek/tabular build/tabular
+
+build/vader.vim: | build
+	git clone https://github.com/junegunn/vader.vim build/vader.vim
+
+build:
+	mkdir build

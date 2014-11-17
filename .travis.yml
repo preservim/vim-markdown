@@ -8,5 +8,4 @@ install: |
   git clone https://github.com/junegunn/vader.vim
 
 script: |
-  cd "$TRAVIS_BUILD_DIR"
-  ./test/run-tests.sh
+  make test

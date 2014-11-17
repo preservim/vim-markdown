@@ -1,3 +1,13 @@
+if exists("b:did_ftplugin")
+  finish
+endif
+
+runtime! ftplugin/markdown.vim
+
+" setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
+" setlocal formatoptions+=tcqln formatoptions-=r formatoptions-=o
+" setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^[-*+]\\s\\+
+
 "TODO print messages when on visual mode. I only see VISUAL, not the messages.
 
 " Function interface phylosophy:

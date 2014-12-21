@@ -61,14 +61,6 @@ This option only controls vim_markdown's folding configuration. To enable/disabl
 set [no]foldenable
 ```
 
-### Set Initial Foldlevel
-
-Add the following line to your `.vimrc` to set the initial foldlevel. This option defaults to 0 (i.e. all folds are closed) and is ignored if folding is disabled.
-
-```vim
-let g:vim_markdown_initial_foldlevel=1
-```
-
 ### Disable Default Key Mappings
 
 Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings.

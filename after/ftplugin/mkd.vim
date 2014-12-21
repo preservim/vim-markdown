@@ -39,10 +39,4 @@ endfunc
 if !get(g:, "vim_markdown_folding_disabled", 0)
   setlocal foldexpr=Foldexpr_markdown(v:lnum)
   setlocal foldmethod=expr
-
-  " allow the initial foldlevel to be configured in .vimrc
-  if !exists("g:vim_markdown_initial_foldlevel")
-    let g:vim_markdown_initial_foldlevel=0
-  endif
-  let &l:foldlevel=g:vim_markdown_initial_foldlevel
 endif

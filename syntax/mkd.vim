@@ -70,6 +70,8 @@ syn region mkdBlockquote   start=/^\s*>/                   end=/$/ contains=mkdL
 syn region mkdCode         start=/\(\([^\\]\|^\)\\\)\@<!`/ end=/\(\([^\\]\|^\)\\\)\@<!`/
 syn region mkdCode         start=/\s*``[^`]*/              end=/[^`]*``\s*/
 syn region mkdCode         start=/^\s*```\s*[0-9A-Za-z_-]*\s*$/          end=/^\s*```\s*$/
+syn region mkdCode         start=/\s*\~\~[^\~]*/              end=/[^\~]*\~\~\s*/
+syn region mkdCode         start=/^\s*\~\~\~\s*[0-9A-Za-z_-]*\s*$/          end=/^\s*\~\~\~\s*$/
 syn region mkdCode         start="<pre[^>]*>"              end="</pre>"
 syn region mkdCode         start="<code[^>]*>"             end="</code>"
 syn region mkdFootnote     start="\[^"                     end="\]"

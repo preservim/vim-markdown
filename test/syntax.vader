@@ -87,6 +87,24 @@ Given mkd;
 Execute (autolinks can be backslash escaped):
   AssertNotEqual SyntaxOf('<'), 'mkdDelimiter'
 
+# Code Blocks
+
+Given mkd;
+~~~
+code
+~~~
+
+Execute (code blocks can be fenced with tildes):
+  AssertEqual SyntaxOf('c'), 'mkdCode'
+
+Given mkd;
+~~~ruby
+code
+~~~
+
+Execute (code blocks can have a language specifier):
+  AssertEqual SyntaxOf('c'), 'mkdCode'
+
 # Math
 
 Given mkd;

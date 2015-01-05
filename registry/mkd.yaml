@@ -1,7 +1,0 @@
-addon: mkd
-description: "Markdown syntax highlighting"
-files:
-  - ftdetect/mkd.vim
-  - ftplugin/mkd.vim
-  - syntax/mkd.vim
-  - after/ftplugin/mkd.vim

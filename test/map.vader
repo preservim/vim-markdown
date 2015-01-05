@@ -1,4 +1,4 @@
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -14,7 +14,7 @@ Execute (]] same level):
   normal [[
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -30,7 +30,7 @@ Execute (]] different levels level):
   normal [[
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -50,7 +50,7 @@ Execute (][ different levels level):
   normal []
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b

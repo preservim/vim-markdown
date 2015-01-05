@@ -1,4 +1,4 @@
-Given mkd;
+Given markdown;
 a <http://b> c
 
 Execute (gx autolink):
@@ -11,7 +11,7 @@ Execute (gx autolink):
   AssertEqual b:func(1, match(b:line, '>') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'c') + 1), ''
 
-Given mkd;
+Given markdown;
 a http://b.bb c
 
 Execute (gx implicit autolink):
@@ -22,7 +22,7 @@ Execute (gx implicit autolink):
   AssertEqual b:func(1, match(b:line, 'h') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'c') + 1), ''
 
-Given mkd;
+Given markdown;
 [a]: http://b "c"
 
 Execute (gx link reference definition):
@@ -34,7 +34,7 @@ Execute (gx link reference definition):
   AssertEqual b:func(1, match(b:line, 'h') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'c') + 1), ''
 
-Given mkd;
+Given markdown;
 a [b](c) d
 
 Execute (gx autolink):
@@ -50,7 +50,7 @@ Execute (gx autolink):
   AssertEqual b:func(1, match(b:line, ')') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'd') + 1), ''
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -66,7 +66,7 @@ Execute (]] same level):
   normal [[
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -82,7 +82,7 @@ Execute (]] different levels level):
   normal [[
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -102,7 +102,7 @@ Execute (][ different levels level):
   normal []
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -113,7 +113,7 @@ Execute (]c):
   normal ]c
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 Execute (Toc does not set nomodifiable on other files):

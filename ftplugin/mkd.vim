@@ -444,3 +444,5 @@ command! -buffer Toc call s:Markdown_Toc()
 command! -buffer Toch call s:Markdown_Toc('horizontal')
 command! -buffer Tocv call s:Markdown_Toc('vertical')
 command! -buffer Toct call s:Markdown_Toc('tab')
+
+setlocal formatoptions+=a " Automatically format paragraphs

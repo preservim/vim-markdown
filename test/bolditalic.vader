@@ -1,0 +1,52 @@
+# Advanced bolds and italics
+Given mkd;
+*0*
+a
+ *1 *b
+c
+ *2*
+d
+e*3*f g *4 *h i *5* j k* 6* l
+m* 7 *n o *\*8\** p
+* q * r s ** t *
+u
+*
+v
+
+Execute (und_italic):
+  for el in ['0', '1', '2', '3', '4', '5', '6', '7', '8']
+    AssertEqual SyntaxOf(el), 'htmlItalic'
+  endfor
+  for el in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v']
+    AssertNotEqual SyntaxOf(el), 'htmlItalic'
+  endfor
+
+Given mkd;
+_0_
+a
+ _1 _b
+c
+ _2_
+d
+e_3_f g _4 _h i _5_ j k_ 6_ l
+m_ 7 _n o _\_8\__ p
+_ q _ r s __ t _
+u
+_
+v
+
+Execute (ast_italic):
+  for el in ['0', '1', '2', '3', '4', '5', '6', '7', '8']
+    AssertEqual SyntaxOf(el), 'htmlItalic'
+  endfor
+  for el in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v']
+    AssertNotEqual SyntaxOf(el), 'htmlItalic'
+  endfor
+#Given mkd;
+#a *b* c
+#
+#Execute (italic):
+#  AssertNotEqual SyntaxOf('a'), 'htmlItalic'
+#  AssertEqual SyntaxOf('b'), 'htmlItalic'
+#  AssertNotEqual SyntaxOf('c'), 'htmlItalic'
+

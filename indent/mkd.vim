@@ -3,7 +3,6 @@ let b:did_indent = 1
 
 setlocal indentexpr=GetMkdIndent()
 setlocal nolisp
-setlocal nosmartindent
 setlocal autoindent
 
 " Only define the function once

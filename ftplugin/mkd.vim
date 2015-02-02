@@ -318,7 +318,7 @@ function! s:Markdown_Toc(...)
     else
         lopen
     endif
-    set modifiable
+    setlocal modifiable
     for i in range(1, line('$'))
         " this is the location-list data for the current item
         let d = getloclist(0)[i-1]
@@ -338,8 +338,8 @@ function! s:Markdown_Toc(...)
         endif
         call setline(i, repeat('  ', l:level). d.text)
     endfor
-    set nomodified
-    set nomodifiable
+    setlocal nomodified
+    setlocal nomodifiable
     normal! gg
 endfunction
 

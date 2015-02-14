@@ -302,7 +302,7 @@ function! s:Markdown_Toc(...)
     endif
 
     try
-        silent lvimgrep /\(^\S.*\(\n[=-]\+\n\)\@=\|^#\+\)/ %
+        silent lvimgrep /\(^\S.*\(\n[=-]\+\n\)\@=\|^#\+\)/j %
     catch /E480/
         echom "Toc: No headers."
         return

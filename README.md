@@ -1,4 +1,4 @@
-# Markdown Vim Mode
+# Vim Markdown
 
 [![Build Status](https://travis-ci.org/plasticboy/vim-markdown.svg)](https://travis-ci.org/plasticboy/vim-markdown)
 

@@ -97,12 +97,33 @@ let g:vim_markdown_frontmatter=1
 
 The following work on normal and visual modes:
 
-- `]]`: go to next header. `<Plug>(Markdown_MoveToNextHeader)`
-- `[[`: go to previous header. Contrast with `]c`. `<Plug>(Markdown_MoveToPreviousHeader)`
-- `][`: go to next sibling header if any. `<Plug>(Markdown_MoveToNextSiblingHeader)`
-- `[]`: go to previous sibling header if any. `<Plug>(Markdown_MoveToPreviousSiblingHeader)`
-- `]c`: go to Current header. `<Plug>(Markdown_MoveToCurHeader)`
-- `]u`: go to parent header (Up). `<Plug>(Markdown_MoveToParentHeader)`
+-   `gx`: open the link under the cursor in the same browser as the standard `gx` command.
+
+    The standard `gx` is extended by allowing you to put your cursor anywhere inside a link.
+
+    For example, all the following cursor positions will work:
+
+        [Example](http://example.com)
+        ^  ^    ^^   ^       ^
+        1  2    34   5       6
+
+        <http://example.com>
+        ^  ^               ^
+        1  2               3
+
+    Known limitation: does not work for links that span multiple lines.
+
+-   `]]`: go to next header. `<Plug>(Markdown_MoveToNextHeader)`
+
+-   `[[`: go to previous header. Contrast with `]c`. `<Plug>(Markdown_MoveToPreviousHeader)`
+
+-   `][`: go to next sibling header if any. `<Plug>(Markdown_MoveToNextSiblingHeader)`
+
+-   `[]`: go to previous sibling header if any. `<Plug>(Markdown_MoveToPreviousSiblingHeader)`
+
+-   `]c`: go to Current header. `<Plug>(Markdown_MoveToCurHeader)`
+
+-   `]u`: go to parent header (Up). `<Plug>(Markdown_MoveToParentHeader)`
 
 ## Commands
 

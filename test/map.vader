@@ -60,3 +60,16 @@ Execute (]c):
   AssertEqual line('.'), 3
   normal ]c
   AssertEqual line('.'), 1
+
+Given mkd;
+# a
+
+Execute (Toc does not set nomodifiable on other files):
+  " Sanity check.
+  Assert &modifiable
+
+  :Toc
+  :lclose
+  :edit a
+
+  Assert &modifiable

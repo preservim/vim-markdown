@@ -49,13 +49,15 @@ tar --strip=1 -zxf vim-markdown-master.tar.gz
 
 ### Disable Folding
 
-Add the following line to your `.vimrc` to disable folding configuration.
+Add the following line to your `.vimrc` to disable the folding configuration:
 
 ```vim
 let g:vim_markdown_folding_disabled=1
 ```
 
-This option only controls vim_markdown's folding configuration. To enable/disable folding use Vim's folding configuration.
+This option only controls Vim Markdown specific folding configuration.
+
+To enable/disable folding use Vim's standard folding configuration.
 
 ```vim
 set [no]foldenable
@@ -63,11 +65,13 @@ set [no]foldenable
 
 ### Disable Default Key Mappings
 
-Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings.
+Add the following line to your `.vimrc` to disable default key mappings:
 
 ```vim
 let g:vim_markdown_no_default_key_mappings=1
 ```
+
+You can also map them by yourself with `<Plug>` mappings.
 
 ### Syntax extensions
 
@@ -102,7 +106,7 @@ The following work on normal and visual modes:
 
 ## Commands
 
-- `:HeaderDecrease`:
+-   `:HeaderDecrease`:
 
     Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.
 
@@ -112,30 +116,30 @@ The following work on normal and visual modes:
 
     For simplicity of implementation, Setex headers are converted to Atx.
 
-- `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
+-   `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
 
-- `:SetexToAtx`:
+-   `:SetexToAtx`:
 
     Convert all Setex style headers in buffer to Atx.
 
     If a range is given, e.g. hit `:` from visual mode, only operate on the range.
 
-- `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
+-   `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
 
     Requires [Tabular](https://github.com/godlygeek/tabular).
 
     The input table *must* already have a separator line as the second line of the table.
     That line only needs to contain the correct pipes `|`, nothing else is required.
 
-- `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
+-   `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
 
     Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.
 
-- `:Toch`: Same as `:Toc` but in an horizontal window.
+-   `:Toch`: Same as `:Toc` but in an horizontal window.
 
-- `:Toct`: Same as `:Toc` but in a new tab.
+-   `:Toct`: Same as `:Toc` but in a new tab.
 
-- `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
+-   `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
 
 ## Credits
 

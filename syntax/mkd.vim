@@ -104,7 +104,7 @@ endif
 " YAML frontmatter
 if get(g:, 'vim_markdown_frontmatter', 0)
   syn include @yamlTop syntax/yaml.vim
-  syn region Comment matchgroup=mkdDelimiter start="\%^---$" end="^---$" contains=@yamlTop
+  syn region Comment matchgroup=mkdDelimiter start="\%^\(---\|+++\)$" end="^\(---\|+++\)$" contains=@yamlTop
 endif
 
 syn cluster mkdNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdIndentCode,mkdListItem,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath

@@ -505,31 +505,29 @@ function! s:OpenUrlUnderCursor()
     endif
 endfunction
 
-call <sid>MapNormVis('<Plug>(Markdown_MoveToNextHeader)', '<sid>Markdown_MoveToNextHeader')
-call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousHeader)', '<sid>Markdown_MoveToPreviousHeader')
-call <sid>MapNormVis('<Plug>(Markdown_MoveToNextSiblingHeader)', '<sid>Markdown_MoveToNextSiblingHeader')
-call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousSiblingHeader)', '<sid>Markdown_MoveToPreviousSiblingHeader')
-" Menmonic: Up
-call <sid>MapNormVis('<Plug>(Markdown_MoveToParentHeader)', '<sid>Markdown_MoveToParentHeader')
-" Menmonic: Current
-call <sid>MapNormVis('<Plug>(Markdown_MoveToCurHeader)', '<sid>Markdown_MoveToCurHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToNextHeader', '<sid>Markdown_MoveToNextHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousHeader', '<sid>Markdown_MoveToPreviousHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToNextSiblingHeader', '<sid>Markdown_MoveToNextSiblingHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousSiblingHeader', '<sid>Markdown_MoveToPreviousSiblingHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToParentHeader', '<sid>Markdown_MoveToParentHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToCurHeader', '<sid>Markdown_MoveToCurHeader')
 nnoremap <Plug>(OpenUrlUnderCursor) :call <sid>OpenUrlUnderCursor()<cr>
 
 if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
-    nmap <buffer> ]] <Plug>(Markdown_MoveToNextHeader)
-    nmap <buffer> [[ <Plug>(Markdown_MoveToPreviousHeader)
-    nmap <buffer> ][ <Plug>(Markdown_MoveToNextSiblingHeader)
-    nmap <buffer> [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
-    nmap <buffer> ]u <Plug>(Markdown_MoveToParentHeader)
-    nmap <buffer> ]c <Plug>(Markdown_MoveToCurHeader)
-    nmap <buffer> gx <Plug>(OpenUrlUnderCursor)
+    nmap <buffer> ]] <Plug>Markdown_MoveToNextHeader
+    nmap <buffer> [[ <Plug>Markdown_MoveToPreviousHeader
+    nmap <buffer> ][ <Plug>Markdown_MoveToNextSiblingHeader
+    nmap <buffer> [] <Plug>Markdown_MoveToPreviousSiblingHeader
+    nmap <buffer> ]u <Plug>Markdown_MoveToParentHeader
+    nmap <buffer> ]c <Plug>Markdown_MoveToCurHeader
+    nmap <buffer> gx <Plug>OpenUrlUnderCursor
 
-    vmap <buffer> ]] <Plug>(Markdown_MoveToNextHeader)
-    vmap <buffer> [[ <Plug>(Markdown_MoveToPreviousHeader)
-    vmap <buffer> ][ <Plug>(Markdown_MoveToNextSiblingHeader)
-    vmap <buffer> [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
-    vmap <buffer> ]u <Plug>(Markdown_MoveToParentHeader)
-    vmap <buffer> ]c <Plug>(Markdown_MoveToCurHeader)
+    vmap <buffer> ]] <Plug>Markdown_MoveToNextHeader
+    vmap <buffer> [[ <Plug>Markdown_MoveToPreviousHeader
+    vmap <buffer> ][ <Plug>Markdown_MoveToNextSiblingHeader
+    vmap <buffer> [] <Plug>Markdown_MoveToPreviousSiblingHeader
+    vmap <buffer> ]u <Plug>Markdown_MoveToParentHeader
+    vmap <buffer> ]c <Plug>Markdown_MoveToCurHeader
 endif
 
 command! -buffer -range=% HeaderDecrease call s:HeaderDecrease(<line1>, <line2>)

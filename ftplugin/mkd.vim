@@ -12,7 +12,7 @@
 "
 "    - move the cursor. All other functions do not move the cursor.
 "
-" This is how you should view headers:
+" This is how you should view headers for the header mappings:
 "
 "   |BUFFER
 "   |
@@ -46,6 +46,7 @@
 " e-+
 
 " For each level, contains the regexp that matches at that level only.
+"
 let s:levelRegexpDict = {
     \ 1: '\v^(#[^#]@=|.+\n\=+$)',
     \ 2: '\v^(##[^#]@=|.+\n-+$)',
@@ -69,7 +70,7 @@ let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
 "
 " @param a:1 The line to look the header of. Default value: `getpos('.')`.
 "
-function! s:Markdown_GetHeaderLineNum(...)
+function! s:GetHeaderLineNum(...)
     if a:0 == 0
         let l:l = line('.')
     else
@@ -84,15 +85,15 @@ function! s:Markdown_GetHeaderLineNum(...)
     return 0
 endfunction
 
-" - if inside a header goes to it.
+" -  if inside a header goes to it.
 "    Return its line number.
 "
-" - if on top level outside any headers,
+" -  if on top level outside any headers,
 "    print a warning
 "    Return `0`.
 "
-function! s:Markdown_MoveToCurHeader()
-    let l:lineNum = s:Markdown_GetHeaderLineNum()
+function! s:MoveToCurHeader()
+    let l:lineNum = s:GetHeaderLineNum()
     if l:lineNum != 0
         call cursor(l:lineNum, 1)
     else
@@ -106,7 +107,7 @@ endfunction
 "
 " If there are no more headers, print a warning.
 "
-function! s:Markdown_MoveToNextHeader()
+function! s:MoveToNextHeader()
     if search(s:headersRegexp, 'W') == 0
         "normal! G
         echo 'no next header'
@@ -117,13 +118,13 @@ endfunction
 "
 " If it does not exist, print a warning.
 "
-function! s:Markdown_MoveToPreviousHeader()
-    let l:curHeaderLineNumber = s:Markdown_GetHeaderLineNum()
+function! s:MoveToPreviousHeader()
+    let l:curHeaderLineNumber = s:GetHeaderLineNum()
     let l:noPreviousHeader = 0
     if l:curHeaderLineNumber <= 1
         let l:noPreviousHeader = 1
     else
-        let l:previousHeaderLineNumber = s:Markdown_GetHeaderLineNum(l:curHeaderLineNumber - 1)
+        let l:previousHeaderLineNumber = s:GetHeaderLineNum(l:curHeaderLineNumber - 1)
         if l:previousHeaderLineNumber == 0
             let l:noPreviousHeader = 1
         else
@@ -139,15 +140,15 @@ endfunction
 "
 " - if line is at top level outside any headers, return `0`.
 "
-function! s:Markdown_GetHeaderLevel(...)
+function! s:GetHeaderLevel(...)
     if a:0 == 0
         let l:line = line('.')
     else
         let l:line = a:1
     endif
-    let l:linenum = s:Markdown_GetHeaderLineNum(l:line)
+    let l:linenum = s:GetHeaderLineNum(l:line)
     if l:linenum != 0
-        return s:Markdown_GetLevelOfHeaderAtLine(l:linenum)
+        return s:GetLevelOfHeaderAtLine(l:linenum)
     else
         return 0
     endif
@@ -157,7 +158,7 @@ endfunction
 "
 " If there is no header at the given line, returns `0`.
 "
-function! s:Markdown_GetLevelOfHeaderAtLine(linenum)
+function! s:GetLevelOfHeaderAtLine(linenum)
     let l:lines = join(getline(a:linenum, a:linenum + 1), "\n")
     for l:key in keys(s:levelRegexpDict)
         if l:lines =~ get(s:levelRegexpDict, l:key)
@@ -171,8 +172,8 @@ endfunction
 "
 " If it does not exit, print a warning and do nothing.
 "
-function! s:Markdown_MoveToParentHeader()
-    let l:linenum = s:Markdown_GetParentHeaderLineNumber()
+function! s:MoveToParentHeader()
+    let l:linenum = s:GetParentHeaderLineNumber()
     if l:linenum != 0
         call cursor(l:linenum, 1)
     else
@@ -184,15 +185,15 @@ endfunction
 "
 " If it has no parent, return `0`.
 "
-function! s:Markdown_GetParentHeaderLineNumber(...)
+function! s:GetParentHeaderLineNumber(...)
     if a:0 == 0
         let l:line = line('.')
     else
         let l:line = a:1
     endif
-    let l:level = s:Markdown_GetHeaderLevel(l:line)
+    let l:level = s:GetHeaderLevel(l:line)
     if l:level > 1
-        let l:linenum = s:Markdown_GetPreviousHeaderLineNumberAtLevel(l:level - 1, l:line)
+        let l:linenum = s:GetPreviousHeaderLineNumberAtLevel(l:level - 1, l:line)
         return l:linenum
     endif
     return 0
@@ -205,7 +206,7 @@ endfunction
 "
 " If none return 0.
 "
-function! s:Markdown_GetNextHeaderLineNumberAtLevel(level, ...)
+function! s:GetNextHeaderLineNumberAtLevel(level, ...)
     if a:0 < 1
         let l:line = line('.')
     else
@@ -228,7 +229,7 @@ endfunction
 "
 " If none return 0.
 "
-function! s:Markdown_GetPreviousHeaderLineNumberAtLevel(level, ...)
+function! s:GetPreviousHeaderLineNumberAtLevel(level, ...)
     if a:0 == 0
         let l:line = line('.')
     else
@@ -248,16 +249,16 @@ endfunction
 "
 " If there is no next siblings, print a warning and don't move.
 "
-function! s:Markdown_MoveToNextSiblingHeader()
-    let l:curHeaderLineNumber = s:Markdown_GetHeaderLineNum()
-    let l:curHeaderLevel = s:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
-    let l:curHeaderParentLineNumber = s:Markdown_GetParentHeaderLineNumber()
-    let l:nextHeaderSameLevelLineNumber = s:Markdown_GetNextHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber + 1)
+function! s:MoveToNextSiblingHeader()
+    let l:curHeaderLineNumber = s:GetHeaderLineNum()
+    let l:curHeaderLevel = s:GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
+    let l:curHeaderParentLineNumber = s:GetParentHeaderLineNumber()
+    let l:nextHeaderSameLevelLineNumber = s:GetNextHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber + 1)
     let l:noNextSibling = 0
     if l:nextHeaderSameLevelLineNumber == 0
         let l:noNextSibling = 1
     else
-        let l:nextHeaderSameLevelParentLineNumber = s:Markdown_GetParentHeaderLineNumber(l:nextHeaderSameLevelLineNumber)
+        let l:nextHeaderSameLevelParentLineNumber = s:GetParentHeaderLineNumber(l:nextHeaderSameLevelLineNumber)
         if l:curHeaderParentLineNumber == l:nextHeaderSameLevelParentLineNumber
             call cursor(l:nextHeaderSameLevelLineNumber, 1)
         else
@@ -273,16 +274,16 @@ endfunction
 "
 " If there is no previous siblings, print a warning and do nothing.
 "
-function! s:Markdown_MoveToPreviousSiblingHeader()
-    let l:curHeaderLineNumber = s:Markdown_GetHeaderLineNum()
-    let l:curHeaderLevel = s:Markdown_GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
-    let l:curHeaderParentLineNumber = s:Markdown_GetParentHeaderLineNumber()
-    let l:previousHeaderSameLevelLineNumber = s:Markdown_GetPreviousHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber - 1)
+function! s:MoveToPreviousSiblingHeader()
+    let l:curHeaderLineNumber = s:GetHeaderLineNum()
+    let l:curHeaderLevel = s:GetLevelOfHeaderAtLine(l:curHeaderLineNumber)
+    let l:curHeaderParentLineNumber = s:GetParentHeaderLineNumber()
+    let l:previousHeaderSameLevelLineNumber = s:GetPreviousHeaderLineNumberAtLevel(l:curHeaderLevel, l:curHeaderLineNumber - 1)
     let l:noPreviousSibling = 0
     if l:previousHeaderSameLevelLineNumber == 0
         let l:noPreviousSibling = 1
     else
-        let l:previousHeaderSameLevelParentLineNumber = s:Markdown_GetParentHeaderLineNumber(l:previousHeaderSameLevelLineNumber)
+        let l:previousHeaderSameLevelParentLineNumber = s:GetParentHeaderLineNumber(l:previousHeaderSameLevelLineNumber)
         if l:curHeaderParentLineNumber == l:previousHeaderSameLevelParentLineNumber
             call cursor(l:previousHeaderSameLevelLineNumber, 1)
         else
@@ -294,7 +295,7 @@ function! s:Markdown_MoveToPreviousSiblingHeader()
     endif
 endfunction
 
-function! s:Markdown_Toc(...)
+function! s:Toc(...)
     if a:0 > 0
         let l:window_type = a:1
     else
@@ -343,22 +344,10 @@ function! s:Markdown_Toc(...)
     normal! gg
 endfunction
 
-" Wrapper to do move commands in visual mode.
-"
-function! s:VisMove(f)
-    norm! gv
-    call function(a:f)()
-endfunction
-
-" Map in both normal and visual modes.
-"
-function! s:MapNormVis(rhs,lhs)
-    execute 'nn <buffer><silent> ' . a:rhs . ' :call ' . a:lhs . '()<cr>'
-    execute 'vn <buffer><silent> ' . a:rhs . ' <esc>:call <sid>VisMove(''' . a:lhs . ''')<cr>'
-endfunction
-
 " Convert Setex headers in range `line1 .. line2` to Atx.
-" Returns the number of conversions.
+"
+" Return the number of conversions.
+"
 function! s:SetexToAtx(line1, line2)
     let l:originalNumLines = line('$')
     execute 'silent! ' . a:line1 . ',' . a:line2 . 'substitute/\v(.*\S.*)\n\=+$/# \1/'
@@ -367,7 +356,9 @@ function! s:SetexToAtx(line1, line2)
 endfunction
 
 " If `a:1` is 0, decrease the level of all headers in range `line1 .. line2`.
+"
 " Otherwise, increase the level. `a:1` defaults to `0`.
+"
 function! s:HeaderDecrease(line1, line2, ...)
     if a:0 > 0
         let l:increase = a:1
@@ -396,19 +387,35 @@ function! s:HeaderDecrease(line1, line2, ...)
 endfunction
 
 " Format table under cursor.
+"
 " Depends on Tabularize.
+"
 function! s:TableFormat()
-  let l:pos = getpos('.')
-  normal! {
-  " Search instead of `normal! j` because of the table at beginning of file edge case.
-  call search('|')
-  normal! j
-  " Remove everything that is not a pipe othewise well formated tables would grow
-  " because of addition of 2 spaces on the separator line by Tabularize /|.
-  s/[^|]//g
-  Tabularize /|
-  s/ /-/g
-  call setpos('.', l:pos)
+    let l:pos = getpos('.')
+    normal! {
+    " Search instead of `normal! j` because of the table at beginning of file edge case.
+    call search('|')
+    normal! j
+    " Remove everything that is not a pipe othewise well formated tables would grow
+    " because of addition of 2 spaces on the separator line by Tabularize /|.
+    s/[^|]//g
+    Tabularize /|
+    s/ /-/g
+    call setpos('.', l:pos)
+endfunction
+
+" Wrapper to do move commands in visual mode.
+"
+function! s:VisMove(f)
+    norm! gv
+    call function(a:f)()
+endfunction
+
+" Map in both normal and visual modes.
+"
+function! s:MapNormVis(rhs,lhs)
+    execute 'nn <buffer><silent> ' . a:rhs . ' :call ' . a:lhs . '()<cr>'
+    execute 'vn <buffer><silent> ' . a:rhs . ' <esc>:call <sid>VisMove(''' . a:lhs . ''')<cr>'
 endfunction
 
 " Parameters:
@@ -505,13 +512,13 @@ function! s:OpenUrlUnderCursor()
     endif
 endfunction
 
-call <sid>MapNormVis('<Plug>Markdown_MoveToNextHeader', '<sid>Markdown_MoveToNextHeader')
-call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousHeader', '<sid>Markdown_MoveToPreviousHeader')
-call <sid>MapNormVis('<Plug>Markdown_MoveToNextSiblingHeader', '<sid>Markdown_MoveToNextSiblingHeader')
-call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousSiblingHeader', '<sid>Markdown_MoveToPreviousSiblingHeader')
-call <sid>MapNormVis('<Plug>Markdown_MoveToParentHeader', '<sid>Markdown_MoveToParentHeader')
-call <sid>MapNormVis('<Plug>Markdown_MoveToCurHeader', '<sid>Markdown_MoveToCurHeader')
-nnoremap <Plug>(OpenUrlUnderCursor) :call <sid>OpenUrlUnderCursor()<cr>
+call <sid>MapNormVis('<Plug>Markdown_MoveToNextHeader', '<sid>MoveToNextHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousHeader', '<sid>MoveToPreviousHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToNextSiblingHeader', '<sid>MoveToNextSiblingHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousSiblingHeader', '<sid>MoveToPreviousSiblingHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToParentHeader', '<sid>MoveToParentHeader')
+call <sid>MapNormVis('<Plug>Markdown_MoveToCurHeader', '<sid>MoveToCurHeader')
+nnoremap <Plug>Markdown_OpenUrlUnderCursor :call <sid>OpenUrlUnderCursor()<cr>
 
 if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     nmap <buffer> ]] <Plug>Markdown_MoveToNextHeader
@@ -520,7 +527,7 @@ if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     nmap <buffer> [] <Plug>Markdown_MoveToPreviousSiblingHeader
     nmap <buffer> ]u <Plug>Markdown_MoveToParentHeader
     nmap <buffer> ]c <Plug>Markdown_MoveToCurHeader
-    nmap <buffer> gx <Plug>OpenUrlUnderCursor
+    nmap <buffer> gx <Plug>Markdown_OpenUrlUnderCursor
 
     vmap <buffer> ]] <Plug>Markdown_MoveToNextHeader
     vmap <buffer> [[ <Plug>Markdown_MoveToPreviousHeader
@@ -534,7 +541,7 @@ command! -buffer -range=% HeaderDecrease call s:HeaderDecrease(<line1>, <line2>)
 command! -buffer -range=% HeaderIncrease call s:HeaderDecrease(<line1>, <line2>, 1)
 command! -buffer -range=% SetexToAtx call s:SetexToAtx(<line1>, <line2>)
 command! -buffer TableFormat call s:TableFormat()
-command! -buffer Toc call s:Markdown_Toc()
-command! -buffer Toch call s:Markdown_Toc('horizontal')
-command! -buffer Tocv call s:Markdown_Toc('vertical')
-command! -buffer Toct call s:Markdown_Toc('tab')
+command! -buffer Toc call s:Toc()
+command! -buffer Toch call s:Toc('horizontal')
+command! -buffer Tocv call s:Toc('vertical')
+command! -buffer Toct call s:Toc('tab')

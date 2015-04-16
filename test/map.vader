@@ -1,4 +1,52 @@
 Given mkd;
+a <http://b> c
+
+Execute (gx autolink):
+  let b:url = 'http://b'
+  let b:line = getline(1)
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'a') + 1), ''
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, '<') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'h') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, '>') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'c') + 1), ''
+
+Given mkd;
+a http://b.bb c
+
+Execute (gx implicit autolink):
+  let b:url = 'http://b.bb'
+  let b:line = getline(1)
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'a') + 1), ''
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'h') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'c') + 1), ''
+
+Given mkd;
+[a]: http://b "c"
+
+Execute (gx link reference definition):
+  let b:url = 'http://b'
+  let b:line = getline(1)
+  " TODO would be cool if all of the following gave the link.
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'a') + 1), ''
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'h') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'c') + 1), ''
+
+Given mkd;
+a [b](c) d
+
+Execute (gx autolink):
+  let b:url = 'c'
+  let b:line = getline(1)
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'a') + 1), ''
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, '[') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'b') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, ']') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, '(') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'c') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, ')') + 1), b:url
+  AssertEqual b:Markdown_GetUrlForPosition(1, match(b:line, 'd') + 1), ''
+
+Given mkd;
 # a
 
 b

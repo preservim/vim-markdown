@@ -411,6 +411,100 @@ function! s:TableFormat()
   call setpos('.', l:pos)
 endfunction
 
+" Parameters:
+"
+" - step +1 for right, -1 for left
+"
+" TODO: multiple lines.
+"
+function! s:FindCornerOfSyntax(lnum, col, step)
+    let l:col = a:col
+    let l:syn = synIDattr(synID(a:lnum, l:col, 1), 'name')
+    while synIDattr(synID(a:lnum, l:col, 1), 'name') ==# l:syn
+        let l:col += a:step
+    endwhile
+    return l:col - a:step
+endfunction
+
+" Return the next position of the given syntax name,
+" inclusive on the given position.
+"
+" TODO: multiple lines
+"
+function! s:FindNextSyntax(lnum, col, name)
+    let l:col = a:col
+    let l:step = 1
+    while synIDattr(synID(a:lnum, l:col, 1), 'name') !=# a:name
+        let l:col += l:step
+    endwhile
+    return [a:lnum, l:col]
+endfunction
+
+function! s:FindCornersOfSyntax(lnum, col)
+    return [<sid>FindLeftOfSyntax(a:lnum, a:col), <sid>FindRightOfSyntax(a:lnum, a:col)]
+endfunction
+
+function! s:FindRightOfSyntax(lnum, col)
+    return <sid>FindCornerOfSyntax(a:lnum, a:col, 1)
+endfunction
+
+function! s:FindLeftOfSyntax(lnum, col)
+    return <sid>FindCornerOfSyntax(a:lnum, a:col, -1)
+endfunction
+
+" Returns:
+"
+" - a string with the the URL for the link under the cursor
+" - an empty string if the cursor is not on a link
+"
+" `b:` instead of `s:` to make it testable.
+"
+" TODO
+"
+" - multiline support
+" - give an error if the separator does is not on a link
+"
+function! b:Markdown_GetUrlForPosition(lnum, col)
+    let l:lnum = a:lnum
+    let l:col = a:col
+    let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')
+
+    if l:syn ==# 'mkdInlineURL' || l:syn ==# 'mkdURL' || l:syn ==# 'mkdLinkDefTarget'
+        " Do nothing.
+    elseif l:syn ==# 'mkdLink'
+        let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')
+        let l:syn = 'mkdURL'
+    elseif l:syn ==# 'mkdDelimiter'
+        let l:line = getline(l:lnum)
+        let l:char = l:line[col - 1]
+        if l:char ==# '<'
+            let l:col += 1
+        elseif l:char ==# '>' || l:char ==# ')'
+            let l:col -= 1
+        elseif l:char ==# '[' || l:char ==# ']' || l:char ==# '('
+            let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')
+        else
+            return ''
+        endif
+    else
+        return ''
+    endif
+
+    let [l:left, l:right] = <sid>FindCornersOfSyntax(l:lnum, l:col)
+    return getline(l:lnum)[l:left - 1 : l:right - 1]
+endfunction
+
+" Front end for GetUrlForPosition.
+"
+function! s:OpenUrlUnderCursor()
+    let l:url = b:Markdown_GetUrlForPosition(line('.'), col('.'))
+    if l:url != ''
+        call netrw#NetrwBrowseX(l:url, 0)
+    else
+        echomsg 'The cursor is not on a link.'
+    endif
+endfunction
+
 call <sid>MapNormVis('<Plug>(Markdown_MoveToNextHeader)', '<sid>Markdown_MoveToNextHeader')
 call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousHeader)', '<sid>Markdown_MoveToPreviousHeader')
 call <sid>MapNormVis('<Plug>(Markdown_MoveToNextSiblingHeader)', '<sid>Markdown_MoveToNextSiblingHeader')
@@ -419,6 +513,7 @@ call <sid>MapNormVis('<Plug>(Markdown_MoveToPreviousSiblingHeader)', '<sid>Markd
 call <sid>MapNormVis('<Plug>(Markdown_MoveToParentHeader)', '<sid>Markdown_MoveToParentHeader')
 " Menmonic: Current
 call <sid>MapNormVis('<Plug>(Markdown_MoveToCurHeader)', '<sid>Markdown_MoveToCurHeader')
+nnoremap <Plug>(OpenUrlUnderCursor) :call <sid>OpenUrlUnderCursor()<cr>
 
 if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     nmap <buffer> ]] <Plug>(Markdown_MoveToNextHeader)
@@ -427,6 +522,7 @@ if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     nmap <buffer> [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
     nmap <buffer> ]u <Plug>(Markdown_MoveToParentHeader)
     nmap <buffer> ]c <Plug>(Markdown_MoveToCurHeader)
+    nmap <buffer> gx <Plug>(OpenUrlUnderCursor)
 
     vmap <buffer> ]] <Plug>(Markdown_MoveToNextHeader)
     vmap <buffer> [[ <Plug>(Markdown_MoveToPreviousHeader)

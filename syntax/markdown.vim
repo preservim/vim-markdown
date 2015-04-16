@@ -44,19 +44,19 @@ syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" 
 
 " [link](URL) | [link][id] | [link][]
 syn region markdownFootnotes matchgroup=markdownDelimiter start="\[^"    end="\]"
-syn region markdownID matchgroup=markdownDelimiter        start="\["    end="\]" contained oneline
-syn region markdownURL matchgroup=markdownDelimiter       start="("     end=")"  contained oneline
-syn region markdownLink matchgroup=markdownDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=markdownURL,markdownID skipwhite oneline
+syn region markdownId matchgroup=markdownDelimiter        start="\["    end="\]" contained oneline
+syn region markdownUrl matchgroup=markdownDelimiter       start="("     end=")"  contained oneline
+syn region markdownLink matchgroup=markdownDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=markdownUrl,markdownId skipwhite oneline
 
 " Autolink without angle brackets.
 " markdown  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment
 "                            ------------ _____________________ --------------------------- ________________________ ----------------- __
-syntax match   markdownInlineURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
+syntax match   markdownInlineUrl /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
 
 " Autolink with angle brackets.
-syn region markdownInlineURL matchgroup=markdownDelimiter start="\\\@<!<\(\(coap\|doi\|javascript\|aaa\|aaas\|about\|acap\|cap\|cid\|crid\|data\|dav\|dict\|dns\|file\|ftp\|geo\|go\|gopher\|h323\|http\|https\|iax\|icap\|im\|imap\|info\|ipp\|iris\|iris.beep\|iris.xpc\|iris.xpcs\|iris.lwz\|ldap\|mailto\|mid\|msrp\|msrps\|mtqp\|mupdate\|news\|nfs\|ni\|nih\|nntp\|opaquelocktoken\|pop\|pres\|rtsp\|service\|session\|shttp\|sieve\|sip\|sips\|sms\|snmp,soap.beep\|soap.beeps\|tag\|tel\|telnet\|tftp\|thismessage\|tn3270\|tip\|tv\|urn\|vemmi\|ws\|wss\|xcon\|xcon-userid\|xmlrpc.beep\|xmlrpc.beeps\|xmpp\|z39.50r\|z39.50s\|adiumxtra\|afp\|afs\|aim\|apt,attachment\|aw\|beshare\|bitcoin\|bolo\|callto\|chrome,chrome-extension\|com-eventbrite-attendee\|content\|cvs,dlna-playsingle\|dlna-playcontainer\|dtn\|dvb\|ed2k\|facetime\|feed\|finger\|fish\|gg\|git\|gizmoproject\|gtalk\|hcp\|icon\|ipn\|irc\|irc6\|ircs\|itms\|jar\|jms\|keyparc\|lastfm\|ldaps\|magnet\|maps\|market,message\|mms\|ms-help\|msnim\|mumble\|mvn\|notes\|oid\|palm\|paparazzi\|platform\|proxy\|psyc\|query\|res\|resource\|rmi\|rsync\|rtmp\|secondlife\|sftp\|sgn\|skype\|smb\|soldat\|spotify\|ssh\|steam\|svn\|teamspeak\|things\|udp\|unreal\|ut2004\|ventrilo\|view-source\|webcal\|wtai\|wyciwyg\|xfire\|xri\|ymsgr\):\/\/[^> ]*>\)\@=" end=">"
+syn region markdownInlineUrl matchgroup=markdownDelimiter start="\\\@<!<\(\(coap\|doi\|javascript\|aaa\|aaas\|about\|acap\|cap\|cid\|crid\|data\|dav\|dict\|dns\|file\|ftp\|geo\|go\|gopher\|h323\|http\|https\|iax\|icap\|im\|imap\|info\|ipp\|iris\|iris.beep\|iris.xpc\|iris.xpcs\|iris.lwz\|ldap\|mailto\|mid\|msrp\|msrps\|mtqp\|mupdate\|news\|nfs\|ni\|nih\|nntp\|opaquelocktoken\|pop\|pres\|rtsp\|service\|session\|shttp\|sieve\|sip\|sips\|sms\|snmp,soap.beep\|soap.beeps\|tag\|tel\|telnet\|tftp\|thismessage\|tn3270\|tip\|tv\|urn\|vemmi\|ws\|wss\|xcon\|xcon-userid\|xmlrpc.beep\|xmlrpc.beeps\|xmpp\|z39.50r\|z39.50s\|adiumxtra\|afp\|afs\|aim\|apt,attachment\|aw\|beshare\|bitcoin\|bolo\|callto\|chrome,chrome-extension\|com-eventbrite-attendee\|content\|cvs,dlna-playsingle\|dlna-playcontainer\|dtn\|dvb\|ed2k\|facetime\|feed\|finger\|fish\|gg\|git\|gizmoproject\|gtalk\|hcp\|icon\|ipn\|irc\|irc6\|ircs\|itms\|jar\|jms\|keyparc\|lastfm\|ldaps\|magnet\|maps\|market,message\|mms\|ms-help\|msnim\|mumble\|mvn\|notes\|oid\|palm\|paparazzi\|platform\|proxy\|psyc\|query\|res\|resource\|rmi\|rsync\|rtmp\|secondlife\|sftp\|sgn\|skype\|smb\|soldat\|spotify\|ssh\|steam\|svn\|teamspeak\|things\|udp\|unreal\|ut2004\|ventrilo\|view-source\|webcal\|wtai\|wyciwyg\|xfire\|xri\|ymsgr\):\/\/[^> ]*>\)\@=" end=">"
 
-" Link definitions: [id]: URL (Optional Title)
+" Link definitions: [id]: Url (Optional Title)
 syn region markdownLinkDef matchgroup=markdownDelimiter   start="^ \{,3}\zs\[" end="]:" oneline nextgroup=markdownLinkDefTarget skipwhite
 syn region markdownLinkDefTarget start="<\?\zs\S" excludenl end="\ze[>[:space:]\n]"   contained nextgroup=markdownLinkTitle,markdownLinkDef skipwhite skipnl oneline
 syn region markdownLinkTitle matchgroup=markdownDelimiter start=+"+     end=+"+  contained
@@ -107,7 +107,7 @@ if get(g:, 'vim_markdown_frontmatter', 0)
   syn region Comment matchgroup=markdownDelimiter start="\%^---$" end="^---$" contains=@yamlTop
 endif
 
-syn cluster markdownNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,markdownFootnotes,markdownInlineURL,markdownLink,markdownLinkDef,markdownLineBreak,markdownBlockquote,markdownCode,markdownIndentCode,markdownListItem,markdownRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,markdownMath
+syn cluster markdownNonListItem contains=htmlItalic,htmlBold,htmlBoldItalic,markdownFootnotes,markdownInlineUrl,markdownLink,markdownLinkDef,markdownLineBreak,markdownBlockquote,markdownCode,markdownIndentCode,markdownListItem,markdownRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,markdownMath
 
 "highlighting for Markdown groups
 HtmlHiLink markdownString	    String
@@ -121,11 +121,11 @@ HtmlHiLink markdownRule          Identifier
 HtmlHiLink markdownLineBreak     Todo
 HtmlHiLink markdownFootnotes     htmlLink
 HtmlHiLink markdownLink          htmlLink
-HtmlHiLink markdownURL           htmlString
-HtmlHiLink markdownInlineURL     htmlLink
-HtmlHiLink markdownID            Identifier
-HtmlHiLink markdownLinkDef       markdownID
-HtmlHiLink markdownLinkDefTarget markdownURL
+HtmlHiLink markdownUrl           htmlString
+HtmlHiLink markdownInlineUrl     htmlLink
+HtmlHiLink markdownId            Identifier
+HtmlHiLink markdownLinkDef       markdownId
+HtmlHiLink markdownLinkDefTarget markdownUrl
 HtmlHiLink markdownLinkTitle     htmlString
 HtmlHiLink markdownMath          Statement
 HtmlHiLink markdownDelimiter     Delimiter

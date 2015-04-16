@@ -37,7 +37,7 @@ Execute (gx link reference definition):
 Given markdown;
 a [b](c) d
 
-Execute (gx autolink):
+Execute (gx link):
   let b:url = 'c'
   let b:line = getline(1)
   let b:func = Markdown_GetFunc('vim-markdown/ftplugin/mkd.vim', 'Markdown_GetUrlForPosition')

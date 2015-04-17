@@ -4,6 +4,13 @@
 
 Syntax highlighting, matching rules and mappings for [the original Markdown](http://daringfireball.net/projects/markdown/) and extensions.
 
+1. [Installation](#installation)
+1. [Options](#options)
+1. [Mappings](#mappings)
+1. [Commands](#commands)
+1. [Credits](#credits)
+1. [License](#license)
+
 ## Installation
 
 If you use [Vundle](https://github.com/gmarik/vundle), add the following line to your `~/.vimrc`:

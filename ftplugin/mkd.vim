@@ -464,14 +464,14 @@ endfunction
 " - a string with the the URL for the link under the cursor
 " - an empty string if the cursor is not on a link
 "
-" `b:` instead of `s:` to make it testable.
+" `b:` instead of `s:` to make it testable. (Disabled due to issue#194)
 "
 " TODO
 "
 " - multiline support
 " - give an error if the separator does is not on a link
 "
-function! b:Markdown_GetUrlForPosition(lnum, col)
+function! s:Markdown_GetUrlForPosition(lnum, col)
     let l:lnum = a:lnum
     let l:col = a:col
     let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')
@@ -504,7 +504,7 @@ endfunction
 " Front end for GetUrlForPosition.
 "
 function! s:OpenUrlUnderCursor()
-    let l:url = b:Markdown_GetUrlForPosition(line('.'), col('.'))
+    let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
     if l:url != ''
         call netrw#NetrwBrowseX(l:url, 0)
     else

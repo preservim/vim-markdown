@@ -461,17 +461,21 @@ endfunction
 
 " Returns:
 "
-" - a string with the the URL for the link under the cursor
+" - a string with the URL for the link under the cursor
 " - an empty string if the cursor is not on a link
 "
 " `b:` instead of `s:` to make it testable.
+" but breaks 
+" VIM - Vi IMproved 7.4 (2013 Aug 10, compiled Oct 20 2014
+" 16:09:47)
+" Included patches: 1-273
 "
 " TODO
 "
 " - multiline support
 " - give an error if the separator does is not on a link
 "
-function! b:Markdown_GetUrlForPosition(lnum, col)
+function! s:Markdown_GetUrlForPosition(lnum, col)
     let l:lnum = a:lnum
     let l:col = a:col
     let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')

@@ -97,7 +97,7 @@ let g:vim_markdown_frontmatter=1
 
 The following work on normal and visual modes:
 
--   `gx`: open the link under the cursor in the same browser as the standard `gx` command.
+-   `gx`: open the link under the cursor in the same browser as the standard `gx` command. `<Plug>Markdown_OpenUrlUnderCursor`
 
     The standard `gx` is extended by allowing you to put your cursor anywhere inside a link.
 

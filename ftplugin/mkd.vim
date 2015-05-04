@@ -510,6 +510,13 @@ function! s:OpenUrlUnderCursor()
     endif
 endfunction
 
+function! s:MapNotHasmapto(lhs, rhs)
+    if !hasmapto('<Plug>' . a:rhs)
+        execute 'nmap <buffer>' . a:lhs . ' <Plug>' . a:rhs
+        execute 'vmap <buffer>' . a:lhs . ' <Plug>' . a:rhs
+    endif
+endfunction
+
 call <sid>MapNormVis('<Plug>Markdown_MoveToNextHeader', '<sid>MoveToNextHeader')
 call <sid>MapNormVis('<Plug>Markdown_MoveToPreviousHeader', '<sid>MoveToPreviousHeader')
 call <sid>MapNormVis('<Plug>Markdown_MoveToNextSiblingHeader', '<sid>MoveToNextSiblingHeader')
@@ -519,20 +526,13 @@ call <sid>MapNormVis('<Plug>Markdown_MoveToCurHeader', '<sid>MoveToCurHeader')
 nnoremap <Plug>Markdown_OpenUrlUnderCursor :call <sid>OpenUrlUnderCursor()<cr>
 
 if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
-    nmap <buffer> ]] <Plug>Markdown_MoveToNextHeader
-    nmap <buffer> [[ <Plug>Markdown_MoveToPreviousHeader
-    nmap <buffer> ][ <Plug>Markdown_MoveToNextSiblingHeader
-    nmap <buffer> [] <Plug>Markdown_MoveToPreviousSiblingHeader
-    nmap <buffer> ]u <Plug>Markdown_MoveToParentHeader
-    nmap <buffer> ]c <Plug>Markdown_MoveToCurHeader
-    nmap <buffer> gx <Plug>Markdown_OpenUrlUnderCursor
-
-    vmap <buffer> ]] <Plug>Markdown_MoveToNextHeader
-    vmap <buffer> [[ <Plug>Markdown_MoveToPreviousHeader
-    vmap <buffer> ][ <Plug>Markdown_MoveToNextSiblingHeader
-    vmap <buffer> [] <Plug>Markdown_MoveToPreviousSiblingHeader
-    vmap <buffer> ]u <Plug>Markdown_MoveToParentHeader
-    vmap <buffer> ]c <Plug>Markdown_MoveToCurHeader
+    call <sid>MapNotHasmapto(']]', 'Markdown_MoveToNextHeader')
+    call <sid>MapNotHasmapto('[[', 'Markdown_MoveToPreviousHeader')
+    call <sid>MapNotHasmapto('][', 'Markdown_MoveToNextSiblingHeader')
+    call <sid>MapNotHasmapto('[]', 'Markdown_MoveToPreviousSiblingHeader')
+    call <sid>MapNotHasmapto(']u', 'Markdown_MoveToParentHeader')
+    call <sid>MapNotHasmapto(']c', 'Markdown_MoveToCurHeader')
+    call <sid>MapNotHasmapto('gx', 'Markdown_OpenUrlUnderCursor')
 endif
 
 command! -buffer -range=% HeaderDecrease call s:HeaderDecrease(<line1>, <line2>)

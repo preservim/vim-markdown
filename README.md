@@ -125,6 +125,14 @@ The following work on normal and visual modes:
 
 -   `]u`: go to parent header (Up). `<Plug>Markdown_MoveToParentHeader`
 
+This plugging follows the recommended Vim plugin mapping interface, so if you want to change the map `]u` to `asdf`, add to your `.vimrc`:
+
+    map asdf <Plug>Markdown_MoveToParentHeader
+
+To disable a map, use:
+
+    map <Plug> <Plug>Markdown_MoveToParentHeader
+
 ## Commands
 
 -   `:HeaderDecrease`:

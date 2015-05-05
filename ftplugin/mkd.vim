@@ -504,11 +504,19 @@ endfunction
 function! s:OpenUrlUnderCursor()
     let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
     if l:url != ''
-        call netrw#NetrwBrowseX(l:url, 0)
+        call s:VersionAwareNetrwBrowseX(l:url)
     else
         echomsg 'The cursor is not on a link.'
     endif
 endfunction
+
+function! s:VersionAwareNetrwBrowseX(url)
+    if has('patch-7.4.567')
+        call netrw#BrowseX(a:url, 0)
+    else
+        call netrw#NetrwBrowseX(a:url, 0)
+    endif
+endf
 
 function! s:MapNotHasmapto(lhs, rhs)
     if !hasmapto('<Plug>' . a:rhs)

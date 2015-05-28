@@ -1,3 +1,16 @@
 #!/usr/bin/env bash
 
-cd "$( dirname "${BASH_SOURCE[0]}" )" && vim -Nu vimrc -c 'Vader! *' > /dev/null
+# Exit on error.
+set -e
+
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+
+for dep in ../build/tabular ../build/vader.vim; do
+  if [[ ! -d $dep ]]; then
+    echo "Missing dependency: $dep"
+    echo "You may just want to use 'make test'."
+    exit 1
+  fi
+done
+
+vim -Nu vimrc -c 'Vader! *' > /dev/null

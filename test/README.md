@@ -1,7 +1,5 @@
-To run the tests, you must install [Vader](https://github.com/junegunn/vader.vim).
+You can run the tests using the Makefile from the top directory:
 
-Vader and other plugins must be installed in the same directory as this repository.
+    make test
 
-Run the tests with:
-
-    ./run-tests.sh
+To run them manually please refer to the instructions/commands in the Makefile.

@@ -10,7 +10,7 @@ if exists("*GetMkdIndent") | finish | endif
 
 function! s:is_li_start(line)
     return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
-      \    a:line =~ '^\s*[*+-] \+'
+      \    (a:line =~ '^\s*[*+-]\s\+' || a:line =~ '^\s*\d\+\.\s\+')
 endfunction
 
 function! s:is_blank_line(line)
@@ -25,6 +25,18 @@ function! s:prevnonblank(lnum)
     return i
 endfunction
 
+function! s:needs_keeping(lnum)
+    let plnum = prevnonblank(a:lnum - 1)
+    let pline = getline(plnum)
+    if plnum == 0 || a:lnum - plnum != 2
+        return 0
+    elseif s:is_li_start(pline)
+        return 1
+    else
+        return s:needs_keeping(plnum)
+    endif
+endfunction
+
 function GetMkdIndent()
     let list_ind = 4
     " Find a non-blank line above the current line.
@@ -37,10 +49,13 @@ function GetMkdIndent()
     if s:is_li_start(cline) 
         " Current line is the first line of a list item, do not change indent
         return indent(v:lnum)
-    elseif s:is_li_start(line)
-        " Last line is the first line of a list item, increase indent
-        return ind + list_ind
-    else
+    elseif v:lnum - lnum == 1
         return ind
+    elseif v:lnum - lnum == 2 && s:is_li_start(line)
+        return ind + list_ind
+    elseif v:lnum - lnum == 2 && s:needs_keeping(lnum)
+        return ind
+    else
+        return 0
     endif
 endfunction

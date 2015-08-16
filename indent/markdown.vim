@@ -1,12 +1,12 @@
 if exists("b:did_indent") | finish | endif
 let b:did_indent = 1
 
-setlocal indentexpr=GetMkdIndent()
+setlocal indentexpr=GetMarkdownIndent()
 setlocal nolisp
 setlocal autoindent
 
 " Only define the function once
-if exists("*GetMkdIndent") | finish | endif
+if exists("*GetMarkdownIndent") | finish | endif
 
 function! s:is_li_start(line)
     return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
@@ -25,7 +25,7 @@ function! s:prevnonblank(lnum)
     return i
 endfunction
 
-function GetMkdIndent()
+function GetMarkdownIndent()
     let list_ind = 4
     " Find a non-blank line above the current line.
     let lnum = prevnonblank(v:lnum - 1)

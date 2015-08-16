@@ -436,7 +436,10 @@ endfunction
 " Return the next position of the given syntax name,
 " inclusive on the given position.
 "
-" TODO: multiple lines
+" TODO:
+"
+" - multiple lines
+" - deal with not found case
 "
 function! s:FindNextSyntax(lnum, col, name)
     let l:col = a:col
@@ -474,12 +477,12 @@ function! s:Markdown_GetUrlForPosition(lnum, col)
     let l:col = a:col
     let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')
 
-    if l:syn ==# 'mkdInlineURL' || l:syn ==# 'mkdURL' || l:syn ==# 'mkdLinkDefTarget'
+    if l:syn ==# 'markdownInlineUrl' || l:syn ==# 'markdownUrl' || l:syn ==# 'markdownLinkDefTarget'
         " Do nothing.
-    elseif l:syn ==# 'mkdLink'
-        let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')
-        let l:syn = 'mkdURL'
-    elseif l:syn ==# 'mkdDelimiter'
+    elseif l:syn ==# 'markdownLink'
+        let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'markdownUrl')
+        let l:syn = 'markdownUrl'
+    elseif l:syn ==# 'markdownDelimiter'
         let l:line = getline(l:lnum)
         let l:char = l:line[col - 1]
         if l:char ==# '<'
@@ -487,7 +490,7 @@ function! s:Markdown_GetUrlForPosition(lnum, col)
         elseif l:char ==# '>' || l:char ==# ')'
             let l:col -= 1
         elseif l:char ==# '[' || l:char ==# ']' || l:char ==# '('
-            let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')
+            let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'markdownUrl')
         else
             return ''
         endif

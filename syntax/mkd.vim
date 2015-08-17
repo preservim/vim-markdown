@@ -35,12 +35,13 @@ syn case ignore
 syn sync linebreaks=1
 
 "additions to HTML groups
-syn region htmlItalic start="\\\@<!\*\S\@=" end="\S\@<=\\\@<!\*" keepend oneline
-syn region htmlItalic start="\(^\|\s\)\@<=_\|\\\@<!_\([^_]\+\s\)\@=" end="\S\@<=_\|_\S\@=" keepend oneline
-syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend oneline
-syn region htmlBold start="\S\@<=__\|__\S\@=" end="\S\@<=__\|__\S\@=" keepend oneline
-syn region htmlBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend oneline
-syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend oneline
+syn region htmlItalic start="^\*\S\@=\*\@!\|\\\@<!\*\@<!\*\S\@=\*\@!\|\S\@<=\\\@<!\*\@<!\*\*\@!" end="\S\@<=\\\@<!\*\|\\\@<!\*\S\@=\|\\\@<!\*\@<!\S\@<=\*$" keepend contains=@Spell
+syn region htmlBold start="^\*\*\S\@=\*\@!\|\\\@<!\*\@<!\*\*\S\@=\*\@!\|\S\@<=\\\@<!\*\@<!\*\*\*\@!" end="\S\@<=\\\@<!\*\*\|\\\@<!\*\*\S\@=\|\\\@<!\*\@<!\S\@<=\*\*$" keepend contains=@Spell
+syn region htmlBoldItalic start="^\*\*\*\S\@=\*\@!\|\\\@<!\*\@<!\*\*\*\S\@=\*\@!\|\S\@<=\\\@<!\*\@<!\*\*\*\*\@!" end="\S\@<=\\\@<!\*\*\*\|\\\@<!\*\*\*\S\@=\|\\\@<!\*\@<!\S\@<=\*\*\*$" keepend contains=@Spell
+" This is for vanilla. TODO: add an option for GFM
+syn region htmlItalic start="^_\S\@=_\@!\|\\\@<!_\@<!_\S\@=_\@!\|\S\@<=\\\@<!_\@<!__\@!" end="\S\@<=\\\@<!_\|\\\@<!_\S\@=\|\\\@<!\S\@<=_$" keepend contains=@Spell
+syn region htmlBold start="^__\S\@=_\@!\|\\\@<!_\@<!__\S\@=_\@!\|\S\@<=\\\@<!_\@<!___\@!" end="\S\@<=\\\@<!__\|\\\@<!__\S\@=\|\\\@<!\S\@<=__$" keepend contains=@Spell
+syn region htmlBoldItalic start="^___\S\@=_\@!\|\\\@<!_\@<!___\S\@=_\@!\|\S\@<=\\\@<!_\@<!____\@!" end="\S\@<=\\\@<!___\|\\\@<!___\S\@=\|\\\@<!\S\@<=___$" keepend contains=@Spell
 
 " [link](URL) | [link][id] | [link][]
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
@@ -80,11 +81,9 @@ syn match  mkdIndentCode   /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/ containe
 syn match  mkdListItem     "^\s*[-*+]\s\+"
 syn match  mkdListItem     "^\s*\d\+\.\s\+"
 syn region mkdNonListItemBlock start="\n\(\_^\_$\|\s\{4,}[^ ]\|\t+[^\t]\)\@!" end="^\(\s*\([-*+]\|\d\+\.\)\s\+\)\@=" contains=@mkdNonListItem,@Spell
-syn match  mkdRule         /^\s*\*\s\{0,1}\*\s\{0,1}\*$/
-syn match  mkdRule         /^\s*-\s\{0,1}-\s\{0,1}-$/
-syn match  mkdRule         /^\s*_\s\{0,1}_\s\{0,1}_$/
-syn match  mkdRule         /^\s*-\{3,}$/
-syn match  mkdRule         /^\s*\*\{3,5}$/
+syn match  mkdRule         /^\s*\(\*\s*\)\{3,}$/
+syn match  mkdRule         /^\s*\(-\s*\)\{3,}$/
+syn match  mkdRule         /^\s*\(_\s*\)\{3,}$/
 
 "HTML headings
 syn region htmlH1       start="^\s*#"                   end="\($\|#\+\)" contains=@Spell

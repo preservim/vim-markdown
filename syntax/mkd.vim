@@ -138,7 +138,7 @@ setlocal formatoptions-=c
 setlocal comments=b:*,b:+,b:-
 
 " Automatically continue blockquote on line break
-setlocal comments+=b:>
+setlocal comments+=bn:>
 
 let b:current_syntax = "mkd"
 

@@ -17,6 +17,8 @@ func! Foldexpr_markdown(lnum)
 
     let l2 = getline(a:lnum+1)
 
+    let keep_blank = get(g:, "vim_markdown_folding_keepblank", 0)
+
     if  l2 =~ '^==\+\s*'
         " next line is underlined (level 1)
         return '>1'
@@ -29,6 +31,9 @@ func! Foldexpr_markdown(lnum)
     elseif l0 =~ '^#'
         " current line starts with hashes
         return '>'.matchend(l0, '^#\+')
+    elseif keep_blank && l1 =~ '^\s*' && l2 =~ '^#'
+        " last blank line before header
+        return '-1'
     else
         " keep previous foldlevel
         return '='

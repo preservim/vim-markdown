@@ -1,46 +1,46 @@
-Given mkd;
+Given markdown;
 a <http://b> c
 
 Execute (gx autolink):
   let b:url = 'http://b'
   let b:line = getline(1)
-  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/mkd.vim', 'Markdown_GetUrlForPosition')
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_GetUrlForPosition')
   AssertEqual b:func(1, match(b:line, 'a') + 1), ''
   AssertEqual b:func(1, match(b:line, '<') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'h') + 1), b:url
   AssertEqual b:func(1, match(b:line, '>') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'c') + 1), ''
 
-Given mkd;
+Given markdown;
 a http://b.bb c
 
 Execute (gx implicit autolink):
   let b:url = 'http://b.bb'
   let b:line = getline(1)
-  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/mkd.vim', 'Markdown_GetUrlForPosition')
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_GetUrlForPosition')
   AssertEqual b:func(1, match(b:line, 'a') + 1), ''
   AssertEqual b:func(1, match(b:line, 'h') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'c') + 1), ''
 
-Given mkd;
+Given markdown;
 [a]: http://b "c"
 
 Execute (gx link reference definition):
   let b:url = 'http://b'
   let b:line = getline(1)
-  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/mkd.vim', 'Markdown_GetUrlForPosition')
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_GetUrlForPosition')
   " TODO would be cool if all of the following gave the link.
   AssertEqual b:func(1, match(b:line, 'a') + 1), ''
   AssertEqual b:func(1, match(b:line, 'h') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'c') + 1), ''
 
-Given mkd;
+Given markdown;
 a [b](c) d
 
 Execute (gx autolink):
   let b:url = 'c'
   let b:line = getline(1)
-  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/mkd.vim', 'Markdown_GetUrlForPosition')
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_GetUrlForPosition')
   AssertEqual b:func(1, match(b:line, 'a') + 1), ''
   AssertEqual b:func(1, match(b:line, '[') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'b') + 1), b:url
@@ -50,7 +50,7 @@ Execute (gx autolink):
   AssertEqual b:func(1, match(b:line, ')') + 1), b:url
   AssertEqual b:func(1, match(b:line, 'd') + 1), ''
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -66,7 +66,7 @@ Execute (]] same level):
   normal [[
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -82,7 +82,7 @@ Execute (]] different levels level):
   normal [[
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -102,7 +102,7 @@ Execute (][ different levels level):
   normal []
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 b
@@ -113,7 +113,7 @@ Execute (]c):
   normal ]c
   AssertEqual line('.'), 1
 
-Given mkd;
+Given markdown;
 # a
 
 Execute (Toc does not set nomodifiable on other files):

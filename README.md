@@ -1,8 +1,15 @@
-# Markdown Vim Mode
+# Vim Markdown
 
 [![Build Status](https://travis-ci.org/plasticboy/vim-markdown.svg)](https://travis-ci.org/plasticboy/vim-markdown)
 
 Syntax highlighting, matching rules and mappings for [the original Markdown](http://daringfireball.net/projects/markdown/) and extensions.
+
+1. [Installation](#installation)
+1. [Options](#options)
+1. [Mappings](#mappings)
+1. [Commands](#commands)
+1. [Credits](#credits)
+1. [License](#license)
 
 ## Installation
 
@@ -35,7 +42,7 @@ To install without Pathogen using the Debian [vim-addon-manager](http://packages
 git clone https://github.com/plasticboy/vim-markdown.git
 cd vim-markdown
 sudo make install
-vim-addon-manager install mkd
+vim-addon-manager install markdown
 ```
 
 If you are not using any package manager, download the [tarball](https://github.com/plasticboy/vim-markdown/archive/master.tar.gz) and do this:
@@ -49,13 +56,15 @@ tar --strip=1 -zxf vim-markdown-master.tar.gz
 
 ### Disable Folding
 
-Add the following line to your `.vimrc` to disable folding configuration.
+Add the following line to your `.vimrc` to disable the folding configuration:
 
 ```vim
 let g:vim_markdown_folding_disabled=1
 ```
 
-This option only controls vim_markdown's folding configuration. To enable/disable folding use Vim's folding configuration.
+This option only controls Vim Markdown specific folding configuration.
+
+To enable/disable folding use Vim's standard folding configuration.
 
 ```vim
 set [no]foldenable
@@ -63,11 +72,13 @@ set [no]foldenable
 
 ### Disable Default Key Mappings
 
-Add the following line to your `.vimrc` to disable default key mappings. You can map them by yourself with `<Plug>` mappings.
+Add the following line to your `.vimrc` to disable default key mappings:
 
 ```vim
 let g:vim_markdown_no_default_key_mappings=1
 ```
+
+You can also map them by yourself with `<Plug>` mappings.
 
 ### Syntax extensions
 
@@ -93,16 +104,45 @@ let g:vim_markdown_frontmatter=1
 
 The following work on normal and visual modes:
 
-- `]]`: go to next header. `<Plug>(Markdown_MoveToNextHeader)`
-- `[[`: go to previous header. Contrast with `]c`. `<Plug>(Markdown_MoveToPreviousHeader)`
-- `][`: go to next sibling header if any. `<Plug>(Markdown_MoveToNextSiblingHeader)`
-- `[]`: go to previous sibling header if any. `<Plug>(Markdown_MoveToPreviousSiblingHeader)`
-- `]c`: go to Current header. `<Plug>(Markdown_MoveToCurHeader)`
-- `]u`: go to parent header (Up). `<Plug>(Markdown_MoveToParentHeader)`
+-   `gx`: open the link under the cursor in the same browser as the standard `gx` command. `<Plug>Markdown_OpenUrlUnderCursor`
+
+    The standard `gx` is extended by allowing you to put your cursor anywhere inside a link.
+
+    For example, all the following cursor positions will work:
+
+        [Example](http://example.com)
+        ^  ^    ^^   ^       ^
+        1  2    34   5       6
+
+        <http://example.com>
+        ^  ^               ^
+        1  2               3
+
+    Known limitation: does not work for links that span multiple lines.
+
+-   `]]`: go to next header. `<Plug>Markdown_MoveToNextHeader`
+
+-   `[[`: go to previous header. Contrast with `]c`. `<Plug>Markdown_MoveToPreviousHeader`
+
+-   `][`: go to next sibling header if any. `<Plug>Markdown_MoveToNextSiblingHeader`
+
+-   `[]`: go to previous sibling header if any. `<Plug>Markdown_MoveToPreviousSiblingHeader`
+
+-   `]c`: go to Current header. `<Plug>Markdown_MoveToCurHeader`
+
+-   `]u`: go to parent header (Up). `<Plug>Markdown_MoveToParentHeader`
+
+This plugin follows the recommended Vim plugin mapping interface, so to change the map `]u` to `asdf`, add to your `.vimrc`:
+
+    map asdf <Plug>Markdown_MoveToParentHeader
+
+To disable a map use:
+
+    map <Plug> <Plug>Markdown_MoveToParentHeader
 
 ## Commands
 
-- `:HeaderDecrease`:
+-   `:HeaderDecrease`:
 
     Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.
 
@@ -112,30 +152,30 @@ The following work on normal and visual modes:
 
     For simplicity of implementation, Setex headers are converted to Atx.
 
-- `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
+-   `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
 
-- `:SetexToAtx`:
+-   `:SetexToAtx`:
 
     Convert all Setex style headers in buffer to Atx.
 
     If a range is given, e.g. hit `:` from visual mode, only operate on the range.
 
-- `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
+-   `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
 
     Requires [Tabular](https://github.com/godlygeek/tabular).
 
     The input table *must* already have a separator line as the second line of the table.
     That line only needs to contain the correct pipes `|`, nothing else is required.
 
-- `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
+-   `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
 
     Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.
 
-- `:Toch`: Same as `:Toc` but in an horizontal window.
+-   `:Toch`: Same as `:Toc` but in an horizontal window.
 
-- `:Toct`: Same as `:Toc` but in a new tab.
+-   `:Toct`: Same as `:Toc` but in a new tab.
 
-- `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
+-   `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
 
 ## Credits
 

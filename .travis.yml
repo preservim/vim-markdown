@@ -1,9 +1,22 @@
 language: vim
+env:
+  - TEST=package
+  - TEST=latest
 
-install: |
-  sudo apt-get update
-  sudo apt-get install vim
+before_script: |
   cd ..
+  if [ "$TEST" = "package" ]; then
+    sudo apt-get -y update
+    sudo apt-get -y install vim
+  else
+    git clone --depth 1 https://github.com/vim/vim
+    cd vim
+    ./configure --with-features=huge
+    make
+    sudo make install
+    export PATH="/usr/local/bin:$PATH"
+    cd -
+  fi
   git clone https://github.com/godlygeek/tabular
   git clone https://github.com/junegunn/vader.vim
 

@@ -1,4 +1,4 @@
-Given mkd;
+Given markdown;
 a **b** c
 
 Execute (bold):
@@ -6,7 +6,7 @@ Execute (bold):
   AssertEqual SyntaxOf('b'), 'htmlBold'
   AssertNotEqual SyntaxOf('c'), 'htmlBold'
 
-Given mkd;
+Given markdown;
 a *b* c
 
 Execute (italic):
@@ -16,14 +16,14 @@ Execute (italic):
 
 # Links
 
-Given mkd;
+Given markdown;
 [a](b)
 
 Execute (link with title):
   AssertEqual SyntaxOf('a'), 'mkdLink'
   AssertEqual SyntaxOf('b'), 'mkdURL'
 
-Given mkd;
+Given markdown;
 (a)
 
 (b)
@@ -32,7 +32,7 @@ Execute (parenthesis not in link):
   AssertNotEqual SyntaxOf('a'), 'mkdURL'
   AssertNotEqual SyntaxOf('b'), 'mkdURL'
 
-Given mkd;
+Given markdown;
 [a](b) c [d](e)
 
 Execute (multiple links on a line):
@@ -40,7 +40,7 @@ Execute (multiple links on a line):
 
 # Autolinks
 
-Given mkd;
+Given markdown;
 a <http://b> c
 
 Execute (autolink):
@@ -50,25 +50,25 @@ Execute (autolink):
   AssertEqual SyntaxOf('>'), 'mkdDelimiter'
   AssertNotEqual SyntaxOf('c'), 'mkdInlineURL'
 
-Given mkd;
+Given markdown;
 <HtTp://a>
 
 Execute (autolink with scheme case is insensitive):
   AssertEqual SyntaxOf('a'), 'mkdInlineURL'
 
-Given mkd;
+Given markdown;
 <notascheme://a>
 
 Execute (autolink without known scheme is not a link):
   AssertNotEqual SyntaxOf('n'), 'mkdInlineURL'
 
-Given mkd;
+Given markdown;
 <a>
 
 Execute (autolink without scheme is not a link):
   AssertNotEqual SyntaxOf('a'), 'mkdInlineURL'
 
-Given mkd;
+Given markdown;
 < http://a >
 <http://b c>
 <http://d
@@ -81,7 +81,7 @@ Execute (autolink with space is not a link):
   AssertNotEqual SyntaxOf('d'), 'mkdInlineURL'
   AssertNotEqual SyntaxOf('e'), 'mkdInlineURL'
 
-Given mkd;
+Given markdown;
 \<http://a>
 
 Execute (autolinks can be backslash escaped):
@@ -89,7 +89,7 @@ Execute (autolinks can be backslash escaped):
 
 # Code Blocks
 
-Given mkd;
+Given markdown;
 ~~~
 code
 ~~~
@@ -97,7 +97,7 @@ code
 Execute (code blocks can be fenced with tildes):
   AssertEqual SyntaxOf('c'), 'mkdCode'
 
-Given mkd;
+Given markdown;
 ~~~ruby
 code
 ~~~
@@ -107,7 +107,7 @@ Execute (code blocks can have a language specifier):
 
 # Math
 
-Given mkd;
+Given markdown;
 a $x$ b
 c $$y$$ d
 \$e\$
@@ -131,7 +131,7 @@ Execute (math):
   AssertNotEqual SyntaxOf('x'), 'mkdMath'
   AssertNotEqual SyntaxOf('y'), 'mkdMath'
 
-Given mkd;
+Given markdown;
 a
 
 $
@@ -149,7 +149,7 @@ Execute (multiline math):
 
 # YAML frontmatter
 
-Given mkd;
+Given markdown;
 ---
 a: b
 ---
@@ -163,7 +163,7 @@ Execute (YAML frontmatter is controlled by the option):
   syn off | syn on
   AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
 
-Given mkd;
+Given markdown;
 
 ---
 a: b
@@ -174,7 +174,7 @@ Execute (YAML frontmatter only works if it's the first thing in the file):
   syn off | syn on
   AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
 
-Given mkd;
+Given markdown;
 ---
 a: b
 ---

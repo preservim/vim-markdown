@@ -197,6 +197,18 @@ Execute (multiline math):
   AssertEqual SyntaxOf('b'), 'mkdMath'
   AssertNotEqual SyntaxOf('c'), 'mkdMath'
 
+Given markdown;
+$ \sqrt{a}{b} $
+$$ \sqrt{a}{b} $$
+
+Execute (math tex highlighting):
+  let g:vim_markdown_math=0
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'texMatcher'
+  let g:vim_markdown_math=1
+  syn off | syn on
+  AssertEqual SyntaxOf('a'), 'texMatcher'
+
 # YAML frontmatter
 
 Given markdown;

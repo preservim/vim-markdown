@@ -130,16 +130,6 @@ HtmlHiLink mkdLinkTitle     htmlString
 HtmlHiLink mkdMath          Statement
 HtmlHiLink mkdDelimiter     Delimiter
 
-" Automatically insert bullets
-setlocal formatoptions+=r
-" Do not automatically insert bullets when auto-wrapping with text-width
-setlocal formatoptions-=c
-" Accept various markers as bullets
-setlocal comments=b:*,b:+,b:-
-
-" Automatically continue blockquote on line break
-setlocal comments+=b:>
-
 let b:current_syntax = "mkd"
 
 delcommand HtmlHiLink

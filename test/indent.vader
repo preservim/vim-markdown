@@ -1,0 +1,24 @@
+Given markdown;
+* item1
+
+Do (Insert enter at list end):
+  A\<Enter>item2
+
+Expect (auto insert * and indent level is same):
+  * item1
+  * item2
+
+Given markdown;
+
+Execute:
+  syntax off
+
+Do (Insert enter at list end with syntax off):
+  i* item1\<Enter>item2
+
+Expect (auto insert * and indent level is same):
+  * item1
+  * item2
+
+Execute:
+  syntax on

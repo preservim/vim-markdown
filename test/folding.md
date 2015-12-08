@@ -10,3 +10,7 @@ This is code block
 ## Capter 2
 
 foobar
+
+==+ Fold Level 1
+
+--+ Fold Level 2

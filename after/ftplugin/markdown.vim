@@ -12,7 +12,7 @@ endfunc
 
 func! s:effective_line(lnum)
     let line = getline(a:lnum)
-    return (line !~ '^=\|^#' || s:is_mkdCode(a:lnum)) ? '' : line
+    return (line !~ '^[=-#]' || s:is_mkdCode(a:lnum)) ? '' : line
 endfunc
 
 func! Foldexpr_markdown(lnum)

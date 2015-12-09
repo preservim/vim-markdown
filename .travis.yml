@@ -4,11 +4,11 @@ env:
   - TEST=latest
 
 before_script: |
-  cd ..
   if [ "$TEST" = "package" ]; then
     sudo apt-get -y update
     sudo apt-get -y install vim
   else
+    cd ..
     git clone --depth 1 https://github.com/vim/vim
     cd vim
     ./configure --with-features=huge
@@ -17,8 +17,6 @@ before_script: |
     export PATH="/usr/local/bin:$PATH"
     cd -
   fi
-  git clone https://github.com/godlygeek/tabular
-  git clone https://github.com/junegunn/vader.vim
 
 script: |
   make test

@@ -20,6 +20,11 @@ test: build/tabular build/vader.vim
 	test/run-tests.sh
 .PHONY: test
 
+update: build/tabular build/vader.vim
+	cd build/tabular && git pull
+	cd build/vader.vim && git pull
+.PHONY: update
+
 build/tabular: | build
 	git clone https://github.com/godlygeek/tabular build/tabular
 

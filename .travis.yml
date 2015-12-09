@@ -15,7 +15,7 @@ before_script: |
     make
     sudo make install
     export PATH="/usr/local/bin:$PATH"
-    cd -
+    cd "$TRAVIS_BUILD_DIR"
   fi
 
 script: |

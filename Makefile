@@ -1,4 +1,4 @@
-VIMDIR=/usr/share/vim
+VIMDIR=$(DESTDIR)/usr/share/vim
 ADDONS=${VIMDIR}/addons
 REGISTRY=${VIMDIR}/registry
 

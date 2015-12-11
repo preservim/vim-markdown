@@ -17,6 +17,8 @@ before_script: |
     export PATH="/usr/local/bin:$PATH"
     cd "$TRAVIS_BUILD_DIR"
   fi
+  sudo pip install virtualenv
 
 script: |
   make test
+  make doc

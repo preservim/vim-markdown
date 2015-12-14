@@ -76,7 +76,7 @@ To fold in a style like [python-mode](https://github.com/klen/python-mode), add
 the following to your `.vimrc`:
 
 ```vim
-let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_folding_style_pythonic=1
 ```
 
 ### Disable Default Key Mappings

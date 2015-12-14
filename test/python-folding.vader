@@ -44,3 +44,15 @@ Execute (fold level ==+, --+):
 
 Execute (fold text of ==+, --+):
   AssertEqual foldtextresult(3), 'Fold text 2 ' . repeat('-', winwidth(0) - 17) . ' 1'
+
+Given markdown;
+Headline
+
+foobar
+
+# Title
+
+Execute (fold any preamble):
+  AssertEqual foldlevel(1), 1, 'Headline'
+  AssertEqual foldlevel(3), 1, 'foobar'
+  AssertEqual foldlevel(5), 0, '# Title'

@@ -70,6 +70,15 @@ To enable/disable folding use Vim's standard folding configuration.
 set [no]foldenable
 ```
 
+### Change fold style
+
+To fold in a style like [python-mode](https://github.com/klen/python-mode), add
+the following to your `.vimrc`:
+
+```vim
+let g:vim_markdown_folding_style_pythonic = 1
+```
+
 ### Disable Default Key Mappings
 
 Add the following line to your `.vimrc` to disable default key mappings:

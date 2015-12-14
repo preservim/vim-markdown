@@ -28,12 +28,19 @@ Execute (fold level # in code block):
   AssertEqual foldlevel(10), 1, '## Chapter 2'
   AssertEqual foldlevel(12), 1, 'foobar'
 
+Execute (fold text of chapters):
+  AssertEqual foldtextresult(3), '## Chapter 1 ' . repeat('-', winwidth(0) - 18) . ' 6'
+  AssertEqual foldtextresult(10), '## Chapter 2 ' . repeat('-', winwidth(0) - 18) . ' 2'
+
 Given markdown;
-
+Fold text 1
 ==+ Fold Level 1
-
+Fold text 2
 --+ Fold Level 2
 
 Execute (fold level ==+, --+):
   AssertEqual foldlevel(2), 0, '==+'
   AssertEqual foldlevel(4), 1, '--+'
+
+Execute (fold text of ==+, --+):
+  AssertEqual foldtextresult(3), 'Fold text 2 ' . repeat('-', winwidth(0) - 17) . ' 1'

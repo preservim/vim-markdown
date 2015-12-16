@@ -1,0 +1,169 @@
+*vim-markdown.txt*	For Vim version 7.4.  Last change: 2015-04-22
+
+                                                                *vim-markdown*
+
+==============================================================================
+CONTENTS                                               *vim-markdown-contents*
+
+     1. Introduction...............................|vim-markdown-introduction|
+     2. Mappings.......................................|vim-markdown-mappings|
+     3. Options.........................................|vim-markdown-options|
+     3.1. Disabling folding.....................|vim-markdown-disable-folding|
+     3.2. Disabling default keymappings.....................................
+          .............................|vim-markdown-disable-default-mappings|
+     3.3. Syntax extensions...................|vim-markdown-syntax-extensions|
+     3.4. LaTeX maths................................|vim-markdown-latex-math|
+     3.5. YAML frontmatter.....................|vim-markdown-yaml-frontmatter|
+     4. Commands.......................................|vim-markdown-commands|
+     4.1. Deacrease header level.............................|:HeaderDecrease|
+     4.2. Increase header level..............................|:HeaderIncrease|
+     4.3. Change header Setex to Atx style.......................|:SetexToAtx|
+     4.4. Table formatting......................................|:TableFormat|
+     4.5. Contents quickfix window......................................|:Toc|
+     5. About.............................................|vim-markdown-about|
+     6. License.........................................|vim-markdown-license|
+
+==============================================================================
+1. Introduction                                    *vim-markdown-introduction*
+
+A vim plugin providing Syntax highlighting, matching rules and mappings for
+the original Markdown (http://daringfireball.net/projects/markdown/) and
+extensions.
+
+==============================================================================
+2. Mappings                                            *vim-markdown-mappings*
+
+]]                   go to next header. `<Plug>(Markdown_MoveToNextHeader)`
+
+[[                   go to previous header. Contrast with `]c`.
+                     `<Plug>(Markdown_MoveToPreviousHeader)`
+
+][                   go to next sibling header if any.
+                     `<Plug>(Markdown_MoveToNextSiblingHeader)`
+
+[]                   go to previous sibling header if any.
+                     `<Plug>(Markdown_MoveToPreviousSiblingHeader)`
+
+]c                   go to Current header. `<Plug>(Markdown_MoveToCurHeader)`
+
+]u                   go to parent header (Up).
+                     `<Plug>(Markdown_MoveToParentHeader)`
+
+==============================================================================
+3. Options                                              *vim-markdown-options*
+
+3.1  Disabling folding                          *vim-markdown-disable-folding*
+
+Add the following line to your `.vimrc` to disable folding configuration:
+>
+    let g:vim_markdown_folding_disabled=1
+<
+This option only controls vim_markdown's folding configuration. To
+enable/disable folding use Vim's folding configuration:
+>
+    set [no]foldenable
+<
+
+3.2  Disabling default keymappings     *vim-markdown-disable-default-mappings*
+
+Add the following line to your `.vimrc` to disable default key mappings. You
+can map them by yourself with `<Plug>` mappings.
+>
+    let g:vim_markdown_no_default_key_mappings=1
+<
+
+3.3  Syntax extensions                        *vim-markdown-syntax-extensions*
+
+The following options control which syntax extensions will be turned on. They
+are off by default.
+
+3.4  LaTeX maths                                     *vim-markdown-latex-math*
+
+Used as `$x^2$`, `$$x^2$$`, escapable as `\$x\$` and `\$\$x\$\$`.
+>
+    let g:vim_markdown_math=1
+<
+
+3.5  YAML frontmatter                          *vim-markdown-yaml-frontmatter*
+
+Highlight YAML frontmatter as used by Jekyll:
+>
+    let g:vim_markdown_frontmatter=1
+<
+==============================================================================
+4. Commands                                            *vim-markdown-commands*
+
+                                                             *:HeaderDecrease*
+
+Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.  If
+range is given, only operate in the range. If an `h1` would be decreased,
+abort. For simplicity of implementation, Setex headers are converted to Atx.
+
+                                                             *:HeaderIncrease*
+
+Analogous to |:HeaderDecrease|, but increase levels instead.
+
+                                                                 *:SetexToAtx*
+
+Convert all Setex style headers in buffer to Atx. If a range is given, e.g.
+hit ':' from visual mode, only operate on the range.
+
+                                                                *:TableFormat*
+
+Format the table under the cursor like shown there:
+
+http://www.cirosantilli.com/markdown-styleguide/#tables
+
+Requirements:
+
+- Tabular (https://github.com/godlygeek/tabular).
+- The input table must already have a separator line as the second line of the
+  table.
+- That line only needs to contain the correct pipes `|`, nothing else is
+  required.
+
+                                                                        *:Toc*
+                                                                       *:Toch*
+                                                                       *:Toct*
+                                                                       *:Tocv*
+Creates a quickfix vertical window navigable table of contents with the
+headers. Hit `<Enter>` on a line to jump to the corresponding line of the
+markdown file.
+
+`:Toch` for an horizontal window.
+`:Toct` for a new tab.
+`:Tocv` for symmetry with `:Toch` and `Tocv`.
+
+==============================================================================
+4. About                                                  *vim-markdown-about*
+
+Get the latest version of |vim-markdown| on GitHub:
+
+https://github.com/plasticboy/vim-markdown.git
+
+==============================================================================
+4. License                                              *vim-markdown-license*
+
+The MIT License (MIT)
+
+Copyright (c) 2012 Benjamin D. Williams
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+ vim:tw=78:ts=8:ft=help:norl:

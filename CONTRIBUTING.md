@@ -10,6 +10,8 @@ Every non local identifier must start with `g:vim_markdown_`.
 
 Every new feature must be documented under in the [README.md](README.md). Documentation must be written in [GFM](https://help.github.com/articles/github-flavored-markdown) since GitHub itself is the primary to HTML converter used. In particular, remember that GFM adds line breaks at single newlines, so just forget about the 70 characters wide rule.
 
+Vim help file [doc/vim-markdown.txt](doc/vim-markdown.txt) will be generated from [README.md](README.md) by `make doc` using [vim-tools](https://github.com/xolox/vim-tools).
+
 # Markdown Flavors
 
 There are many flavors of markdown, each one with an unique feature set. This plugin uses the following strategy to deal with all those flavors:

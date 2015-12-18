@@ -6,3 +6,4 @@ files:
   - syntax/markdown.vim
   - after/ftplugin/markdown.vim
   - indent/markdown.vim
+  - doc/vim-markdown.txt

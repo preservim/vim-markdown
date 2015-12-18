@@ -19,6 +19,6 @@ before_script: |
   fi
   sudo pip install virtualenv
 
-script: |
-  make test
-  make doc
+script:
+  - make test
+  - make doc

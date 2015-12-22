@@ -235,3 +235,16 @@ Execute (rules are not mistaken by YAML frontmatter delimiters):
   let g:vim_markdown_frontmatter=1
   syn off | syn on
   AssertEqual SyntaxAt(5, 1), 'mkdRule'
+
+# Header
+
+Given markdown;
+# #a
+ccc
+
+## #b
+ddd
+
+Execute (header title starts with #):
+  AssertEqual SyntaxOf('a'), 'htmlH1'
+  AssertEqual SyntaxOf('b'), 'htmlH2'

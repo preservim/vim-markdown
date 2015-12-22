@@ -49,7 +49,7 @@ function GetMarkdownIndent()
         return indent(v:lnum)
     elseif s:is_li_start(line)
         " Last line is the first line of a list item, increase indent
-        return ind + list_ind
+        return ind
     else
         return ind
     endif

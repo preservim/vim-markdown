@@ -199,15 +199,17 @@ Execute (multiline math):
 
 Given markdown;
 $ \sqrt{a}{b} $
-$$ \sqrt{a}{b} $$
+$$ \frac{a}{b} $$
 
 Execute (math tex highlighting):
   let g:vim_markdown_math=0
   syn off | syn on
-  AssertNotEqual SyntaxOf('a'), 'texMatcher'
+  AssertNotEqual SyntaxOf('sqrt'), 'texStatement'
+  AssertNotEqual SyntaxOf('frac'), 'texStatement'
   let g:vim_markdown_math=1
   syn off | syn on
-  AssertEqual SyntaxOf('a'), 'texMatcher'
+  AssertEqual SyntaxOf('sqrt'), 'texStatement'
+  AssertEqual SyntaxOf('frac'), 'texStatement'
 
 # YAML frontmatter
 

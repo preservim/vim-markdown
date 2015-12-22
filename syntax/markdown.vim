@@ -128,7 +128,6 @@ HtmlHiLink mkdID            Identifier
 HtmlHiLink mkdLinkDef       mkdID
 HtmlHiLink mkdLinkDefTarget mkdURL
 HtmlHiLink mkdLinkTitle     htmlString
-HtmlHiLink mkdMath          Statement
 HtmlHiLink mkdDelimiter     Delimiter
 
 let b:current_syntax = "mkd"

@@ -1,7 +1,7 @@
 Given markdown;
 * item1
 
-Do (Insert enter at list end):
+Do (insert enter at list end):
   A\<Enter>item2
 
 Expect (auto insert * and indent level is same):
@@ -13,7 +13,7 @@ Given markdown;
 Execute:
   syntax off
 
-Do (Insert enter at list end with syntax off):
+Do (insert enter at list end with syntax off):
   i* item1\<Enter>item2
 
 Expect (auto insert * and indent level is same):
@@ -22,3 +22,15 @@ Expect (auto insert * and indent level is same):
 
 Execute:
   syntax on
+
+Given markdown;
+```
+* item1
+
+Do (insert after list items in code block):
+  jotext
+
+Expect (no autoindent in code block):
+  ```
+  * item1
+  text

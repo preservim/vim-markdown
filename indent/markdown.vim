@@ -18,6 +18,10 @@ setlocal comments+=b:>
 " Only define the function once
 if exists("*GetMarkdownIndent") | finish | endif
 
+function! s:is_mkdCode(lnum)
+    return synIDattr(synID(a:lnum, 1, 0), 'name') == 'mkdCode'
+endfunction
+
 function! s:is_li_start(line)
     return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
       \    a:line =~ '^\s*[*+-] \+'
@@ -48,8 +52,12 @@ function GetMarkdownIndent()
         " Current line is the first line of a list item, do not change indent
         return indent(v:lnum)
     elseif s:is_li_start(line)
-        " Last line is the first line of a list item, increase indent
-        return ind + list_ind
+        if s:is_mkdCode(lnum)
+            return ind
+        else
+            " Last line is the first line of a list item, increase indent
+            return ind + list_ind
+        end
     else
         return ind
     endif

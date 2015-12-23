@@ -155,6 +155,17 @@ code
 Execute (code blocks can have a language specifier):
   AssertEqual SyntaxOf('c'), 'mkdCode'
 
+Given markdown;
+```c++
+code
+```
+
+text
+
+Execute (code blocks can be fenced with backticks and a language specifier):
+  AssertEqual SyntaxOf('code'), 'mkdCode'
+  AssertNotEqual SyntaxOf('text'), 'mkdCode'
+
 # Math
 
 Given markdown;

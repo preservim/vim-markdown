@@ -381,8 +381,9 @@ function! s:HeaderDecrease(line1, line2, ...)
         endif
     endfor
     let l:numSubstitutions = s:SetexToAtx(a:line1, a:line2)
+    let l:flags = (&gdefault ? '' : 'g')
     for l:level in range(replaceLevels[0], replaceLevels[1], -l:levelDelta)
-        execute 'silent! ' . a:line1 . ',' . (a:line2 - l:numSubstitutions) . 'substitute/' . s:levelRegexpDict[l:level] . '/' . repeat('#', l:level + l:levelDelta) . '/g'
+        execute 'silent! ' . a:line1 . ',' . (a:line2 - l:numSubstitutions) . 'substitute/' . s:levelRegexpDict[l:level] . '/' . repeat('#', l:level + l:levelDelta) . '/' . l:flags
     endfor
 endfunction
 
@@ -398,9 +399,10 @@ function! s:TableFormat()
     normal! j
     " Remove everything that is not a pipe othewise well formated tables would grow
     " because of addition of 2 spaces on the separator line by Tabularize /|.
-    s/[^|]//g
+    let l:flags = (&gdefault ? '' : 'g')
+    execute 's/[^|]//' . l:flags
     Tabularize /|
-    s/ /-/g
+    execute 's/ /-/' . l:flags
     call setpos('.', l:pos)
 endfunction
 

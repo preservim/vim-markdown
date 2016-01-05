@@ -1,0 +1,31 @@
+Before:
+  let &gdefault = 1
+
+After:
+  let &gdefault = 0
+
+Given markdown;
+| normal |no space|  2 spaces  ||
+| - |-|  --- ||
+| normal |no space|  2 spaces  ||
+
+Execute (format unformatted table):
+  TableFormat
+
+Expect (table is formatted):
+  | normal | no space | 2 spaces |  |
+  |--------|----------|----------|--|
+  | normal | no space | 2 spaces |  |
+
+Given markdown;
+| a | b |
+|---|---|
+| c | d |
+
+Execute (format well formatted table):
+  TableFormat
+
+Expect (table is not modified):
+  | a | b |
+  |---|---|
+  | c | d |

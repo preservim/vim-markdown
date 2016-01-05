@@ -169,7 +169,7 @@ To disable a map use:
 
     If a range is given, e.g. hit `:` from visual mode, only operate on the range.
 
--   `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
+-   `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-style-guide/#tables).
 
     Requires [Tabular](https://github.com/godlygeek/tabular).
 

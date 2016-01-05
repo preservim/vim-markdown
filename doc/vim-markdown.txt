@@ -272,7 +272,7 @@ References ~
 [4] http://packages.qa.debian.org/v/vim-addon-manager.html
 [5] https://github.com/plasticboy/vim-markdown/archive/master.tar.gz
 [6] https://github.com/klen/python-mode
-[7] http://www.cirosantilli.com/markdown-styleguide/#tables
+[7] http://www.cirosantilli.com/markdown-style-guide/#tables
 [8] https://github.com/godlygeek/tabular
 [9] http://plasticboy.com/
 

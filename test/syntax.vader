@@ -137,6 +137,16 @@ Given markdown;
 Execute (autolinks can be backslash escaped):
   AssertNotEqual SyntaxOf('<'), 'mkdDelimiter'
 
+Given markdown;
+a (http://b) c
+
+Execute (autolink in parenthesis):
+  AssertNotEqual SyntaxOf('a'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('('), 'mkdDelimiter'
+  AssertEqual SyntaxOf('b'), 'mkdInlineURL'
+  AssertEqual SyntaxOf(')'), 'mkdDelimiter'
+  AssertNotEqual SyntaxOf('c'), 'mkdInlineURL'
+
 # Code Blocks
 
 Given markdown;

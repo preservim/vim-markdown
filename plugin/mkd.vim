@@ -57,7 +57,7 @@ endfunction
 
 
 function! s:Markdown_refresh_syntax(force)
-    if &filetype == 'mkd' && line('$') > 1
+    if &filetype == 'markdown' && line('$') > 1
         call s:Markdown_highlight_sources(a:force)
     endif
 endfunction

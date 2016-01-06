@@ -151,6 +151,7 @@ Given markdown;
 [![a](http://b)](http://c)
 
 Execute (autolink in link text):
+  AssertEqual SyntaxOf('!'), 'mkdDelimiter'
   AssertEqual SyntaxOf('a'), 'mkdLink'
   AssertEqual SyntaxOf('b'), 'mkdURL'
   AssertEqual SyntaxOf('c'), 'mkdURL'

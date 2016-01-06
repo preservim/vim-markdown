@@ -147,6 +147,14 @@ Execute (autolink in parenthesis):
   AssertEqual SyntaxOf(')'), 'mkdDelimiter'
   AssertNotEqual SyntaxOf('c'), 'mkdInlineURL'
 
+Given markdown;
+[![a](http://b)](http://c)
+
+Execute (autolink in link text):
+  AssertEqual SyntaxOf('a'), 'mkdLink'
+  AssertEqual SyntaxOf('b'), 'mkdURL'
+  AssertEqual SyntaxOf('c'), 'mkdURL'
+
 # Code Blocks
 
 Given markdown;

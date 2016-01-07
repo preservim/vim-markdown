@@ -555,12 +555,17 @@ command! -buffer Tocv call s:Toc('vertical')
 command! -buffer Toct call s:Toc('tab')
 
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
+let s:filetype_dict = {
+    \ 'c++': 'cpp',
+    \ 'viml': 'vim'
+\ }
+
 function! s:Markdown_highlight_sources(force)
     " Syntax highlight source code embedded in notes.
     " Look for code blocks in the current file
     let filetypes = {}
     for line in getline(1, '$')
-        let ft = matchstr(line, '```\zs\w*\>')
+        let ft = matchstr(line, '```\zs[0-9A-Za-z_+-]*')
         if !empty(ft) && ft !~ '^\d*$' | let filetypes[ft] = 1 | endif
     endfor
     if !exists('b:mkd_known_filetypes')
@@ -575,9 +580,13 @@ function! s:Markdown_highlight_sources(force)
     let endgroup = 'mkdCodeEnd'
     for ft in keys(filetypes)
         if a:force || !has_key(b:mkd_known_filetypes, ft)
-
-            let group = 'mkdSnippet' . toupper(ft)
-            let include = s:syntax_include(ft)
+            if has_key(s:filetype_dict, ft)
+                let filetype = s:filetype_dict[ft]
+            else
+                let filetype = ft
+            endif
+            let group = 'mkdSnippet' . toupper(substitute(filetype, "[+-]", "_", "g"))
+            let include = s:syntax_include(filetype)
             let command = 'syntax region %s matchgroup=%s start="^\s*```%s$" matchgroup=%s end="\s*```$" keepend contains=%s%s'
             execute printf(command, group, startgroup, ft, endgroup, include, has('conceal') ? ' concealends' : '')
             execute printf('syntax cluster mkdNonListItem add=%s', group)

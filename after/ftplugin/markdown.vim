@@ -7,7 +7,8 @@
 " original version from Steve Losh's gist: https://gist.github.com/1038710
 
 function! s:is_mkdCode(lnum)
-    return synIDattr(synID(a:lnum, 1, 0), 'name') == 'mkdCode'
+    let name = synIDattr(synID(a:lnum, 1, 0), 'name')
+    return (name =~ '^mkd\%(Code$\|Snippet\)' || name != '' && name !~ '^\%(mkd\|html\)')
 endfunction
 
 if get(g:, "vim_markdown_folding_style_pythonic", 0)

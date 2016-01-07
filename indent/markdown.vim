@@ -19,7 +19,8 @@ setlocal comments+=b:>
 if exists("*GetMarkdownIndent") | finish | endif
 
 function! s:is_mkdCode(lnum)
-    return synIDattr(synID(a:lnum, 1, 0), 'name') == 'mkdCode'
+    let name = synIDattr(synID(a:lnum, 1, 0), 'name')
+    return (name =~ '^mkd\%(Code$\|Snippet\)' || name != '' && name !~ '^\%(mkd\|html\)')
 endfunction
 
 function! s:is_li_start(line)

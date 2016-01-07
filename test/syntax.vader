@@ -223,6 +223,34 @@ Execute (indent code blocks after list):
   AssertNotEqual SyntaxOf('b'), 'mkdCode'
   AssertEqual SyntaxOf('c'), 'mkdCode'
 
+Given markdown;
+```c++
+#include <iostream>
+code
+```
+
+```ruby
+def a
+end
+```
+
+Execute (fenced code block syntax with a language specifier):
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_refresh_syntax')
+  call b:func(0)
+  AssertEqual SyntaxOf('include'), 'cInclude'
+  AssertEqual SyntaxOf('code'), 'mkdSnippetCPP'
+  AssertEqual SyntaxOf('def'), 'rubyDefine'
+
+Given markdown;
+```a+b-
+code
+```
+
+Execute (fenced code block syntax with an unknown language specifier):
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_refresh_syntax')
+  call b:func(0)
+  AssertEqual SyntaxOf('code'), 'mkdSnippetA_B_'
+
 # Math
 
 Given markdown;

@@ -6,17 +6,17 @@
 "
 " original version from Steve Losh's gist: https://gist.github.com/1038710
 
-func! s:is_mkdCode(lnum)
+function! s:is_mkdCode(lnum)
     return synIDattr(synID(a:lnum, 1, 0), 'name') == 'mkdCode'
-endfunc
+endfunction
 
-func! s:effective_line(lnum)
+function! s:effective_line(lnum)
     let line = getline(a:lnum)
     return (line !~ '^[=-#]' || s:is_mkdCode(a:lnum)) ? '' : line
-endfunc
+endfunction
 
 if get(g:, "vim_markdown_folding_style_pythonic", 0)
-    func! Foldexpr_markdown(lnum)
+    function! Foldexpr_markdown(lnum)
         let l2 = s:effective_line(a:lnum+1)
         if  l2 =~ '^==\+\s*'
             " next line is underlined (level 1)
@@ -37,9 +37,9 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
             " keep previous foldlevel
             return '='
         endif
-    endfunc
+    endfunction
 
-    fun! Foldtext_markdown()
+    function! Foldtext_markdown()
         let line = getline(v:foldstart)
         let has_numbers = &number || &relativenumber
         let nucolwidth = &fdc + has_numbers * &numberwidth
@@ -49,9 +49,9 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
         let line = substitute(line, '\%("""\|''''''\)', '', '')
         let fillcharcount = windowwidth - len(line) - len(foldedlinecount) + 1
         return line . ' ' . repeat("-", fillcharcount) . ' ' . foldedlinecount
-    endfunc
+    endfunction
 else
-    func! Foldexpr_markdown(lnum)
+    function! Foldexpr_markdown(lnum)
         let l2 = s:effective_line(a:lnum+1)
         if  l2 =~ '^==\+\s*'
             " next line is underlined (level 1)
@@ -79,7 +79,7 @@ else
             " keep previous foldlevel
             return '='
         endif
-    endfunc
+    endfunction
 endif
 
 if !get(g:, "vim_markdown_folding_disabled", 0)

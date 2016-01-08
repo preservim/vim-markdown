@@ -304,3 +304,20 @@ Execute (& and > are not marked as htmlError in lists):
   AssertEqual SyntaxOf('1.'), 'mkdListItem'
   AssertNotEqual SyntaxOf('&'), 'htmlError'
   AssertNotEqual SyntaxOf('>'), 'htmlError'
+
+# HTML
+
+Given markdown;
+a
+
+<p>b</p>
+
+- <span>c</span>
+
+Execute (HTML tag in text):
+  AssertEqual SyntaxOf('p'), 'htmlTagName'
+  AssertEqual SyntaxOf('<p>'), 'htmlTag'
+  AssertEqual SyntaxOf('</p>'), 'htmlEndTag'
+  AssertEqual SyntaxOf('span'), 'htmlTagName'
+  AssertEqual SyntaxOf('<span>'), 'htmlTag'
+  AssertEqual SyntaxOf('</span>'), 'htmlEndTag'

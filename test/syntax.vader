@@ -292,3 +292,15 @@ ddd
 Execute (header title starts with #):
   AssertEqual SyntaxOf('a'), 'htmlH1'
   AssertEqual SyntaxOf('b'), 'htmlH2'
+
+# List
+
+Given markdown;
+- a & b
+1. c > d
+
+Execute (& and > are not marked as htmlError in lists):
+  AssertEqual SyntaxOf('-'), 'mkdListItem'
+  AssertEqual SyntaxOf('1.'), 'mkdListItem'
+  AssertNotEqual SyntaxOf('&'), 'htmlError'
+  AssertNotEqual SyntaxOf('>'), 'htmlError'

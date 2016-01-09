@@ -86,7 +86,8 @@ Given markdown;
 [a](b) c [d](e)
 
 Execute (multiple links on a line):
-  AssertEqual SyntaxOf('c'), ''
+  AssertNotEqual SyntaxOf('c'), 'mkdLink'
+  AssertNotEqual SyntaxOf('c'), 'mkdURL'
 
 # Autolinks
 
@@ -184,6 +185,43 @@ text
 Execute (code blocks can be fenced with backticks and a language specifier):
   AssertEqual SyntaxOf('code'), 'mkdCode'
   AssertNotEqual SyntaxOf('text'), 'mkdCode'
+
+# Indent Code Blocks
+
+Given markdown;
+a
+
+    b
+    c
+
+Execute (indent code blocks):
+  AssertNotEqual SyntaxOf('a'), 'mkdCode'
+  AssertEqual SyntaxOf('b'), 'mkdCode'
+  AssertEqual SyntaxOf('c'), 'mkdCode'
+
+Given markdown;
+# a
+
+b
+
+    c
+
+Execute (indent code blocks after header):
+  AssertNotEqual SyntaxOf('a'), 'mkdCode'
+  AssertNotEqual SyntaxOf('b'), 'mkdCode'
+  AssertEqual SyntaxOf('c'), 'mkdCode'
+
+Given markdown;
+-   a
+
+    b
+
+        c
+
+Execute (indent code blocks after list):
+  AssertNotEqual SyntaxOf('a'), 'mkdCode'
+  AssertNotEqual SyntaxOf('b'), 'mkdCode'
+  AssertEqual SyntaxOf('c'), 'mkdCode'
 
 # Math
 

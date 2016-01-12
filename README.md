@@ -109,6 +109,22 @@ Highlight YAML frontmatter as used by Jekyll:
 let g:vim_markdown_frontmatter=1
 ```
 
+#### Folding level
+
+Folding level is a number between 1 and 6. By default, if not specified, it is set to 1.
+
+```vim
+let g:vim_markdown_folding_level = 6
+```
+
+Tip: it can be changed on the fly with:
+
+```vim
+:let g:vim_markdown_folding_level = 1
+:edit
+```
+
+
 ## Mappings
 
 The following work on normal and visual modes:

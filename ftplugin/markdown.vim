@@ -302,12 +302,32 @@ function! s:Toc(...)
         let l:window_type = 'vertical'
     endif
 
-    try
-        silent lvimgrep /\(^\S.*\(\n[=-]\+\n\)\@=\|^#\+\)/ %
-    catch /E480/
+
+    let b:bufnr = bufnr('%')
+    let b:fenced_block = 0
+    let b:header_list = []
+    let l:header_max_len = 0
+    for i in range(1, line('$'))
+        let l:lineraw = getline(i)
+        let l:line = substitute(l:lineraw, "#", "\\\#", "g")
+        if l:line =~ '````*' || l:line =~ '\~\~\~\~*'
+            if b:fenced_block == 0
+                let b:fenced_block = 1
+            elseif b:fenced_block == 1
+                let b:fenced_block = 0
+            endif
+        endif
+        if l:line =~ '^#\+' && b:fenced_block == 0
+            " append line to location list
+            let b:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': b:bufnr, 'col': 1}
+            let b:header_list = b:header_list + [b:item]
+        endif
+    endfor
+    if len(b:header_list) == 0
         echom "Toc: No headers."
         return
-    endtry
+    endif
+    call setloclist(0, b:header_list)
 
     if l:window_type ==# 'horizontal'
         lopen

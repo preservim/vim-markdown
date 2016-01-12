@@ -47,6 +47,20 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
     endfunction
 else
     function! Foldexpr_markdown(lnum)
+        if (a:lnum == 1)
+            let l0 = ''
+        else
+            let l0 = getline(a:lnum-1)
+        endif
+        " keep track of fenced code blocks
+        if l0 =~ '````*' || l0 =~ '~~~~*'
+            if b:fenced_block == 0
+                let b:fenced_block = 1
+            elseif b:fenced_block == 1
+                let b:fenced_block = 0
+            endif
+        endif
+
         let l2 = getline(a:lnum+1)
         if  l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
@@ -58,16 +72,22 @@ else
 
         let l1 = getline(a:lnum)
         if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
-            " don't include the section title in the fold
-            return '-1'
+            " fold level according to option
+            " (in vim -1 is visible, >= 0 is folded)
+            let l:level = matchend(l1, '^#\+')
+            if g:vim_markdown_folding_level == 1 || l:level > g:vim_markdown_folding_level
+                return -1
+            else
+                " code blocks are always folded
+                return b:fenced_block
+            endif
         endif
 
-        if (a:lnum == 1)
-            let l0 = ''
-        else
-            let l0 = getline(a:lnum-1)
-        endif
         if l0 =~ '^#' && !s:is_mkdCode(a:lnum-1)
+            " collapse comments in fenced code blocks into a single fold
+            if b:fenced_block == 1
+                return 1
+            endif
             " current line starts with hashes
             return '>'.matchend(l0, '^#\+')
         else
@@ -76,6 +96,10 @@ else
         endif
     endfunction
 endif
+
+
+let b:fenced_block = 0
+let g:vim_markdown_folding_level = get(g:, "vim_markdown_folding_level", 1)
 
 if !get(g:, "vim_markdown_folding_disabled", 0)
     setlocal foldexpr=Foldexpr_markdown(v:lnum)

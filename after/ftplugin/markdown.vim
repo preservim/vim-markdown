@@ -64,13 +64,13 @@ else
         let l2 = getline(a:lnum+1)
         if  l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
-            return 0
+            return '>1'
         elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
             if g:vim_markdown_folding_level == 2
-                return 0
+                return '>1'
             else
-                return 1
+                return '>2'
             endif
         endif
 
@@ -95,7 +95,7 @@ else
             return '>'.matchend(l0, '^#\+')
         else
             " fold here because of setext headers
-            return 1
+            return '='
         endif
     endfunction
 endif

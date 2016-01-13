@@ -34,15 +34,15 @@ Execute (fold text of chapters):
 
 Given markdown;
 Fold text 1
-==+ Fold Level 1
+===========
 Fold text 2
---+ Fold Level 2
+-----------
 
-Execute (fold level ==+, --+):
-  AssertEqual foldlevel(2), 0, '==+'
-  AssertEqual foldlevel(4), 1, '--+'
+Execute (fold level ==, --):
+  AssertEqual foldlevel(2), 0, '=='
+  AssertEqual foldlevel(4), 1, '--'
 
-Execute (fold text of ==+, --+):
+Execute (fold text of ==, --):
   AssertEqual foldtextresult(3), 'Fold text 2 ' . repeat('-', winwidth(0) - 17) . ' 1'
 
 Given markdown;

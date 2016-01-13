@@ -28,11 +28,11 @@ Execute (fold level # in code block):
   AssertEqual foldlevel(12), 2, 'foobar'
 
 Given markdown;
+Fold Level 1
+============
+Fold Level 2
+------------
 
-==+ Fold Level 1
-
---+ Fold Level 2
-
-Execute (fold level ==+, --+):
-  AssertEqual foldlevel(2), 1, '==+'
-  AssertEqual foldlevel(4), 2, '--+'
+Execute (fold level ==, --):
+  AssertEqual foldlevel(2), 1, '=='
+  AssertEqual foldlevel(4), 2, '--'

@@ -330,7 +330,7 @@ function! s:Toc(...)
             let d.text = substitute(d.text, '\v[ ]*#*$', '', '')
         " setex headers
         else
-            let l:next_line = getbufline(bufname(d.bufnr), d.lnum+1)
+            let l:next_line = getbufline(d.bufnr, d.lnum+1)
             if match(l:next_line, "=") > -1
                 let l:level = 0
             elseif match(l:next_line, "-") > -1

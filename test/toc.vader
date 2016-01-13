@@ -1,0 +1,56 @@
+Given markdown;
+# a
+
+Execute (Toc does not set nomodifiable on other files):
+  " Sanity check.
+  Assert &modifiable
+
+  :Toc
+  :lclose
+  :edit a
+
+  Assert &modifiable
+
+Given markdown;
+header 1
+========
+
+test
+
+header 2
+--------
+
+test
+
+### header 3
+
+test
+
+Execute (Toc setex headers):
+  :Toc
+
+Expect (setex headers):
+  header 1
+    header 2
+      header 3
+
+Given markdown;
+# header 1
+
+test
+
+## header 2
+
+test
+
+### header 3
+
+test
+
+Execute (Toc atx headers):
+  :Toc
+
+Expect (atx headers):
+  header 1
+    header 2
+      header 3

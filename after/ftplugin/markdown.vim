@@ -64,16 +64,19 @@ else
         let l2 = getline(a:lnum+1)
         if  l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
-            return '>1'
+            return 0
         elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
-            return '>2'
+            if g:vim_markdown_folding_level == 2
+                return 0
+            else
+                return 1
+            endif
         endif
 
         let l1 = getline(a:lnum)
         if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
             " fold level according to option
-            " (in vim -1 is visible, >= 0 is folded)
             let l:level = matchend(l1, '^#\+')
             if g:vim_markdown_folding_level == 1 || l:level > g:vim_markdown_folding_level
                 return -1
@@ -91,8 +94,8 @@ else
             " current line starts with hashes
             return '>'.matchend(l0, '^#\+')
         else
-            " keep previous foldlevel
-            return '='
+            " fold here because of setext headers
+            return 1
         endif
     endfunction
 endif

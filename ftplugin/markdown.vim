@@ -309,6 +309,7 @@ function! s:Toc(...)
     let l:header_max_len = 0
     for i in range(1, line('$'))
         let l:lineraw = getline(i)
+        let l:l1 = getline(i+1)
         let l:line = substitute(l:lineraw, "#", "\\\#", "g")
         if l:line =~ '````*' || l:line =~ '\~\~\~\~*'
             if b:fenced_block == 0
@@ -317,7 +318,12 @@ function! s:Toc(...)
                 let b:fenced_block = 0
             endif
         endif
-        if l:line =~ '^#\+' && b:fenced_block == 0
+        if l:line =~ '^#\+' || l:l1 =~ '^==\+\s*' || l:l1 =~ '^--\+\s*'
+            let b:is_header = 1
+        else
+            let b:is_header = 0
+        endif
+        if b:is_header == 1 && b:fenced_block == 0
             " append line to location list
             let b:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': b:bufnr, 'col': 1}
             let b:header_list = b:header_list + [b:item]

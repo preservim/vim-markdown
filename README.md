@@ -59,7 +59,7 @@ tar --strip=1 -zxf vim-markdown-master.tar.gz
 Add the following line to your `.vimrc` to disable the folding configuration:
 
 ```vim
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled = 1
 ```
 
 This option only controls Vim Markdown specific folding configuration.
@@ -76,7 +76,7 @@ To fold in a style like [python-mode](https://github.com/klen/python-mode), add
 the following to your `.vimrc`:
 
 ```vim
-let g:vim_markdown_folding_style_pythonic=1
+let g:vim_markdown_folding_style_pythonic = 1
 ```
 
 ### Disable Default Key Mappings
@@ -84,7 +84,7 @@ let g:vim_markdown_folding_style_pythonic=1
 Add the following line to your `.vimrc` to disable default key mappings:
 
 ```vim
-let g:vim_markdown_no_default_key_mappings=1
+let g:vim_markdown_no_default_key_mappings = 1
 ```
 
 You can also map them by yourself with `<Plug>` mappings.
@@ -98,7 +98,7 @@ The following options control which syntax extensions will be turned on. They ar
 Used as `$x^2$`, `$$x^2$$`, escapable as `\$x\$` and `\$\$x\$\$`.
 
 ```vim
-let g:vim_markdown_math=1
+let g:vim_markdown_math = 1
 ```
 
 #### YAML frontmatter
@@ -106,7 +106,7 @@ let g:vim_markdown_math=1
 Highlight YAML frontmatter as used by Jekyll:
 
 ```vim
-let g:vim_markdown_frontmatter=1
+let g:vim_markdown_frontmatter = 1
 ```
 
 ## Mappings

@@ -68,7 +68,7 @@ Disable Folding ~
 
 Add the following line to your '.vimrc' to disable the folding configuration:
 >
-  let g:vim_markdown_folding_disabled=1
+  let g:vim_markdown_folding_disabled = 1
 <
 This option only controls Vim Markdown specific folding configuration.
 
@@ -82,7 +82,7 @@ Change fold style ~
 
 To fold in a style like python-mode [6], add the following to your '.vimrc':
 >
-  let g:vim_markdown_folding_style_pythonic=1
+  let g:vim_markdown_folding_style_pythonic = 1
 <
 -------------------------------------------------------------------------------
                                     *vim-markdown-disable-default-key-mappings*
@@ -90,7 +90,7 @@ Disable Default Key Mappings ~
 
 Add the following line to your '.vimrc' to disable default key mappings:
 >
-  let g:vim_markdown_no_default_key_mappings=1
+  let g:vim_markdown_no_default_key_mappings = 1
 <
 You can also map them by yourself with '<Plug>' mappings.
 
@@ -107,7 +107,7 @@ LaTeX math ~
 
 Used as '$x^2$', '$$x^2$$', escapable as '\$x\$' and '\$\$x\$\$'.
 >
-  let g:vim_markdown_math=1
+  let g:vim_markdown_math = 1
 <
 -------------------------------------------------------------------------------
                                                 *vim-markdown-yaml-frontmatter*
@@ -115,7 +115,7 @@ YAML frontmatter ~
 
 Highlight YAML frontmatter as used by Jekyll:
 >
-  let g:vim_markdown_frontmatter=1
+  let g:vim_markdown_frontmatter = 1
 <
 ===============================================================================
                                                         *vim-markdown-mappings*

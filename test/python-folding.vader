@@ -29,8 +29,10 @@ Execute (fold level # in code block):
   AssertEqual foldlevel(12), 1, 'foobar'
 
 Execute (fold text of chapters):
-  AssertEqual foldtextresult(3), '## Chapter 1 ' . repeat('-', winwidth(0) - 18) . ' 6'
-  AssertEqual foldtextresult(10), '## Chapter 2 ' . repeat('-', winwidth(0) - 18) . ' 2'
+  let b:width = winwidth(0)
+  let b:hyphen = repeat('-', b:width - 18 > 2 ? b:width - 18 : b:width - 9 > 0 ? 3 : 2)
+  AssertEqual foldtextresult(3), strpart('## Chapter 1', 0, b:width - 9) . ' ' . b:hyphen . ' 6'
+  AssertEqual foldtextresult(10), strpart('## Chapter 2', 0, b:width - 9) . ' ' . b:hyphen . ' 2'
 
 Given markdown;
 Fold text 1
@@ -43,7 +45,9 @@ Execute (fold level ==, --):
   AssertEqual foldlevel(4), 1, '--'
 
 Execute (fold text of ==, --):
-  AssertEqual foldtextresult(3), 'Fold text 2 ' . repeat('-', winwidth(0) - 17) . ' 1'
+  let b:width = winwidth(0)
+  let b:hyphen = repeat('-', b:width - 17 > 2 ? b:width - 17 : b:width - 9 > 0 ? 3 : 2)
+  AssertEqual foldtextresult(3), strpart('Fold text 2', 0, b:width - 9) . ' ' . b:hyphen . ' 1'
 
 Given markdown;
 Headline

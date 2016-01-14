@@ -163,3 +163,6 @@ Expect (multiple headers):
   atx h1
     setex h2
       atx h3 2
+
+Execute:
+  :lclose

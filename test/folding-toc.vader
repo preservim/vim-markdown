@@ -96,6 +96,7 @@ Execute (fold text result):
 
 Execute (check TOC):
   :Toc
+  :lclose
   let res = getloclist(0)
   let elem = res[0]
   AssertEqual elem.lnum, 1

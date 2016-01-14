@@ -23,16 +23,26 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
             endif
         endif
 
+        if b:fenced_block == 1
+            if a:lnum == 1
+                " fold any 'preamble'
+                return '>1'
+            else
+                " keep previous foldlevel
+                return '='
+            endif
+        endif
+
         let l2 = getline(a:lnum+1)
-        if l2 =~ '^==\+\s*' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum+1)
+        if l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
             return '>0'
-        elseif l2 =~ '^--\+\s*' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum+1)
+        elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
             return '>1'
         endif
 
-        if l1 =~ '^#' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum)
+        if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
             " current line starts with hashes
             return '>'.(matchend(l1, '^#\+') - 1)
         elseif a:lnum == 1
@@ -62,6 +72,7 @@ else
         else
             let l0 = getline(a:lnum-1)
         endif
+
         " keep track of fenced code blocks
         if l0 =~ '````*' || l0 =~ '\~\~\~\~*'
             if b:fenced_block == 0
@@ -71,11 +82,16 @@ else
             endif
         endif
 
+        if b:fenced_block == 1
+            " keep previous foldlevel
+            return '='
+        endif
+
         let l2 = getline(a:lnum+1)
-        if  l2 =~ '^==\+\s*' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum+1)
+        if  l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
             return '>1'
-        elseif l2 =~ '^--\+\s*' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum+1)
+        elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
             if g:vim_markdown_folding_level >= 2
                 return '>1'
@@ -85,7 +101,7 @@ else
         endif
 
         let l1 = getline(a:lnum)
-        if l1 =~ '^#' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum)
+        if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
             " fold level according to option
             let l:level = matchend(l1, '^#\+')
             if g:vim_markdown_folding_level == 1 || l:level > g:vim_markdown_folding_level
@@ -96,7 +112,7 @@ else
             endif
         endif
 
-        if l0 =~ '^#' && b:fenced_block == 0 && !s:is_mkdCode(a:lnum-1)
+        if l0 =~ '^#' && !s:is_mkdCode(a:lnum-1)
             " current line starts with hashes
             return '>'.matchend(l0, '^#\+')
         else

@@ -8,8 +8,9 @@ Contents ~
  3. Options                                              |vim-markdown-options|
   1. Disable Folding                             |vim-markdown-disable-folding|
   2. Change fold style                         |vim-markdown-change-fold-style|
-  3. Disable Default Key Mappings   |vim-markdown-disable-default-key-mappings|
-  4. Syntax extensions                         |vim-markdown-syntax-extensions|
+  3. Set header folding level           |vim-markdown-set-header-folding-level|
+  4. Disable Default Key Mappings   |vim-markdown-disable-default-key-mappings|
+  5. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
    2. YAML frontmatter                          |vim-markdown-yaml-frontmatter|
  4. Mappings                                            |vim-markdown-mappings|
@@ -83,6 +84,20 @@ Change fold style ~
 To fold in a style like python-mode [6], add the following to your '.vimrc':
 >
   let g:vim_markdown_folding_style_pythonic = 1
+<
+-------------------------------------------------------------------------------
+                                        *vim-markdown-set-header-folding-level*
+Set header folding level ~
+
+Folding level is a number between 1 and 6. By default, if not specified, it is
+set to 1.
+>
+  let g:vim_markdown_folding_level = 6
+<
+Tip: it can be changed on the fly with:
+>
+  :let g:vim_markdown_folding_level = 1
+  :edit
 <
 -------------------------------------------------------------------------------
                                     *vim-markdown-disable-default-key-mappings*

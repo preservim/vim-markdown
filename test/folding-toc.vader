@@ -85,15 +85,34 @@ Execute (fold level):
   AssertEqual foldlevel(45), 1, 'chap 4\n======'
   AssertEqual foldlevel(48), 1, 'setext are evil'
   AssertEqual foldlevel(50), 2, 'chap 4.1\n------'
-" BUG: for lines 30, 41, 45, the foldlevel should be 0.
-" The folding behavior itself is correct, but the level number isn't.
 
 Execute (fold text result):
   AssertEqual foldtextresult(2), '+-- 28 lines: hello'
   AssertEqual foldtextresult(31), '+-- 10 lines: another'
   AssertEqual foldtextresult(42), '+--  3 lines: nothing here'
   AssertEqual foldtextresult(45), '+-- 14 lines: chap 4'
-" BUG: for line 45, vim shows and calling foldtextresult even echoes 15 lines.
+
+Execute (fold level with setting):
+  let g:vim_markdown_folding_level = 2
+  source ../after/ftplugin/markdown.vim
+  AssertEqual foldlevel(1), 0, '# chap 1'
+  AssertEqual foldlevel(3), 1, 'hello'
+  AssertEqual foldlevel(6), 1, '```bash'
+  AssertEqual foldlevel(7), 1, '# some bash scripting'
+  AssertEqual foldlevel(15), 0, '## chap 1.1'
+  AssertEqual foldlevel(21), 2, 'mkdir foo'
+  AssertEqual foldlevel(22), 2, 'comment in ~'
+  AssertEqual foldlevel(25), 2, '### chap 1.1.1'
+  AssertEqual foldlevel(27), 3, '- dragons'
+  AssertEqual foldlevel(30), 0, '# chap 2'
+  AssertEqual foldlevel(32), 1, 'another'
+  AssertEqual foldlevel(34), 0, '# chap 2.1'
+  AssertEqual foldlevel(37), 2, '- japan'
+  AssertEqual foldlevel(41), 0, '# chap 3'
+  AssertEqual foldlevel(45), 1, 'chap 4\n======'
+  AssertEqual foldlevel(48), 1, 'setext are evil'
+  AssertEqual foldlevel(50), 1, 'chap 4.1\n------'
+  let g:vim_markdown_folding_level = 0
 
 Execute (check TOC):
   :Toc
@@ -123,4 +142,3 @@ Execute (check TOC):
   let elem = res[7]
   AssertEqual elem.lnum, 50
   AssertEqual elem.text, 'chap 4.1'
-

@@ -168,6 +168,22 @@ Execute (code blocks can be fenced with tildes):
   AssertEqual SyntaxOf('c'), 'mkdCode'
 
 Given markdown;
+~~~~
+code
+~~~~~
+
+Execute (code blocks can be fenced with tildes longer than 3):
+  AssertEqual SyntaxOf('c'), 'mkdCode'
+
+Given markdown;
+````
+code
+`````
+
+Execute (code blocks can be fenced with backticks longer than 3):
+  AssertEqual SyntaxOf('c'), 'mkdCode'
+
+Given markdown;
 ~~~ruby
 code
 ~~~

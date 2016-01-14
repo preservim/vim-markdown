@@ -79,6 +79,21 @@ the following to your `.vimrc`:
 let g:vim_markdown_folding_style_pythonic = 1
 ```
 
+### Set header folding level
+
+Folding level is a number between 1 and 6. By default, if not specified, it is set to 1.
+
+```vim
+let g:vim_markdown_folding_level = 6
+```
+
+Tip: it can be changed on the fly with:
+
+```vim
+:let g:vim_markdown_folding_level = 1
+:edit
+```
+
 ### Disable Default Key Mappings
 
 Add the following line to your `.vimrc` to disable default key mappings:
@@ -108,6 +123,7 @@ Highlight YAML frontmatter as used by Jekyll:
 ```vim
 let g:vim_markdown_frontmatter = 1
 ```
+
 
 ## Mappings
 

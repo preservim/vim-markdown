@@ -54,7 +54,7 @@ else
             let l0 = getline(a:lnum-1)
         endif
         " keep track of fenced code blocks
-        if l0 =~ '````*' || l0 =~ '~~~~*'
+        if l0 =~ '````*' || l0 =~ '\~\~\~\~*'
             if b:fenced_block == 0
                 let b:fenced_block = 1
             elseif b:fenced_block == 1

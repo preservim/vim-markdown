@@ -29,7 +29,7 @@ echo "foo"
 
 ~~~~bash
 mkdir foo
-cd foo
+# comment in ~
 ~~~~
 
 ### chap 1.1.1
@@ -74,6 +74,7 @@ Execute (fold level):
   AssertEqual foldlevel(7), 1, '# some bash scripting'
   AssertEqual foldlevel(15), 1, '## chap 1.1'
   AssertEqual foldlevel(21), 2, 'mkdir foo'
+  AssertEqual foldlevel(22), 2, 'comment in ~'
   AssertEqual foldlevel(25), 2, '### chap 1.1.1'
   AssertEqual foldlevel(27), 3, '- dragons'
   AssertEqual foldlevel(30), 1, '# chap 2'

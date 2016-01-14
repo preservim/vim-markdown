@@ -307,6 +307,7 @@ function! s:Toc(...)
     let b:fenced_block = 0
     let b:header_list = []
     let l:header_max_len = 0
+    let g:vim_markdown_toc_autofit = get(g:, "vim_markdown_toc_autofit", 0)
     for i in range(1, line('$'))
         let l:lineraw = getline(i)
         let l:l1 = getline(i+1)
@@ -327,6 +328,11 @@ function! s:Toc(...)
             " append line to location list
             let b:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': b:bufnr, 'col': 1}
             let b:header_list = b:header_list + [b:item]
+            " keep track of the longest header size (heading level + title)
+            let b:total_len = stridx(l:line, ' ') + len(l:line)
+            if b:total_len > l:header_max_len
+                let l:header_max_len = b:total_len
+            endif
         endif
     endfor
     if len(b:header_list) == 0
@@ -339,7 +345,12 @@ function! s:Toc(...)
         lopen
     elseif l:window_type ==# 'vertical'
         vertical lopen
-        let &winwidth=(&columns/2)
+        " auto-fit toc window when possible to shrink it
+        if (&columns/2) > l:header_max_len && g:vim_markdown_toc_autofit == 1
+            let &winwidth = (l:header_max_len + 1)
+        else
+            let &winwidth = (&columns/2)
+        endif
     elseif l:window_type ==# 'tab'
         tab lopen
     else

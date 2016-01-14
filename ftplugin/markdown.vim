@@ -318,7 +318,7 @@ function! s:Toc(...)
                 let b:fenced_block = 0
             endif
         endif
-        if l:line =~ '^#\+' || l:l1 =~ '^==\+\s*' || l:l1 =~ '^--\+\s*'
+        if l:line =~ '^#\+' || (l:l1 =~ '^=\+\s*$' || l:l1 =~ '^-\+\s*$') && l:line =~ '^\S'
             let b:is_header = 1
         else
             let b:is_header = 0

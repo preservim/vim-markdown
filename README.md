@@ -104,6 +104,15 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 You can also map them by yourself with `<Plug>` mappings.
 
+### Enable TOC window auto-fit
+
+Allow for the TOC window to auto-fit when it's possible for it to shrink.
+It never increases its default size (half screen), it only shrinks.
+
+```vim
+let g:vim_markdown_toc_autofit = 1
+```
+
 ### Syntax extensions
 
 The following options control which syntax extensions will be turned on. They are off by default.

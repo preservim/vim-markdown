@@ -20,5 +20,7 @@ before_script: |
   sudo pip install virtualenv
 
 script:
+  - stty cols 80
+  - export COLUMNS=80
   - make test
   - make doc

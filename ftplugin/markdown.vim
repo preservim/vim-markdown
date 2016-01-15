@@ -347,9 +347,9 @@ function! s:Toc(...)
         vertical lopen
         " auto-fit toc window when possible to shrink it
         if (&columns/2) > l:header_max_len && g:vim_markdown_toc_autofit == 1
-            let &winwidth = (l:header_max_len + 1)
+            execute 'vertical resize ' . (l:header_max_len + 1)
         else
-            let &winwidth = (&columns/2)
+            execute 'vertical resize ' . (&columns/2)
         endif
     elseif l:window_type ==# 'tab'
         tab lopen

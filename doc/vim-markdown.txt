@@ -10,7 +10,8 @@ Contents ~
   2. Change fold style                         |vim-markdown-change-fold-style|
   3. Set header folding level           |vim-markdown-set-header-folding-level|
   4. Disable Default Key Mappings   |vim-markdown-disable-default-key-mappings|
-  5. Syntax extensions                         |vim-markdown-syntax-extensions|
+  5. Enable TOC window auto-fit       |vim-markdown-enable-toc-window-auto-fit|
+  6. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
    2. YAML frontmatter                          |vim-markdown-yaml-frontmatter|
  4. Mappings                                            |vim-markdown-mappings|
@@ -109,6 +110,15 @@ Add the following line to your '.vimrc' to disable default key mappings:
 <
 You can also map them by yourself with '<Plug>' mappings.
 
+-------------------------------------------------------------------------------
+                                      *vim-markdown-enable-toc-window-auto-fit*
+Enable TOC window auto-fit ~
+
+Allow for the TOC window to auto-fit when it's possible for it to shrink. It
+never increases its default size (half screen), it only shrinks.
+>
+  let g:vim_markdown_toc_autofit = 1
+<
 -------------------------------------------------------------------------------
                                                *vim-markdown-syntax-extensions*
 Syntax extensions ~

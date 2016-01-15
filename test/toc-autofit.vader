@@ -43,7 +43,7 @@ Execute (toc window autofit width):
   let line = '###### chap 12.1.1.1.1.1'
   AssertEqual getline('33'), line
   :Toc
-  let real_width = &winwidth
+  let real_width = winwidth(0)
   :lclose
   let expected_width = len(line) + 2*5 + 1 + 3 - 7
   AssertEqual real_width, expected_width

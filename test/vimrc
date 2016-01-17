@@ -2,6 +2,7 @@ set nocompatible
 set rtp+=../
 set rtp+=../build/tabular/
 set rtp+=../build/vader.vim/
+let $LANG='en_US'
 filetype on
 filetype plugin on
 filetype indent on
@@ -14,7 +15,7 @@ function! Markdown_GetScriptID(fname) abort
     redir END
     let a:mx = '^\s*\(\d\+\):\s*\(.*\)$'
     for a:line in split(a:snlist, "\n")
-        if stridx(a:line, a:fname) >= 0
+        if stridx(substitute(a:line, '\\', '/', 'g'), a:fname) >= 0
             return substitute(a:line, a:mx, '\1', '')
         endif
     endfor

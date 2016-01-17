@@ -176,6 +176,8 @@ To disable a map use:
 
 ## Commands
 
+The following requires `:filetype plugin on`.
+
 -   `:HeaderDecrease`:
 
     Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.

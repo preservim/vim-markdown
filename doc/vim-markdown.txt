@@ -201,6 +201,8 @@ To disable a map use:
                                                         *vim-markdown-commands*
 Commands ~
 
+The following requires ':filetype plugin on'.
+
                                                               *:HeaderDecrease*
 - ':HeaderDecrease':
 

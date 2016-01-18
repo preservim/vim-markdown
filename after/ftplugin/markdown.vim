@@ -137,7 +137,7 @@ else
             " current line starts with hashes
             return '>'.matchend(l0, '^#\+')
         else
-            " fold here because of setext headers
+            " keep previous foldlevel
             return '='
         endif
     endfunction

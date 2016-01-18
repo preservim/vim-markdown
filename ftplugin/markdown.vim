@@ -303,10 +303,10 @@ function! s:Toc(...)
     endif
 
 
-    let b:bufnr = bufnr('%')
-    let b:fenced_block = 0
+    let l:bufnr = bufnr('%')
+    let l:fenced_block = 0
     let l:front_matter = 0
-    let b:header_list = []
+    let l:header_list = []
     let l:header_max_len = 0
     let g:vim_markdown_toc_autofit = get(g:, "vim_markdown_toc_autofit", 0)
     let l:vim_markdown_frontmatter = get(g:, "vim_markdown_frontmatter", 0)
@@ -315,10 +315,10 @@ function! s:Toc(...)
         let l:l1 = getline(i+1)
         let l:line = substitute(l:lineraw, "#", "\\\#", "g")
         if l:line =~ '````*' || l:line =~ '\~\~\~\~*'
-            if b:fenced_block == 0
-                let b:fenced_block = 1
-            elseif b:fenced_block == 1
-                let b:fenced_block = 0
+            if l:fenced_block == 0
+                let l:fenced_block = 1
+            elseif l:fenced_block == 1
+                let l:fenced_block = 0
             endif
         elseif l:vim_markdown_frontmatter == 1
             if l:front_matter == 1
@@ -332,26 +332,26 @@ function! s:Toc(...)
             endif
         endif
         if l:line =~ '^#\+' || (l:l1 =~ '^=\+\s*$' || l:l1 =~ '^-\+\s*$') && l:line =~ '^\S'
-            let b:is_header = 1
+            let l:is_header = 1
         else
-            let b:is_header = 0
+            let l:is_header = 0
         endif
-        if b:is_header == 1 && b:fenced_block == 0 && l:front_matter == 0
+        if l:is_header == 1 && l:fenced_block == 0 && l:front_matter == 0
             " append line to location list
-            let b:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': b:bufnr, 'col': 1}
-            let b:header_list = b:header_list + [b:item]
+            let l:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': l:bufnr, 'col': 1}
+            let l:header_list = l:header_list + [l:item]
             " keep track of the longest header size (heading level + title)
-            let b:total_len = stridx(l:line, ' ') + len(l:line)
-            if b:total_len > l:header_max_len
-                let l:header_max_len = b:total_len
+            let l:total_len = stridx(l:line, ' ') + len(l:line)
+            if l:total_len > l:header_max_len
+                let l:header_max_len = l:total_len
             endif
         endif
     endfor
-    if len(b:header_list) == 0
+    if len(l:header_list) == 0
         echom "Toc: No headers."
         return
     endif
-    call setloclist(0, b:header_list)
+    call setloclist(0, l:header_list)
 
     if l:window_type ==# 'horizontal'
         lopen

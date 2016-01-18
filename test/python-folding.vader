@@ -60,3 +60,26 @@ Execute (fold any preamble):
   AssertEqual foldlevel(1), 1, 'Headline'
   AssertEqual foldlevel(3), 1, 'foobar'
   AssertEqual foldlevel(5), 0, '# Title'
+
+Given markdown;
+---
+layout: article
+title: A test of the heading folding when there is YAML frontmatter
+tags: markdown yaml vim-markdown
+---
+body
+
+heading
+-------
+
+Execute (fold level of yaml front matter):
+  let g:vim_markdown_frontmatter = 1
+  source ../after/ftplugin/markdown.vim
+  AssertEqual foldlevel(1), 1, '---'
+  AssertEqual foldlevel(2), 1, 'layout: article'
+  AssertEqual foldlevel(4), 1, 'tags: markdown yaml vim-markdown'
+  AssertEqual foldlevel(5), 1, '---'
+  AssertEqual foldlevel(6), 1, 'body'
+  AssertEqual foldlevel(8), 1, 'heading'
+  AssertEqual foldlevel(9), 1, '-------'
+  unlet g:vim_markdown_frontmatter

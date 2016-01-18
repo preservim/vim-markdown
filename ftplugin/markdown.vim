@@ -305,9 +305,11 @@ function! s:Toc(...)
 
     let b:bufnr = bufnr('%')
     let b:fenced_block = 0
+    let l:front_matter = 0
     let b:header_list = []
     let l:header_max_len = 0
     let g:vim_markdown_toc_autofit = get(g:, "vim_markdown_toc_autofit", 0)
+    let l:vim_markdown_frontmatter = get(g:, "vim_markdown_frontmatter", 0)
     for i in range(1, line('$'))
         let l:lineraw = getline(i)
         let l:l1 = getline(i+1)
@@ -318,13 +320,23 @@ function! s:Toc(...)
             elseif b:fenced_block == 1
                 let b:fenced_block = 0
             endif
+        elseif l:vim_markdown_frontmatter == 1
+            if l:front_matter == 1
+                if l:line == '---'
+                    let l:front_matter = 0
+                endif
+            elseif i == 1
+                if l:line == '---'
+                    let l:front_matter = 1
+                endif
+            endif
         endif
         if l:line =~ '^#\+' || (l:l1 =~ '^=\+\s*$' || l:l1 =~ '^-\+\s*$') && l:line =~ '^\S'
             let b:is_header = 1
         else
             let b:is_header = 0
         endif
-        if b:is_header == 1 && b:fenced_block == 0
+        if b:is_header == 1 && b:fenced_block == 0 && l:front_matter == 0
             " append line to location list
             let b:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': b:bufnr, 'col': 1}
             let b:header_list = b:header_list + [b:item]

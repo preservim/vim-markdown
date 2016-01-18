@@ -142,3 +142,37 @@ Execute (check TOC):
   let elem = res[7]
   AssertEqual elem.lnum, 50
   AssertEqual elem.text, 'chap 4.1'
+
+Given markdown;
+---
+layout: article
+title: A test of the heading folding when there is YAML frontmatter
+tags: markdown yaml vim-markdown
+---
+body
+
+heading
+-------
+
+Execute (fold level of yaml front matter):
+  let g:vim_markdown_frontmatter = 1
+  source ../after/ftplugin/markdown.vim
+  AssertEqual foldlevel(1), 0, '---'
+  AssertEqual foldlevel(2), 0, 'layout: article'
+  AssertEqual foldlevel(4), 0, 'tags: markdown yaml vim-markdown'
+  AssertEqual foldlevel(5), 0, '---'
+  AssertEqual foldlevel(6), 0, 'body'
+  AssertEqual foldlevel(8), 2, 'heading'
+  AssertEqual foldlevel(9), 2, '-------'
+  unlet g:vim_markdown_frontmatter
+
+Execute (check Toc of yaml front matter):
+  let g:vim_markdown_frontmatter = 1
+  :Toc
+  :lclose
+  let res = getloclist(0)
+  AssertEqual len(res), 1
+  let elem = res[0]
+  AssertEqual elem.lnum, 8
+  AssertEqual elem.text, 'heading'
+  unlet g:vim_markdown_frontmatter

@@ -114,7 +114,7 @@ else
             return '>1'
         elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
-            if g:vim_markdown_folding_level >= 2
+            if s:vim_markdown_folding_level >= 2
                 return '>1'
             else
                 return '>2'
@@ -125,7 +125,7 @@ else
         if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
             " fold level according to option
             let l:level = matchend(l1, '^#\+')
-            if g:vim_markdown_folding_level == 1 || l:level > g:vim_markdown_folding_level
+            if s:vim_markdown_folding_level == 1 || l:level > s:vim_markdown_folding_level
                 return -1
             else
                 " headers are not folded
@@ -146,7 +146,7 @@ endif
 
 let b:fenced_block = 0
 let b:front_matter = 0
-let g:vim_markdown_folding_level = get(g:, "vim_markdown_folding_level", 1)
+let s:vim_markdown_folding_level = get(g:, "vim_markdown_folding_level", 1)
 
 if !get(g:, "vim_markdown_folding_disabled", 0)
     setlocal foldexpr=Foldexpr_markdown(v:lnum)

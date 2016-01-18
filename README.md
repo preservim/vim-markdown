@@ -137,12 +137,30 @@ Used as `$x^2$`, `$$x^2$$`, escapable as `\$x\$` and `\$\$x\$\$`.
 let g:vim_markdown_math = 1
 ```
 
-#### YAML frontmatter
+#### YAML Front Matter
 
-Highlight YAML frontmatter as used by Jekyll:
+Highlight YAML front matter as used by Jekyll or [Hugo](https://gohugo.io/content/front-matter/).
 
 ```vim
 let g:vim_markdown_frontmatter = 1
+```
+
+#### TOML Front Matter
+
+Highlight TOML front matter as used by [Hugo](https://gohugo.io/content/front-matter/).
+
+TOML syntax highlight requires [vim-toml](https://github.com/cespare/vim-toml).
+
+```vim
+let g:vim_markdown_toml_frontmatter = 1
+```
+
+#### JSON Front Matter
+
+Highlight JSON front matter as used by [Hugo](https://gohugo.io/content/front-matter/).
+
+```vim
+let g:vim_markdown_json_frontmatter = 1
 ```
 
 ## Mappings

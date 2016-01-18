@@ -18,17 +18,21 @@ install:
 	mkdir -pv ${REGISTRY}
 	cp -v registry/markdown.yaml ${REGISTRY}/markdown.yaml
 
-test: build/tabular build/vader.vim
+test: build/tabular build/vim-toml build/vader.vim
 	test/run-tests.sh
 .PHONY: test
 
-update: build/tabular build/vader.vim
+update: build/tabular build/vim-toml build/vader.vim
 	cd build/tabular && git pull
+	cd build/vim-toml && git pull
 	cd build/vader.vim && git pull
 .PHONY: update
 
 build/tabular: | build
 	git clone https://github.com/godlygeek/tabular build/tabular
+
+build/vim-toml: | build
+	git clone https://github.com/cespare/vim-toml build/vim-toml
 
 build/vader.vim: | build
 	git clone https://github.com/junegunn/vader.vim build/vader.vim

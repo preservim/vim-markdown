@@ -489,6 +489,65 @@ Execute (rules are not mistaken by YAML frontmatter delimiters):
   let g:vim_markdown_frontmatter=1
   syn off | syn on
   AssertEqual SyntaxAt(5, 1), 'mkdRule'
+  unlet g:vim_markdown_frontmatter
+
+# TOML frontmatter
+
+Given markdown;
++++
+a = "b"
++++
+
+Execute (TOML frontmatter is controlled by the option):
+  syn off | syn on
+  AssertNotEqual SyntaxOf('b'), 'tomlString'
+  let g:vim_markdown_toml_frontmatter=1
+  syn off | syn on
+  AssertEqual SyntaxOf('b'), 'tomlString'
+  let g:vim_markdown_toml_frontmatter=0
+  syn off | syn on
+  AssertNotEqual SyntaxOf('b'), 'tomlString'
+
+Given markdown;
+
++++
+a = "b"
++++
+
+Execute (TOML frontmatter only works if it's the first thing in the file):
+  let g:vim_markdown_toml_frontmatter=1
+  syn off | syn on
+  AssertNotEqual SyntaxOf('b'), 'tomlString'
+  unlet g:vim_markdown_toml_frontmatter
+
+# JSON frontmatter
+
+Given markdown;
+{
+  "a": "b"
+}
+
+Execute (JSON frontmatter is controlled by the option):
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'jsonKeyword'
+  let g:vim_markdown_json_frontmatter=1
+  syn off | syn on
+  AssertEqual SyntaxOf('a'), 'jsonKeyword'
+  let g:vim_markdown_json_frontmatter=0
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'jsonKeyword'
+
+Given markdown;
+
+{
+  "a": "b"
+}
+
+Execute (JSON frontmatter only works if it's the first thing in the file):
+  let g:vim_markdown_json_frontmatter=1
+  syn off | syn on
+  AssertNotEqual SyntaxOf('a'), 'jsonKeyword'
+  unlet g:vim_markdown_json_frontmatter
 
 # Header
 

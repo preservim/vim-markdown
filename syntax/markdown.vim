@@ -110,6 +110,23 @@ syn match  mkdRule         /^\s*\*\{3,5}$/
 if get(g:, 'vim_markdown_frontmatter', 0)
   syn include @yamlTop syntax/yaml.vim
   syn region Comment matchgroup=mkdDelimiter start="\%^---$" end="^---$" contains=@yamlTop
+  unlet! b:current_syntax
+endif
+
+if get(g:, 'vim_markdown_toml_frontmatter', 0)
+  try
+    syn include @tomlTop syntax/toml.vim
+    syn region Comment matchgroup=mkdDelimiter start="\%^+++$" end="^+++$" transparent contains=@tomlTop
+    unlet! b:current_syntax
+  catch /E484/
+    syn region Comment matchgroup=mkdDelimiter start="\%^+++$" end="^+++$"
+  endtry
+endif
+
+if get(g:, 'vim_markdown_json_frontmatter', 0)
+  syn include @jsonTop syntax/json.vim
+  syn region Comment matchgroup=mkdDelimiter start="\%^{$" end="^}$" contains=@jsonTop
+  unlet! b:current_syntax
 endif
 
 if get(g:, 'vim_markdown_math', 0)

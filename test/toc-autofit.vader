@@ -47,6 +47,7 @@ Execute (toc window autofit width):
   :lclose
   let expected_width = len(line) + 2*5 + 1 + 3 - 7
   AssertEqual real_width, expected_width
+  set nonumber
 " 2 spaces * 5 additional header levels + 1 space for first header +
 " 3 spaces for line numbers - 7 chars ('###### ') that don't show up on the TOC
 

@@ -35,8 +35,8 @@ syn case ignore
 syn sync linebreaks=1
 
 "additions to HTML groups
-syn region htmlItalic start="\\\@<!\*\ze[^\\\*\s]" end="[^\\\*\s]\zs\*" keepend oneline
-syn region htmlItalic start="\\\@<!_\ze[^\\_\s]" end="[^\\_\s]\zs_" keepend oneline
+syn region htmlItalic start="\\\@<!\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*" keepend oneline
+syn region htmlItalic start="\\\@<!_\ze[^\\_\t ]" end="[^\\_\t ]\zs_" keepend oneline
 syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend oneline
 syn region htmlBold start="__\ze\S" end="\S\zs__" keepend oneline
 syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend oneline

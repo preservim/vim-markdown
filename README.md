@@ -113,6 +113,18 @@ It never increases its default size (half screen), it only shrinks.
 let g:vim_markdown_toc_autofit = 1
 ```
 
+### Syntax Concealing
+
+Concealing is set for some syntax.
+
+For example, conceal `[link text](link url)` as just `link text`.
+
+To enable/disable conceal use Vim's standard conceal configuration.
+
+```vim
+set conceallevel = 2
+```
+
 ### Syntax extensions
 
 The following options control which syntax extensions will be turned on. They are off by default.

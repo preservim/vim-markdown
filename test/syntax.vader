@@ -98,6 +98,20 @@ Execute (multiple links on a line):
   AssertNotEqual SyntaxOf('c'), 'mkdLink'
   AssertNotEqual SyntaxOf('c'), 'mkdURL'
 
+Given markdown;
+[a](b)
+
+Execute (conceal link):
+  setlocal conceallevel=2
+  AssertEqual synconcealed(1, 1)[0], 1
+  AssertEqual synconcealed(1, 2)[0], 0
+  AssertEqual synconcealed(1, 3)[0], 1
+  AssertEqual synconcealed(1, 4)[0], 1
+  AssertEqual synconcealed(1, 4)[0], 1
+  AssertEqual synconcealed(1, 5)[0], 1
+  AssertEqual synconcealed(1, 6)[0], 1
+  setlocal conceallevel=0
+
 # Autolinks
 
 Given markdown;

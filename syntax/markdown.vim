@@ -34,6 +34,13 @@ syn spell toplevel
 syn case ignore
 syn sync linebreaks=1
 
+let s:conceal = ''
+let s:concealends = ''
+if has('conceal')
+  let s:conceal = ' conceal'
+  let s:concealends = ' concealends'
+endif
+
 "additions to HTML groups
 syn region htmlItalic start="\\\@<!\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*" keepend oneline
 syn region htmlItalic start="\\\@<!_\ze[^\\_\t ]" end="[^\\_\t ]\zs_" keepend oneline
@@ -44,9 +51,9 @@ syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend oneline
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
-syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained oneline
-syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained oneline
-syn region mkdLink matchgroup=mkdDelimiter      start="\\\@<!!\?\[" end="\]\ze\s*[[(]" contains=@mkdNonListItem,@Spell nextgroup=mkdURL,mkdID skipwhite oneline
+execute 'syn region mkdID matchgroup=mkdDelimiter    start="\["    end="\]" contained oneline' . s:conceal
+execute 'syn region mkdURL matchgroup=mkdDelimiter   start="("     end=")"  contained oneline' . s:conceal
+execute 'syn region mkdLink matchgroup=mkdDelimiter  start="\\\@<!!\?\[" end="\]\ze\s*[[(]" contains=@mkdNonListItem,@Spell nextgroup=mkdURL,mkdID skipwhite oneline' . s:concealends
 
 " Autolink without angle brackets.
 " mkd  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment

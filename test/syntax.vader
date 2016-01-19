@@ -108,12 +108,6 @@ Execute (autolink with scheme case is insensitive):
   AssertEqual SyntaxOf('a'), 'mkdInlineURL'
 
 Given markdown;
-<notascheme://a>
-
-Execute (autolink without known scheme is not a link):
-  AssertNotEqual SyntaxOf('n'), 'mkdInlineURL'
-
-Given markdown;
 <a>
 
 Execute (autolink without scheme is not a link):

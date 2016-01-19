@@ -99,6 +99,13 @@ Execute (multiple links on a line):
   AssertNotEqual SyntaxOf('c'), 'mkdURL'
 
 Given markdown;
+[a] (b)
+
+Execute (space is not allowed between link text and parenthesis):
+  AssertNotEqual SyntaxOf('a'), 'mkdLink'
+  AssertNotEqual SyntaxOf('b'), 'mkdURL'
+
+Given markdown;
 [a](b)
 
 Execute (conceal link):

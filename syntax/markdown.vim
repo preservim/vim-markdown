@@ -66,6 +66,16 @@ syn region mkdLinkTitle matchgroup=mkdDelimiter start=+"+     end=+"+  contained
 syn region mkdLinkTitle matchgroup=mkdDelimiter start=+'+     end=+'+  contained
 syn region mkdLinkTitle matchgroup=mkdDelimiter start=+(+     end=+)+  contained
 
+"HTML headings
+syn region htmlH1       start="^\s*#"                   end="$" contains=@Spell
+syn region htmlH2       start="^\s*##"                  end="$" contains=@Spell
+syn region htmlH3       start="^\s*###"                 end="$" contains=@Spell
+syn region htmlH4       start="^\s*####"                end="$" contains=@Spell
+syn region htmlH5       start="^\s*#####"               end="$" contains=@Spell
+syn region htmlH6       start="^\s*######"              end="$" contains=@Spell
+syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
+syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
+
 "define Markdown groups
 syn match  mkdLineContinue ".$" contained
 syn match  mkdLineBreak    /  \+$/
@@ -87,16 +97,6 @@ syn match  mkdRule         /^\s*-\s\{0,1}-\s\{0,1}-$/
 syn match  mkdRule         /^\s*_\s\{0,1}_\s\{0,1}_$/
 syn match  mkdRule         /^\s*-\{3,}$/
 syn match  mkdRule         /^\s*\*\{3,5}$/
-
-"HTML headings
-syn region htmlH1       start="^\s*#"                   end="$" contains=@Spell
-syn region htmlH2       start="^\s*##"                  end="$" contains=@Spell
-syn region htmlH3       start="^\s*###"                 end="$" contains=@Spell
-syn region htmlH4       start="^\s*####"                end="$" contains=@Spell
-syn region htmlH5       start="^\s*#####"               end="$" contains=@Spell
-syn region htmlH6       start="^\s*######"              end="$" contains=@Spell
-syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
-syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
 " YAML frontmatter
 if get(g:, 'vim_markdown_frontmatter', 0)

@@ -267,6 +267,18 @@ Execute (fenced code block syntax with an unknown language specifier):
   call b:func(0)
   AssertEqual SyntaxOf('code'), 'mkdSnippetA_B_'
 
+
+Given markdown;
+```
+=
+a
+-
+```
+
+Execute (first = or - in fenced code block is not setex headers):
+  AssertEqual SyntaxOf('='), 'mkdCode'
+  AssertEqual SyntaxOf('-'), 'mkdCode'
+
 # Math
 
 Given markdown;

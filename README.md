@@ -145,7 +145,6 @@ Highlight YAML frontmatter as used by Jekyll:
 let g:vim_markdown_frontmatter = 1
 ```
 
-
 ## Mappings
 
 The following work on normal and visual modes:

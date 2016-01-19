@@ -35,12 +35,12 @@ syn case ignore
 syn sync linebreaks=1
 
 "additions to HTML groups
-syn region htmlItalic start="\\\@<!\*\S\@=" end="\S\@<=\\\@<!\*" keepend oneline
+syn region htmlItalic start="\\\@<!\*\S\@=" end="\S\zs\\\@<!\*" keepend oneline
 syn region htmlItalic start="\(^\|\s\)\@<=_\|\\\@<!_\([^_]\+\s\)\@=" end="\S\@<=[^\\]_\|[^\\]_\S\@=" keepend oneline
-syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend oneline
-syn region htmlBold start="\S\@<=__\|__\S\@=" end="\S\@<=__\|__\S\@=" keepend oneline
-syn region htmlBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend oneline
-syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend oneline
+syn region htmlBold start="\S\zs\*\*\|\*\*\S\@=" end="\S\zs\*\*\|\*\*\S\@=" keepend oneline
+syn region htmlBold start="\S\zs__\|__\S\@=" end="\S\zs__\|__\S\@=" keepend oneline
+syn region htmlBoldItalic start="\S\zs\*\*\*\|\*\*\*\S\@=" end="\S\zs\*\*\*\|\*\*\*\S\@=" keepend oneline
+syn region htmlBoldItalic start="\S\zs___\|___\S\@=" end="\S\zs___\|___\S\@=" keepend oneline
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

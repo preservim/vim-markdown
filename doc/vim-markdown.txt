@@ -11,7 +11,8 @@ Contents ~
   3. Set header folding level           |vim-markdown-set-header-folding-level|
   4. Disable Default Key Mappings   |vim-markdown-disable-default-key-mappings|
   5. Enable TOC window auto-fit       |vim-markdown-enable-toc-window-auto-fit|
-  6. Syntax extensions                         |vim-markdown-syntax-extensions|
+  6. Syntax Concealing                         |vim-markdown-syntax-concealing|
+  7. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
    2. YAML frontmatter                          |vim-markdown-yaml-frontmatter|
  4. Mappings                                            |vim-markdown-mappings|
@@ -118,6 +119,18 @@ Allow for the TOC window to auto-fit when it's possible for it to shrink. It
 never increases its default size (half screen), it only shrinks.
 >
   let g:vim_markdown_toc_autofit = 1
+<
+-------------------------------------------------------------------------------
+                                               *vim-markdown-syntax-concealing*
+Syntax Concealing ~
+
+Concealing is set for some syntax.
+
+For example, conceal '[link text](link url)' as just 'link text'.
+
+To enable/disable conceal use Vim's standard conceal configuration.
+>
+  set conceallevel = 2
 <
 -------------------------------------------------------------------------------
                                                *vim-markdown-syntax-extensions*

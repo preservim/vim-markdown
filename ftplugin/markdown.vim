@@ -609,7 +609,7 @@ let s:filetype_dict = {
     \ 'viml': 'vim'
 \ }
 
-function! s:Markdown_highlight_sources(force)
+function! s:MarkdownHighlightSources(force)
     " Syntax highlight source code embedded in notes.
     " Look for code blocks in the current file
     let filetypes = {}
@@ -635,7 +635,7 @@ function! s:Markdown_highlight_sources(force)
                 let filetype = ft
             endif
             let group = 'mkdSnippet' . toupper(substitute(filetype, "[+-]", "_", "g"))
-            let include = s:syntax_include(filetype)
+            let include = s:SyntaxInclude(filetype)
             let command = 'syntax region %s matchgroup=%s start="^\s*```%s$" matchgroup=%s end="\s*```$" keepend contains=%s%s'
             execute printf(command, group, startgroup, ft, endgroup, include, has('conceal') ? ' concealends' : '')
             execute printf('syntax cluster mkdNonListItem add=%s', group)
@@ -645,7 +645,7 @@ function! s:Markdown_highlight_sources(force)
     endfor
 endfunction
 
-function! s:syntax_include(filetype)
+function! s:SyntaxInclude(filetype)
     " Include the syntax highlighting of another {filetype}.
     let grouplistname = '@' . toupper(a:filetype)
     " Unset the name of the current syntax while including the other syntax
@@ -670,16 +670,16 @@ function! s:syntax_include(filetype)
 endfunction
 
 
-function! s:Markdown_refresh_syntax(force)
+function! s:MarkdownRefreshSyntax(force)
     if &filetype == 'markdown' && line('$') > 1
-        call s:Markdown_highlight_sources(a:force)
+        call s:MarkdownHighlightSources(a:force)
     endif
 endfunction
 
 augroup Mkd
     autocmd!
-    au BufWinEnter * call s:Markdown_refresh_syntax(1)
-    au BufWritePost * call s:Markdown_refresh_syntax(0)
-    au InsertEnter,InsertLeave * call s:Markdown_refresh_syntax(0)
-    au CursorHold,CursorHoldI * call s:Markdown_refresh_syntax(0)
+    au BufWinEnter * call s:MarkdownRefreshSyntax(1)
+    au BufWritePost * call s:MarkdownRefreshSyntax(0)
+    au InsertEnter,InsertLeave * call s:MarkdownRefreshSyntax(0)
+    au CursorHold,CursorHoldI * call s:MarkdownRefreshSyntax(0)
 augroup END

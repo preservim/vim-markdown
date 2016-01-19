@@ -268,7 +268,7 @@ end
 ```
 
 Execute (fenced code block syntax with a language specifier):
-  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_refresh_syntax')
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
   call b:func(0)
   AssertEqual SyntaxOf('include'), 'cInclude'
   AssertEqual SyntaxOf('code'), 'mkdSnippetCPP'
@@ -280,7 +280,7 @@ code
 ```
 
 Execute (fenced code block syntax with an unknown language specifier):
-  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'Markdown_refresh_syntax')
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
   call b:func(0)
   AssertEqual SyntaxOf('code'), 'mkdSnippetA_B_'
 

@@ -56,6 +56,15 @@ Execute (italic with escaped underscores):
   AssertNotEqual SyntaxOf('d'), 'htmlItalic'
 
 Given markdown;
+a *b\*c* d
+
+Execute (italic with escaped asterisks):
+  AssertNotEqual SyntaxOf('a'), 'htmlItalic'
+  AssertEqual SyntaxOf('b'), 'htmlItalic'
+  AssertEqual SyntaxOf('c'), 'htmlItalic'
+  AssertNotEqual SyntaxOf('d'), 'htmlItalic'
+
+Given markdown;
 a __b\_\_c__ d
 
 Execute (bold with escaped underscores):

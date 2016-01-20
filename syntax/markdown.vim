@@ -84,9 +84,8 @@ syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
 "define Markdown groups
-syn match  mkdLineContinue ".$" contained
 syn match  mkdLineBreak    /  \+$/
-syn region mkdBlockquote   start=/^\s*>/                   end=/$/ contains=mkdLineBreak,mkdLineContinue,@Spell
+syn region mkdBlockquote   start=/^\s*>/                   end=/$/ contains=mkdLineBreak,@Spell
 syn region mkdCode         start=/\(\([^\\]\|^\)\\\)\@<!`/ end=/\(\([^\\]\|^\)\\\)\@<!`/
 syn region mkdCode         start=/\s*``[^`]*/              end=/[^`]*``\s*/
 syn region mkdCode         start=/^\s*\z(`\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/          end=/^\s*\z1`*\s*$/
@@ -127,7 +126,6 @@ HtmlHiLink mkdCodeStart     String
 HtmlHiLink mkdCodeEnd       String
 HtmlHiLink mkdFootnote      Comment
 HtmlHiLink mkdBlockquote    Comment
-HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
 HtmlHiLink mkdRule          Identifier
 HtmlHiLink mkdLineBreak     Todo

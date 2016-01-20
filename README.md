@@ -122,7 +122,7 @@ For example, conceal `[link text](link url)` as just `link text`.
 To enable/disable conceal use Vim's standard conceal configuration.
 
 ```vim
-set conceallevel = 2
+set conceallevel=2
 ```
 
 ### Syntax extensions

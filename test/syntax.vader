@@ -31,6 +31,13 @@ Execute (italic):
   AssertNotEqual SyntaxOf('c'), 'htmlItalic'
 
 Given markdown;
+_a_b_
+
+Execute (italic text has underscores):
+  AssertEqual SyntaxOf('a'), 'htmlItalic'
+  AssertEqual SyntaxOf('b'), 'htmlItalic'
+
+Given markdown;
 a \*b\* c
 
 Execute (not italic with escaped asterisks):
@@ -56,6 +63,14 @@ Execute (italic with escaped underscores):
   AssertNotEqual SyntaxOf('d'), 'htmlItalic'
 
 Given markdown;
+a_b_c
+
+Execute (not italic underscores within text):
+  AssertNotEqual SyntaxOf('a'), 'htmlItalic'
+  AssertNotEqual SyntaxOf('b'), 'htmlItalic'
+  AssertNotEqual SyntaxOf('c'), 'htmlItalic'
+
+Given markdown;
 a *b\*c* d
 
 Execute (italic with escaped asterisks):
@@ -72,6 +87,66 @@ Execute (bold with escaped underscores):
   AssertEqual SyntaxOf('b'), 'htmlBold'
   AssertEqual SyntaxOf('c'), 'htmlBold'
   AssertNotEqual SyntaxOf('d'), 'htmlBold'
+
+Given markdown;
+_a b
+c_ d
+
+Execute (italic with underscores in multiple lines):
+  AssertEqual SyntaxOf('a'), 'htmlItalic'
+  AssertEqual SyntaxOf('b'), 'htmlItalic'
+  AssertEqual SyntaxOf('c'), 'htmlItalic'
+  AssertNotEqual SyntaxOf('d'), 'htmlItalic'
+
+Given markdown;
+__a b
+c__ d
+
+Execute (bold with underscores in multiple lines):
+  AssertEqual SyntaxOf('a'), 'htmlBold'
+  AssertEqual SyntaxOf('b'), 'htmlBold'
+  AssertEqual SyntaxOf('c'), 'htmlBold'
+  AssertNotEqual SyntaxOf('d'), 'htmlBold'
+
+Given markdown;
+___a b
+c___ d
+
+Execute (bold italic with underscores in multiple lines):
+  AssertEqual SyntaxOf('a'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('b'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('c'), 'htmlBoldItalic'
+  AssertNotEqual SyntaxOf('d'), 'htmlBoldItalic'
+
+Given markdown;
+*a b
+c* d
+
+Execute (italic with asterisks in multiple lines):
+  AssertEqual SyntaxOf('a'), 'htmlItalic'
+  AssertEqual SyntaxOf('b'), 'htmlItalic'
+  AssertEqual SyntaxOf('c'), 'htmlItalic'
+  AssertNotEqual SyntaxOf('d'), 'htmlItalic'
+
+Given markdown;
+**a b
+c** d
+
+Execute (bold with asterisks in multiple lines):
+  AssertEqual SyntaxOf('a'), 'htmlBold'
+  AssertEqual SyntaxOf('b'), 'htmlBold'
+  AssertEqual SyntaxOf('c'), 'htmlBold'
+  AssertNotEqual SyntaxOf('d'), 'htmlBold'
+
+Given markdown;
+***a b
+c*** d
+
+Execute (bold italic with asterisks in multiple lines):
+  AssertEqual SyntaxOf('a'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('b'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('c'), 'htmlBoldItalic'
+  AssertNotEqual SyntaxOf('d'), 'htmlBoldItalic'
 
 # Links
 

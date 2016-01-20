@@ -42,12 +42,12 @@ if has('conceal')
 endif
 
 "additions to HTML groups
-syn region htmlItalic start="\\\@<!\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*" keepend oneline
-syn region htmlItalic start="\\\@<!_\ze[^\\_\t ]" end="[^\\_\t ]\zs_" keepend oneline
-syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend oneline
-syn region htmlBold start="__\ze\S" end="\S\zs__" keepend oneline
-syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend oneline
-syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend oneline
+syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend
+syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend
+syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend
+syn region htmlBold start="__\ze\S" end="\S\zs__" keepend
+syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend
+syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

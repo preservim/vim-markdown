@@ -158,6 +158,15 @@ Execute (link with title):
   AssertEqual SyntaxOf('b'), 'mkdURL'
 
 Given markdown;
+[a
+b](c)
+
+Execute (link text with newline):
+  AssertEqual SyntaxOf('a'), 'mkdLink'
+  AssertEqual SyntaxOf('b'), 'mkdLink'
+  AssertEqual SyntaxOf('c'), 'mkdURL'
+
+Given markdown;
 (a)
 
 (b)

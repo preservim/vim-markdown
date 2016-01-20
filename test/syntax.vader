@@ -264,6 +264,14 @@ Execute (indent code blocks after list):
   AssertEqual SyntaxOf('c'), 'mkdCode'
 
 Given markdown;
+    a
+    b
+
+Execute (indent code block at beginning of file):
+  AssertEqual SyntaxOf('a'), 'mkdCode'
+  AssertEqual SyntaxOf('b'), 'mkdCode'
+
+Given markdown;
 ```c++
 #include <iostream>
 code

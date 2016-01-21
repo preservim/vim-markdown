@@ -124,8 +124,7 @@ else
         let l1 = getline(a:lnum)
         if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
             " fold level according to option
-            let l:level = matchend(l1, '^#\+')
-            if s:vim_markdown_folding_level == 1 || l:level > s:vim_markdown_folding_level
+            if s:vim_markdown_folding_level == 1 || matchend(l1, '^#\+') > s:vim_markdown_folding_level
                 return -1
             else
                 " headers are not folded

@@ -624,6 +624,14 @@ Execute (& and > are not marked as htmlError in lists):
   AssertNotEqual SyntaxOf('&'), 'htmlError'
   AssertNotEqual SyntaxOf('>'), 'htmlError'
 
+Given markdown;
+1. a  
+2. b
+
+Execute (list after line break):
+  AssertEqual SyntaxOf('1'), 'mkdListItem'
+  AssertEqual SyntaxOf('2'), 'mkdListItem'
+
 # HTML
 
 Given markdown;

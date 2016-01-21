@@ -14,7 +14,9 @@ Contents ~
   6. Syntax Concealing                         |vim-markdown-syntax-concealing|
   7. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
-   2. YAML frontmatter                          |vim-markdown-yaml-frontmatter|
+   2. YAML Front Matter                        |vim-markdown-yaml-front-matter|
+   3. TOML Front Matter                        |vim-markdown-toml-front-matter|
+   4. JSON Front Matter                        |vim-markdown-json-front-matter|
  4. Mappings                                            |vim-markdown-mappings|
  5. Commands                                            |vim-markdown-commands|
  6. Credits                                              |vim-markdown-credits|
@@ -148,12 +150,30 @@ Used as '$x^2$', '$$x^2$$', escapable as '\$x\$' and '\$\$x\$\$'.
   let g:vim_markdown_math = 1
 <
 -------------------------------------------------------------------------------
-                                                *vim-markdown-yaml-frontmatter*
-YAML frontmatter ~
+                                               *vim-markdown-yaml-front-matter*
+YAML Front Matter ~
 
-Highlight YAML frontmatter as used by Jekyll:
+Highlight YAML front matter as used by Jekyll or Hugo [7].
 >
   let g:vim_markdown_frontmatter = 1
+<
+-------------------------------------------------------------------------------
+                                               *vim-markdown-toml-front-matter*
+TOML Front Matter ~
+
+Highlight TOML front matter as used by Hugo [7].
+
+TOML syntax highlight requires vim-toml [8].
+>
+  let g:vim_markdown_toml_frontmatter = 1
+<
+-------------------------------------------------------------------------------
+                                               *vim-markdown-json-front-matter*
+JSON Front Matter ~
+
+Highlight JSON front matter as used by Hugo [7].
+>
+  let g:vim_markdown_json_frontmatter = 1
 <
 ===============================================================================
                                                         *vim-markdown-mappings*
@@ -240,9 +260,9 @@ The following requires ':filetype plugin on'.
   range.
 
                                                                  *:TableFormat*
-- ':TableFormat': Format the table under the cursor like this [7].
+- ':TableFormat': Format the table under the cursor like this [9].
 
-  Requires Tabular [8].
+  Requires Tabular [10].
 
   The input table _must_ already have a separator line as the second line of
   the table. That line only needs to contain the correct pipes '|', nothing
@@ -271,7 +291,7 @@ Credits ~
 The main contributors of vim-markdown are:
 
 - **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-
-  markdown. Homepage [9].
+  markdown. Homepage [11].
 
 If you feel that your name should be on this list, please make a pull request
 listing your contributions.
@@ -312,8 +332,10 @@ References ~
 [4] http://packages.qa.debian.org/v/vim-addon-manager.html
 [5] https://github.com/plasticboy/vim-markdown/archive/master.tar.gz
 [6] https://github.com/klen/python-mode
-[7] http://www.cirosantilli.com/markdown-style-guide/#tables
-[8] https://github.com/godlygeek/tabular
-[9] http://plasticboy.com/
+[7] https://gohugo.io/content/front-matter/
+[8] https://github.com/cespare/vim-toml
+[9] http://www.cirosantilli.com/markdown-style-guide/#tables
+[10] https://github.com/godlygeek/tabular
+[11] http://plasticboy.com/
 
 vim: ft=help

@@ -91,8 +91,8 @@ syn region mkdCode         start=/\s*``[^`]*/              end=/[^`]*``\s*/
 syn region mkdCode         start=/^\s*\z(`\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/          end=/^\s*\z1`*\s*$/
 syn region mkdCode         start=/\s*\~\~[^\~]*/              end=/[^\~]*\~\~\s*/
 syn region mkdCode         start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/         end=/^\s*\z1\~*\s*$/
-syn region mkdCode         start="<pre[^>]*>"              end="</pre>"
-syn region mkdCode         start="<code[^>]*>"             end="</code>"
+syn region mkdCode         start="<pre[^>]*\\\@<!>"        end="</pre>"
+syn region mkdCode         start="<code[^>]*\\\@<!>"       end="</code>"
 syn region mkdFootnote     start="\[^"                     end="\]"
 syn match  mkdCode         /^\s*\n\(\(\s\{8,}[^ ]\|\t\t\+[^\t]\).*\n\)\+/
 syn match  mkdCode         /\%^\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/

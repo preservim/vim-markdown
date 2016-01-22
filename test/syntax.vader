@@ -395,6 +395,14 @@ Execute (first = or - in fenced code block is not setex headers):
   AssertEqual SyntaxOf('='), 'mkdCode'
   AssertEqual SyntaxOf('-'), 'mkdCode'
 
+Given markdown;
+``` {style=""}
+a
+```
+
+Execute (fenced code block with extended info strings):
+  AssertEqual SyntaxOf('a'), 'mkdCode'
+
 # Code Blocks in pre and code tag
 
 Given markdown;

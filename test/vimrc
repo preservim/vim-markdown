@@ -2,6 +2,7 @@ set nocompatible
 set rtp+=../
 set rtp+=../build/tabular/
 set rtp+=../build/vim-toml/
+set rtp+=../build/vim-json/
 set rtp+=../build/vader.vim/
 let $LANG='en_US'
 filetype on

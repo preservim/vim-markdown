@@ -159,6 +159,8 @@ let g:vim_markdown_toml_frontmatter = 1
 
 Highlight JSON front matter as used by [Hugo](https://gohugo.io/content/front-matter/).
 
+JSON syntax highlight requires [vim-json](https://github.com/elzr/vim-json).
+
 ```vim
 let g:vim_markdown_json_frontmatter = 1
 ```

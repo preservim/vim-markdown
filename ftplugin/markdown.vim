@@ -304,6 +304,8 @@ function! s:Toc(...)
 
 
     let l:bufnr = bufnr('%')
+    let l:cursor_line = line('.')
+    let l:cursor_header = 0
     let l:fenced_block = 0
     let l:front_matter = 0
     let l:header_list = []
@@ -340,6 +342,14 @@ function! s:Toc(...)
             " append line to location list
             let l:item = {'lnum': i, 'text': l:line, 'valid': 1, 'bufnr': l:bufnr, 'col': 1}
             let l:header_list = l:header_list + [l:item]
+            " set header number of the cursor position
+            if l:cursor_header == 0
+                if i == l:cursor_line
+                    let l:cursor_header = len(l:header_list)
+                elseif i > l:cursor_line
+                    let l:cursor_header = len(l:header_list) - 1
+                endif
+            endif
             " keep track of the longest header size (heading level + title)
             let l:total_len = stridx(l:line, ' ') + len(l:line)
             if l:total_len > l:header_max_len
@@ -390,7 +400,7 @@ function! s:Toc(...)
     endfor
     setlocal nomodified
     setlocal nomodifiable
-    normal! gg
+    execute 'normal! ' . l:cursor_header . 'G'
 endfunction
 
 " Convert Setex headers in range `line1 .. line2` to Atx.

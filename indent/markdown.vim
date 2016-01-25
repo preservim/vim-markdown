@@ -41,6 +41,9 @@ function! s:prevnonblank(lnum)
 endfunction
 
 function GetMarkdownIndent()
+    if v:lnum > 2 && s:is_blank_line(getline(v:lnum - 1)) && s:is_blank_line(getline(v:lnum - 2))
+        return 0
+    endif
     let list_ind = 4
     " Find a non-blank line above the current line.
     let lnum = prevnonblank(v:lnum - 1)

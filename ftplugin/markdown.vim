@@ -616,7 +616,8 @@ command! -buffer Toct call s:Toc('tab')
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
 let s:filetype_dict = {
     \ 'c++': 'cpp',
-    \ 'viml': 'vim'
+    \ 'viml': 'vim',
+    \ 'bash': 'sh'
 \ }
 
 function! s:MarkdownHighlightSources(force)

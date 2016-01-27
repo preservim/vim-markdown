@@ -18,45 +18,45 @@ setlocal comments+=b:>
 " Only define the function once
 if exists("*GetMarkdownIndent") | finish | endif
 
-function! s:is_mkdCode(lnum)
+function! s:IsMkdCode(lnum)
     let name = synIDattr(synID(a:lnum, 1, 0), 'name')
     return (name =~ '^mkd\%(Code$\|Snippet\)' || name != '' && name !~ '^\%(mkd\|html\)')
 endfunction
 
-function! s:is_li_start(line)
+function! s:IsLiStart(line)
     return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
       \    a:line =~ '^\s*[*+-] \+'
 endfunction
 
-function! s:is_blank_line(line)
+function! s:IsBlankLine(line)
     return a:line =~ '^$'
 endfunction
 
-function! s:prevnonblank(lnum)
+function! s:PrevNonBlank(lnum)
     let i = a:lnum
-    while i > 1 && s:is_blank_line(getline(i))
+    while i > 1 && s:IsBlankLine(getline(i))
         let i -= 1
     endwhile
     return i
 endfunction
 
 function GetMarkdownIndent()
-    if v:lnum > 2 && s:is_blank_line(getline(v:lnum - 1)) && s:is_blank_line(getline(v:lnum - 2))
+    if v:lnum > 2 && s:IsBlankLine(getline(v:lnum - 1)) && s:IsBlankLine(getline(v:lnum - 2))
         return 0
     endif
     let list_ind = 4
     " Find a non-blank line above the current line.
-    let lnum = prevnonblank(v:lnum - 1)
+    let lnum = s:PrevNonBlank(v:lnum - 1)
     " At the start of the file use zero indent.
     if lnum == 0 | return 0 | endif
     let ind = indent(lnum)
     let line = getline(lnum)    " Last line
     let cline = getline(v:lnum) " Current line
-    if s:is_li_start(cline) 
+    if s:IsLiStart(cline)
         " Current line is the first line of a list item, do not change indent
         return indent(v:lnum)
-    elseif s:is_li_start(line)
-        if s:is_mkdCode(lnum)
+    elseif s:IsLiStart(line)
+        if s:IsMkdCode(lnum)
             return ind
         else
             " Last line is the first line of a list item, increase indent

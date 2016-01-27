@@ -48,3 +48,16 @@ Expect (no autoindent outside list):
 
 
   ba
+
+Given markdown;
+-   a
+
+    # b
+
+Do (insert header after list):
+  jjwi#
+
+Expect (no indent header after list):
+  -   a
+
+  ## b

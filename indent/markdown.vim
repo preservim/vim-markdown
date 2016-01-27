@@ -28,6 +28,10 @@ function! s:IsLiStart(line)
       \    a:line =~ '^\s*[*+-] \+'
 endfunction
 
+function! s:IsHeaderLine(line)
+    return a:line =~ '^\s*#'
+endfunction
+
 function! s:IsBlankLine(line)
     return a:line =~ '^$'
 endfunction
@@ -55,6 +59,9 @@ function GetMarkdownIndent()
     if s:IsLiStart(cline)
         " Current line is the first line of a list item, do not change indent
         return indent(v:lnum)
+    elseif s:IsHeaderLine(cline) && !s:IsMkdCode(v:lnum)
+        " Current line is the header, do not indent
+        return 0
     elseif s:IsLiStart(line)
         if s:IsMkdCode(lnum)
             return ind

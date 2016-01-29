@@ -13,6 +13,8 @@ install:
 	cp -v syntax/markdown.vim ${ADDONS}/syntax/markdown.vim
 	mkdir -pv ${ADDONS}/after/ftplugin
 	cp -v after/ftplugin/markdown.vim ${ADDONS}/after/ftplugin/markdown.vim
+	mkdir -pv ${ADDONS}/indent
+	cp -v indent/markdown.vim ${ADDONS}/indent/markdown.vim
 	mkdir -pv ${ADDONS}/doc
 	cp -v doc/vim-markdown.txt ${ADDONS}/doc/vim-markdown.txt
 	mkdir -pv ${REGISTRY}

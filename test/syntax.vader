@@ -193,15 +193,17 @@ Given markdown;
 [a](b)
 
 Execute (conceal link):
-  setlocal conceallevel=2
-  AssertEqual synconcealed(1, 1)[0], 1
-  AssertEqual synconcealed(1, 2)[0], 0
-  AssertEqual synconcealed(1, 3)[0], 1
-  AssertEqual synconcealed(1, 4)[0], 1
-  AssertEqual synconcealed(1, 4)[0], 1
-  AssertEqual synconcealed(1, 5)[0], 1
-  AssertEqual synconcealed(1, 6)[0], 1
-  setlocal conceallevel=0
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 1
+    AssertEqual synconcealed(1, 4)[0], 1
+    AssertEqual synconcealed(1, 4)[0], 1
+    AssertEqual synconcealed(1, 5)[0], 1
+    AssertEqual synconcealed(1, 6)[0], 1
+    setlocal conceallevel=0
+  endif
 
 # Autolinks
 
@@ -501,13 +503,13 @@ a: b
 ---
 
 Execute (YAML frontmatter is controlled by the option):
-  AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+  AssertNotEqual SyntaxOf('a')[0:3], 'yaml'
   let g:vim_markdown_frontmatter=1
   syn off | syn on
-  AssertEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+  AssertEqual SyntaxOf('a')[0:3], 'yaml'
   let g:vim_markdown_frontmatter=0
   syn off | syn on
-  AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+  AssertNotEqual SyntaxOf('a')[0:3], 'yaml'
 
 Given markdown;
 
@@ -518,7 +520,7 @@ a: b
 Execute (YAML frontmatter only works if it's the first thing in the file):
   let g:vim_markdown_frontmatter=1
   syn off | syn on
-  AssertNotEqual SyntaxOf('a'), 'yamlBlockMappingKey'
+  AssertNotEqual SyntaxOf('a')[0:3], 'yaml'
 
 Given markdown;
 ---

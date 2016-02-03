@@ -42,12 +42,31 @@ if has('conceal')
 endif
 
 "additions to HTML groups
-syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend
-syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend
-syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend
-syn region htmlBold start="__\ze\S" end="\S\zs__" keepend
-syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend
-syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
+"syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend
+"syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend
+"syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend
+"syn region htmlBold start="__\ze\S" end="\S\zs__" keepend
+"syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend
+"syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
+
+" emphasis stops at newline (in case a closing token is not found before)
+"if get(g:, "vim_markdown_emphasis_stops_at_newline", 1)
+"    let esanl_pre = '\(\n\|'
+"    let esanl_suf = '\)'
+"else
+"    let esanl_pre = ''
+"    let esanl_suf = ''
+"endif
+"execute 'syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs' . esanl_pre . '\*' . esanl_suf . '\ze\_W" keepend'
+"execute 'syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs' . esanl_pre . '_' . esanl_suf . '\ze\_W" keepend'
+"execute 'syn region htmlBold start="\*\*\ze\S" end="\S\zs' . esanl_pre . '\*\*' . esanl_suf . '" keepend'
+"execute 'syn region htmlBold start="__\ze\S" end="\S\zs__" keepend
+"execute 'syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend
+"execute 'syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
+
+" single-line emphasis (emphasis only works with matching token in the same line)
+syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]\([^\n]*[^\\\*\t ]\)\?\*" end="[^\\\*\t ]\zs\*\ze\_W" keepend
+
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

@@ -668,6 +668,8 @@ function! s:SyntaxInclude(filetype)
     try
         execute 'syntax include' grouplistname 'syntax/' . a:filetype . '.vim'
         execute 'syntax include' grouplistname 'after/syntax/' . a:filetype . '.vim'
+    catch /E403/
+        " Ignore syntax patterns specified twice
     catch /E484/
         " Ignore missing scripts
     endtry

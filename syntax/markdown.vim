@@ -51,6 +51,7 @@ if get(g:, "vim_markdown_emphasis_multiline", 1)
     syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
 else
     " single-line emphasis (emphasis only works with closing token on the same line)
+    " the following character makes the match non-greedy:          vv
     syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]\([^\n\*]*[^\\\*\t ]\)\?\*" end="[^\\\*\t ]\zs\*\ze\_W" keepend
     syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]\([^\n_]*[^\\_\t ]\)\?_" end="[^\\_\t ]\zs_\ze\_W" keepend
     syn region htmlBold start="\*\*\ze\S\([^\n\*]*[^\\\*\t ]\)\?\*\*" end="\S\zs\*\*" keepend

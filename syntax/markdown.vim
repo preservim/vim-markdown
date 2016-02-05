@@ -43,21 +43,16 @@ endif
 
 "additions to HTML groups
 if get(g:, "vim_markdown_emphasis_multiline", 1)
-    syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend
-    syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend
-    syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend
-    syn region htmlBold start="__\ze\S" end="\S\zs__" keepend
-    syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend
-    syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
+    let oneline = ""
 else
-    " single-line emphasis (emphasis only works with closing token on the same line)
-    syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]\([^\n]*[^\\\*\t ]\)\?\*" end="[^\\\*\t ]\zs\*\ze\_W" keepend
-    syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]\([^\n]*[^\\_\t ]\)\?_" end="[^\\_\t ]\zs_\ze\_W" keepend
-    syn region htmlBold start="\*\*\ze\S\([^\n]*[^\\\*\t ]\)\?\*\*" end="\S\zs\*\*" keepend
-    syn region htmlBold start="__\ze\S\([^\n]*[^\\_\t ]\)\?__" end="\S\zs__" keepend
-    syn region htmlBold start="\*\*\*\ze\S\([^\n]*[^\\\*\t ]\)\?\*\*\*" end="\S\zs\*\*\*" keepend
-    syn region htmlBold start="___\ze\S\([^\n]*[^\\_\t ]\)\?___" end="\S\zs___" keepend
+    let oneline = " oneline"
 endif
+execute 'syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend' . oneline
+execute 'syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend' . oneline
+execute 'syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend' . oneline
+execute 'syn region htmlBold start="__\ze\S" end="\S\zs__" keepend' . oneline
+execute 'syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend' . oneline
+execute 'syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend' . oneline
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

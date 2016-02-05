@@ -116,6 +116,7 @@ let g:vim_markdown_toc_autofit = 1
 ### Text emphasis restriction to single-lines
 
 By default text emphasis works across multiple lines until a closing token is found. However, it's possible to restrict text emphasis to a single line (ie, for it to be applied a closing token must be found on the same line). To do so:
+
 ```vim
 let g:vim_markdown_emphasis_multiline = 0
 ```

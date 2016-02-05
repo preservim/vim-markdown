@@ -11,8 +11,10 @@ Contents ~
   3. Set header folding level           |vim-markdown-set-header-folding-level|
   4. Disable Default Key Mappings   |vim-markdown-disable-default-key-mappings|
   5. Enable TOC window auto-fit       |vim-markdown-enable-toc-window-auto-fit|
-  6. Syntax Concealing                         |vim-markdown-syntax-concealing|
-  7. Syntax extensions                         |vim-markdown-syntax-extensions|
+  6. Text emphasis restriction to single-lines
+                       |vim-markdown-text-emphasis-restriction-to-single-lines|
+  7. Syntax Concealing                         |vim-markdown-syntax-concealing|
+  8. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
    2. YAML Front Matter                        |vim-markdown-yaml-front-matter|
    3. TOML Front Matter                        |vim-markdown-toml-front-matter|
@@ -121,6 +123,16 @@ Allow for the TOC window to auto-fit when it's possible for it to shrink. It
 never increases its default size (half screen), it only shrinks.
 >
   let g:vim_markdown_toc_autofit = 1
+<
+-------------------------------------------------------------------------------
+                       *vim-markdown-text-emphasis-restriction-to-single-lines*
+Text emphasis restriction to single-lines ~
+
+By default text emphasis works across multiple lines until a closing token is
+found. However, it's possible to restrict text emphasis to a single line (ie,
+for it to be applied a closing token must be found on the same line). To do so:
+>
+  let g:vim_markdown_emphasis_multiline = 0
 <
 -------------------------------------------------------------------------------
                                                *vim-markdown-syntax-concealing*

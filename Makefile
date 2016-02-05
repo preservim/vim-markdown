@@ -52,6 +52,14 @@ doc: build/html2vimdoc build/vim-tools
 	build/html2vimdoc/bin/python build/vim-tools/html2vimdoc.py -f vim-markdown \
 		doc/tmp.md | \
 		sed -E -e "s/[[:space:]]*$$//" -e "# remove trailing spaces" \
+		    -e "/^.{79,}\|$$/ {" -e "# wrap table of contents over 79" \
+		    -e "h" -e "# save the matched line to the hold space"\
+		    -e "s/^(.*) (\|[^|]*\|)$$/\1/" -e "# make content title" \
+		    -e "p" -e "# print title" \
+		    -e "g" -e "# restore the matched line" \
+		    -e "s/^.* (\|[^|]*\|)$$/ \1/" -e "# make link " \
+		    -e ":c" -e "s/^(.{1,78})$$/ \1/" -e "tc" -e "# align right" \
+		    -e "}" \
 		    -e "/^- '[^']*':( |$$)/ {" \
 		    -e "h" -e "# save the matched line to the hold space"\
 		    -e "s/^- '([^']*)':.*/ \*\1\*/" -e "# make command reference" \

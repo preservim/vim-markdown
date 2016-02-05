@@ -42,12 +42,17 @@ if has('conceal')
 endif
 
 "additions to HTML groups
-syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend
-syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend
-syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend
-syn region htmlBold start="__\ze\S" end="\S\zs__" keepend
-syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend
-syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend
+if get(g:, "vim_markdown_emphasis_multiline", 1)
+    let oneline = ""
+else
+    let oneline = " oneline"
+endif
+execute 'syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend' . oneline
+execute 'syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend' . oneline
+execute 'syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend' . oneline
+execute 'syn region htmlBold start="__\ze\S" end="\S\zs__" keepend' . oneline
+execute 'syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend' . oneline
+execute 'syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend' . oneline
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

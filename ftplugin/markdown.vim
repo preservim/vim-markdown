@@ -631,6 +631,10 @@ function! s:MarkdownHighlightSources(force)
     if !exists('b:mkd_known_filetypes')
         let b:mkd_known_filetypes = {}
     endif
+    if !exists('b:mkd_included_filetypes')
+        " set syntax file name included
+        let b:mkd_included_filetypes = {}
+    endif
     if !a:force && (b:mkd_known_filetypes == filetypes || empty(filetypes))
         return
     endif
@@ -646,7 +650,12 @@ function! s:MarkdownHighlightSources(force)
                 let filetype = ft
             endif
             let group = 'mkdSnippet' . toupper(substitute(filetype, "[+-]", "_", "g"))
-            let include = s:SyntaxInclude(filetype)
+            if !has_key(b:mkd_included_filetypes, filetype)
+                let include = s:SyntaxInclude(filetype)
+                let b:mkd_included_filetypes[filetype] = 1
+            else
+                let include = '@' . toupper(filetype)
+            endif
             let command = 'syntax region %s matchgroup=%s start="^\s*```%s$" matchgroup=%s end="\s*```$" keepend contains=%s%s'
             execute printf(command, group, startgroup, ft, endgroup, include, has('conceal') ? ' concealends' : '')
             execute printf('syntax cluster mkdNonListItem add=%s', group)

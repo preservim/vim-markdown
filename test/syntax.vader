@@ -376,6 +376,21 @@ Execute (fenced code block syntax with a language specifier):
   AssertEqual SyntaxOf('def'), 'rubyDefine'
 
 Given markdown;
+```vim
+let g:a = 1
+```
+
+```viml
+let g:b = 1
+```
+
+Execute (fenced code block syntax with alias language specifier):
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
+  call b:func(0)
+  AssertEqual SyntaxOf('g:a'), 'vimVar'
+  AssertEqual SyntaxOf('g:b'), 'vimVar'
+
+Given markdown;
 ```a+b-
 code
 ```
@@ -384,7 +399,6 @@ Execute (fenced code block syntax with an unknown language specifier):
   let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
   call b:func(0)
   AssertEqual SyntaxOf('code'), 'mkdSnippetA_B_'
-
 
 Given markdown;
 ```

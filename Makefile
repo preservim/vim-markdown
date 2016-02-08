@@ -53,15 +53,15 @@ doc: build/html2vimdoc build/vim-tools
 		doc/tmp.md | \
 		sed -E -e "s/[[:space:]]*$$//" -e "# remove trailing spaces" \
 		    -e "/^.{79,}\|$$/ {" -e "# wrap table of contents over 79" \
-		    -e "h" -e "# save the matched line to the hold space"\
+		    -e "h" -e "# save the matched line to the hold space" \
 		    -e "s/^(.*) (\|[^|]*\|)$$/\1/" -e "# make content title" \
 		    -e "p" -e "# print title" \
 		    -e "g" -e "# restore the matched line" \
-		    -e "s/^.* (\|[^|]*\|)$$/ \1/" -e "# make link " \
+		    -e "s/^.* (\|[^|]*\|)$$/ \1/" -e "# make link" \
 		    -e ":c" -e "s/^(.{1,78})$$/ \1/" -e "tc" -e "# align right" \
 		    -e "}" \
 		    -e "/^- '[^']*':( |$$)/ {" \
-		    -e "h" -e "# save the matched line to the hold space"\
+		    -e "h" -e "# save the matched line to the hold space" \
 		    -e "s/^- '([^']*)':.*/ \*\1\*/" -e "# make command reference" \
 		    -e ":a" -e "s/^(.{1,78})$$/ \1/" -e "ta" -e "# align right" \
 		    -e "G" -e "# append the matched line after the command reference" \

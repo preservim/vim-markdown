@@ -250,7 +250,7 @@ The following requires `:filetype plugin on`.
 
 -   `:Toct`: Same as `:Toc` but in a new tab.
 
--   `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
+-   `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `:Tocv`.
 
 ## Credits
 

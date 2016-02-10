@@ -617,7 +617,8 @@ command! -buffer Toct call s:Toc('tab')
 let s:filetype_dict = {
     \ 'c++': 'cpp',
     \ 'viml': 'vim',
-    \ 'bash': 'sh'
+    \ 'bash': 'sh',
+    \ 'ini': 'dosini'
 \ }
 
 function! s:MarkdownHighlightSources(force)

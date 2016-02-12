@@ -218,6 +218,12 @@ Execute (autolink):
   AssertNotEqual SyntaxOf('c'), 'mkdInlineURL'
 
 Given markdown;
+http://12monkeys.foo
+
+Execute (autolink with domain starting with a number):
+  AssertEqual SyntaxOf('12monkeys'), 'mkdInlineURL'
+
+Given markdown;
 <HtTp://a>
 
 Execute (autolink with scheme case is insensitive):

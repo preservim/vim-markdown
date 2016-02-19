@@ -614,12 +614,21 @@ command! -buffer Tocv call s:Toc('vertical')
 command! -buffer Toct call s:Toc('tab')
 
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
-let s:filetype_dict = {
-    \ 'c++': 'cpp',
-    \ 'viml': 'vim',
-    \ 'bash': 'sh',
-    \ 'ini': 'dosini'
-\ }
+if exists('g:vim_markdown_fenced_languages')
+    let s:filetype_dict = {}
+    for s:filetype in g:vim_markdown_fenced_languages
+        let key = matchstr(s:filetype, "[^=]*")
+        let val = matchstr(s:filetype, "[^=]*$")
+        let s:filetype_dict[key] = val
+    endfor
+else
+    let s:filetype_dict = {
+        \ 'c++': 'cpp',
+        \ 'viml': 'vim',
+        \ 'bash': 'sh',
+        \ 'ini': 'dosini'
+    \ }
+endif
 
 function! s:MarkdownHighlightSources(force)
     " Syntax highlight source code embedded in notes.

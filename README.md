@@ -139,6 +139,23 @@ To disable conceal regardless of `conceallevel` setting, add the following to yo
 let g:vim_markdown_conceal = 0
 ```
 
+### Fenced code block languages
+
+You can use filetype name as fenced code block languages for syntax highlighting.
+If you want to use different name from filetype, you can add it in your '.vimrc' like so:
+
+```vim
+let g:vim_markdown_fenced_languages = ['csharp=cs']
+```
+
+This will cause the following to be highlighted using the `cs` filetype syntax.
+
+    ```csharp
+    ...
+    ```
+
+Default is `['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']`.
+
 ### Syntax extensions
 
 The following options control which syntax extensions will be turned on. They are off by default.

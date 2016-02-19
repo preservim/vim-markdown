@@ -425,6 +425,19 @@ Execute (fenced code block syntax with alias language specifier):
   AssertEqual SyntaxOf('g:b'), 'vimVar'
 
 Given markdown;
+```csharp
+var s = "foo";
+```
+
+Execute (fenced code block languages setting):
+  let g:vim_markdown_fenced_languages = ['csharp=cs']
+  source ../ftplugin/markdown.vim
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
+  call b:func(0)
+  AssertEqual SyntaxOf('foo'), 'csString'
+  unlet g:vim_markdown_fenced_languages
+
+Given markdown;
 ```a+b-
 code
 ```

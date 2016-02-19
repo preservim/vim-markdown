@@ -14,7 +14,8 @@ Contents ~
   6. Text emphasis restriction to single-lines
                        |vim-markdown-text-emphasis-restriction-to-single-lines|
   7. Syntax Concealing                         |vim-markdown-syntax-concealing|
-  8. Syntax extensions                         |vim-markdown-syntax-extensions|
+  8. Fenced code block languages     |vim-markdown-fenced-code-block-languages|
+  9. Syntax extensions                         |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
    2. YAML Front Matter                        |vim-markdown-yaml-front-matter|
    3. TOML Front Matter                        |vim-markdown-toml-front-matter|
@@ -151,6 +152,24 @@ your '.vimrc':
 >
   let g:vim_markdown_conceal = 0
 <
+-------------------------------------------------------------------------------
+                                     *vim-markdown-fenced-code-block-languages*
+Fenced code block languages ~
+
+You can use filetype name as fenced code block languages for syntax
+highlighting. If you want to use different name from filetype, you can add it
+in your '.vimrc' like so:
+>
+  let g:vim_markdown_fenced_languages = ['csharp=cs']
+<
+This will cause the following to be highlighted using the 'cs' filetype syntax.
+>
+  ```csharp
+  ...
+  ```
+<
+Default is "['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']".
+
 -------------------------------------------------------------------------------
                                                *vim-markdown-syntax-extensions*
 Syntax extensions ~

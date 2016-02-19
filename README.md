@@ -127,7 +127,13 @@ Concealing is set for some syntax.
 
 For example, conceal `[link text](link url)` as just `link text`.
 
-To disable conceal, add the following to your '.vimrc':
+To enable conceal use Vim's standard conceal configuration.
+
+```vim
+set conceallevel=2
+```
+
+To disable conceal regardless of `conceallevel` setting, add the following to your '.vimrc':
 
 ```vim
 let g:vim_markdown_conceal = 0

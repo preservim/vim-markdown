@@ -706,9 +706,16 @@ function! s:MarkdownRefreshSyntax(force)
     endif
 endfunction
 
+function! s:MarkdownClearSyntaxVariables()
+    if &filetype == 'markdown'
+        unlet! b:mkd_included_filetypes
+    endif
+endfunction
+
 augroup Mkd
     autocmd!
     au BufWinEnter * call s:MarkdownRefreshSyntax(1)
+    au BufUnload * call s:MarkdownClearSyntaxVariables()
     au BufWritePost * call s:MarkdownRefreshSyntax(0)
     au InsertEnter,InsertLeave * call s:MarkdownRefreshSyntax(0)
     au CursorHold,CursorHoldI * call s:MarkdownRefreshSyntax(0)

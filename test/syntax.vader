@@ -438,6 +438,22 @@ Execute (fenced code block languages setting):
   unlet g:vim_markdown_fenced_languages
 
 Given markdown;
+```vim
+let g:a = 1
+```
+
+Execute (fenced code block includes language syntax with reopening same buffer):
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
+  call b:func(0)
+  split
+  quit
+  edit
+  set filetype=markdown
+  execute "normal! i```vim\<cr>let g:a = 1\<cr>```"
+  call b:func(1)
+  AssertEqual SyntaxOf('g:a'), 'vimVar'
+
+Given markdown;
 ```a+b-
 code
 ```

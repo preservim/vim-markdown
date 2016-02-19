@@ -148,6 +148,12 @@ Execute (bold italic with asterisks in multiple lines):
   AssertEqual SyntaxOf('c'), 'htmlBoldItalic'
   AssertNotEqual SyntaxOf('d'), 'htmlBoldItalic'
 
+Given markdown;
+*a
+
+Execute (not italic with an asterisk):
+  AssertNotEqual SyntaxOf('a'), 'htmlItalic'
+
 # Links
 
 Given markdown;

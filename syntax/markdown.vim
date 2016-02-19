@@ -47,7 +47,7 @@ if get(g:, 'vim_markdown_emphasis_multiline', 1)
 else
     let s:oneline = ' oneline'
 endif
-execute 'syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]" end="[^\\\*\t ]\zs\*\ze\_W" keepend' . s:oneline
+execute 'syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]\%(\%([^*]\|\\\*\|\n\)*[^\\\*\t ]\)\?\*\_W" end="[^\\\*\t ]\zs\*\ze\_W" keepend' . s:oneline
 execute 'syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend' . s:oneline
 execute 'syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend' . s:oneline
 execute 'syn region htmlBold start="__\ze\S" end="\S\zs__" keepend' . s:oneline

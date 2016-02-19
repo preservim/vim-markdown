@@ -133,7 +133,7 @@ To enable conceal use Vim's standard conceal configuration.
 set conceallevel=2
 ```
 
-To disable conceal regardless of `conceallevel` setting, add the following to your '.vimrc':
+To disable conceal regardless of `conceallevel` setting, add the following to your `.vimrc`:
 
 ```vim
 let g:vim_markdown_conceal = 0
@@ -142,7 +142,7 @@ let g:vim_markdown_conceal = 0
 ### Fenced code block languages
 
 You can use filetype name as fenced code block languages for syntax highlighting.
-If you want to use different name from filetype, you can add it in your '.vimrc' like so:
+If you want to use different name from filetype, you can add it in your `.vimrc` like so:
 
 ```vim
 let g:vim_markdown_fenced_languages = ['csharp=cs']

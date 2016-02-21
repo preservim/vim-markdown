@@ -196,6 +196,28 @@ JSON syntax highlight requires [vim-json](https://github.com/elzr/vim-json).
 let g:vim_markdown_json_frontmatter = 1
 ```
 
+### Adjust new list item indent
+
+You can adjust a new list indent. For example, you insert a single line like below:
+
+```
+* item1
+```
+
+Then if you type `o` to insert new line in vim and type `* item2`, the result will be:
+
+```
+* item1
+    * item2
+```
+
+vim-markdown automatically insert the indent. By default, the number of spaces of indent is 4. If you'd like to change the number as 2, just write:
+
+```vim
+let g:vim_markdown_new_list_item_indent = 2
+```
+
+
 ## Mappings
 
 The following work on normal and visual modes:

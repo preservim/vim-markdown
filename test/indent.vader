@@ -61,3 +61,13 @@ Expect (no indent header after list):
   -   a
 
   ## b
+
+Given markdown;
+* item1
+
+Do (new line from the first item of the list and add the second item):
+  o* item2
+
+Expect (insert 4 spaces to the head of second item):
+  * item1
+      * item2

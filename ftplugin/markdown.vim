@@ -459,8 +459,11 @@ function! s:TableFormat()
     " Remove everything that is not a pipe othewise well formated tables would grow
     " because of addition of 2 spaces on the separator line by Tabularize /|.
     let l:flags = (&gdefault ? '' : 'g')
-    execute 's/[^|]//' . l:flags
+    execute 's/\(:\@<!-:\@!\|[^|:-]\)//e' . l:flags
+    execute 's/--/-/e' . l:flags
     Tabularize /|
+    execute 's/:\( \+\)|/\1:|/e' . l:flags
+    execute 's/|\( \+\):/|:\1/e' . l:flags
     execute 's/ /-/' . l:flags
     call setpos('.', l:pos)
 endfunction

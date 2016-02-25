@@ -29,3 +29,16 @@ Expect (table is not modified):
   | a | b |
   |---|---|
   | c | d |
+
+Given markdown;
+| left |right|  center  ||
+| :- | --: |:---:|:|
+| left |right|  center  ||
+
+Execute (format table with colons):
+  TableFormat
+
+Expect (preserve colons to align text):
+  | left | right | center |   |
+  |:-----|------:|:------:|:--|
+  | left | right | center |   |

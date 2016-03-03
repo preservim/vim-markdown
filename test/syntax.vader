@@ -154,6 +154,14 @@ Given markdown;
 Execute (not italic with an asterisk):
   AssertNotEqual SyntaxOf('a'), 'htmlItalic'
 
+Given markdown;
+[__](a) b
+
+Execute (not bold with double underscores):
+  AssertNotEqual SyntaxOf('_'), 'htmlBold'
+  AssertNotEqual SyntaxOf('a'), 'htmlBold'
+  AssertNotEqual SyntaxOf('b'), 'htmlBold'
+
 # Links
 
 Given markdown;

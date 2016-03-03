@@ -49,10 +49,10 @@ else
 endif
 execute 'syn region htmlItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]\%(\%([^*]\|\\\*\|\n\)*[^\\\*\t ]\)\?\*\_W" end="[^\\\*\t ]\zs\*\ze\_W" keepend' . s:oneline
 execute 'syn region htmlItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend' . s:oneline
-execute 'syn region htmlBold start="\*\*\ze\S" end="\S\zs\*\*" keepend' . s:oneline
-execute 'syn region htmlBold start="__\ze\S" end="\S\zs__" keepend' . s:oneline
-execute 'syn region htmlBoldItalic start="\*\*\*\ze\S" end="\S\zs\*\*\*" keepend' . s:oneline
-execute 'syn region htmlBoldItalic start="___\ze\S" end="\S\zs___" keepend' . s:oneline
+execute 'syn region htmlBold start="\%(^\|\s\)\*\*\ze\S" end="\S\zs\*\*" keepend' . s:oneline
+execute 'syn region htmlBold start="\%(^\|\s\)\zs__\ze\S" end="\S\zs__" keepend' . s:oneline
+execute 'syn region htmlBoldItalic start="\%(^\|\s\)\zs\*\*\*\ze\S" end="\S\zs\*\*\*" keepend' . s:oneline
+execute 'syn region htmlBoldItalic start="\%(^\|\s\)\zs___\ze\S" end="\S\zs___" keepend' . s:oneline
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

@@ -1,3 +1,7 @@
+Before:
+  unlet! b:mkd_known_filetypes
+  unlet! b:mkd_included_filetypes
+
 Given markdown;
 a **b** c
 

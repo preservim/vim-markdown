@@ -72,12 +72,14 @@ set [no]foldenable
 
 ### Change fold style
 
-To fold in a style like [python-mode](https://github.com/klen/python-mode), add
-the following to your `.vimrc`:
+To fold in a style like [python-mode](https://github.com/klen/python-mode), add the following to your `.vimrc`:
 
 ```vim
 let g:vim_markdown_folding_style_pythonic = 1
 ```
+
+Level 1 heading which is served as a document title is not folded.
+`g:vim_markdown_folding_level` setting is not active with this fold style.
 
 ### Set header folding level
 

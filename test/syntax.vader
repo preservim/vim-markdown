@@ -1,3 +1,7 @@
+Before:
+  unlet! b:mkd_known_filetypes
+  unlet! b:mkd_included_filetypes
+
 Given markdown;
 a **b** c
 
@@ -422,6 +426,36 @@ Execute (fenced code block syntax with a language specifier):
   AssertEqual SyntaxOf('include'), 'cInclude'
   AssertEqual SyntaxOf('code'), 'mkdSnippetCPP'
   AssertEqual SyntaxOf('def'), 'rubyDefine'
+
+Given markdown;
+``` c++
+#include <iostream>
+code
+```
+
+```  vim
+let g:a = 1
+```
+
+```	ruby
+def a
+end
+```
+
+```
+ruby
+class B
+end
+```
+
+Execute (fenced code block syntax with a language specifier after whitespace):
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
+  call b:func(0)
+  AssertEqual SyntaxOf('include'), 'cInclude'
+  AssertEqual SyntaxOf('code'), 'mkdSnippetCPP'
+  AssertEqual SyntaxOf('g:a'), 'vimVar'
+  AssertEqual SyntaxOf('def'), 'rubyDefine'
+  AssertNotEqual SyntaxOf('class'), 'rubyClass'
 
 Given markdown;
 ```vim

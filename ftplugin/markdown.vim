@@ -357,11 +357,11 @@ function! s:Toc(...)
             endif
         endif
     endfor
+    call setloclist(0, l:header_list)
     if len(l:header_list) == 0
         echom "Toc: No headers."
         return
     endif
-    call setloclist(0, l:header_list)
 
     if l:window_type ==# 'horizontal'
         lopen

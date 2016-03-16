@@ -1,6 +1,7 @@
 Before:
   unlet! b:mkd_known_filetypes
   unlet! b:mkd_included_filetypes
+  unlet! g:vim_markdown_math
 
 Given markdown;
 a **b** c
@@ -619,6 +620,26 @@ Execute (math tex highlighting):
   syn off | syn on
   AssertEqual SyntaxOf('sqrt'), 'texStatement'
   AssertEqual SyntaxOf('frac'), 'texStatement'
+
+Given markdown;
+$a b[$ c
+
+Execute (math ends with $):
+  let g:vim_markdown_math=1
+  syn off | syn on
+  AssertEqual SyntaxOf('a'), 'mkdMath'
+  AssertEqual SyntaxOf('b'), 'mkdMath'
+  AssertNotEqual SyntaxOf('c')[0:2], 'tex'
+
+Given markdown;
+$$a b[$$ c
+
+Execute (math ends with $$):
+  let g:vim_markdown_math=1
+  syn off | syn on
+  AssertEqual SyntaxOf('a'), 'mkdMath'
+  AssertEqual SyntaxOf('b'), 'mkdMath'
+  AssertNotEqual SyntaxOf('c')[0:2], 'tex'
 
 # YAML frontmatter
 

@@ -280,7 +280,7 @@ The following work on normal and visual modes:
                                                                            *]c*
 - ']c': go to Current header. '<Plug>Markdown_MoveToCurHeader'
 
-                                                                           *]u*
+                                                              *vim-markdown-]u*
 - ']u': go to parent header (Up). '<Plug>Markdown_MoveToParentHeader'
 
 This plugin follows the recommended Vim plugin mapping interface, so to change

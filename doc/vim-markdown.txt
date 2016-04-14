@@ -243,7 +243,7 @@ Mappings ~
 
 The following work on normal and visual modes:
 
-                                                                           *gx*
+                                                              *vim-markdown-gx*
 - 'gx': open the link under the cursor in the same browser as the standard
   'gx' command. '<Plug>Markdown_OpenUrlUnderCursor'
 
@@ -262,25 +262,25 @@ The following work on normal and visual modes:
 <
   Known limitation: does not work for links that span multiple lines.
 
-                                                                           *]]*
+                                                              *vim-markdown-]]*
 - ']]': go to next header. '<Plug>Markdown_MoveToNextHeader'
 
-                                                                           *[[*
+                                                              *vim-markdown-[[*
 - '[[': go to previous header. Contrast with ']c'.
   '<Plug>Markdown_MoveToPreviousHeader'
 
-                                                                           *][*
+                                                              *vim-markdown-][*
 - '][': go to next sibling header if any.
   '<Plug>Markdown_MoveToNextSiblingHeader'
 
-                                                                           *[]*
+                                                              *vim-markdown-[]*
 - '[]': go to previous sibling header if any.
   '<Plug>Markdown_MoveToPreviousSiblingHeader'
 
-                                                                           *]c*
+                                                              *vim-markdown-]c*
 - ']c': go to Current header. '<Plug>Markdown_MoveToCurHeader'
 
-                                                                           *]u*
+                                                              *vim-markdown-]u*
 - ']u': go to parent header (Up). '<Plug>Markdown_MoveToParentHeader'
 
 This plugin follows the recommended Vim plugin mapping interface, so to change

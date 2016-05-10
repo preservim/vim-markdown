@@ -262,6 +262,12 @@ The following work on normal and visual modes:
 <
   Known limitation: does not work for links that span multiple lines.
 
+                                                              *vim-markdown-ge*
+- 'ge': open the link under the cursor in Vim for editing. Useful for
+  relative markdown links. '<Plug>Markdown_EditUrlUnderCursor'
+
+  The rules for the cursor position are the same as the 'gx' command.
+
                                                               *vim-markdown-]]*
 - ']]': go to next header. '<Plug>Markdown_MoveToNextHeader'
 

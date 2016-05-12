@@ -632,6 +632,7 @@ command! -buffer Toc call s:Toc()
 command! -buffer Toch call s:Toc('horizontal')
 command! -buffer Tocv call s:Toc('vertical')
 command! -buffer Toct call s:Toc('tab')
+command! -buffer MarkdownRefreshSyntax call s:MarkdownRefreshSyntax(1)
 
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
 if exists('g:vim_markdown_fenced_languages')

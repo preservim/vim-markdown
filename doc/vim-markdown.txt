@@ -352,6 +352,10 @@ The following requires ':filetype plugin on'.
                                                                         *:Tocv*
 - ':Tocv': Same as ':Toc' for symmetry with ':Toch' and ':Tocv'.
 
+                                                       *:MarkdownRefreshSyntax*
+- ':MarkdownRefreshSyntax': re-apply syntax recognition. Normally it happens
+  automatically; but occasionally you might need to trigger it manually.
+
 ===============================================================================
                                                          *vim-markdown-credits*
 Credits ~

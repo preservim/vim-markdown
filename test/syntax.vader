@@ -320,6 +320,72 @@ Execute (autolink in link text):
   AssertEqual SyntaxOf('b'), 'mkdURL'
   AssertEqual SyntaxOf('c'), 'mkdURL'
 
+Given markdown;
+# [h1link](url)
+
+## [h2link](url)
+
+### [h3link](url)
+
+#### [h4link](url)
+
+##### [h5link](url)
+
+###### [h6link](url)
+
+[h1link_b](url)
+===============
+
+[h2link_b](url)
+---------------
+
+Execute (link in headers):
+  AssertEqual SyntaxOf('h1link'), 'mkdLink'
+  AssertEqual SyntaxOf('h2link'), 'mkdLink'
+  AssertEqual SyntaxOf('h3link'), 'mkdLink'
+  AssertEqual SyntaxOf('h4link'), 'mkdLink'
+  AssertEqual SyntaxOf('h5link'), 'mkdLink'
+  AssertEqual SyntaxOf('h6link'), 'mkdLink'
+  AssertEqual SyntaxOf('h1link_b'), 'mkdLink'
+  AssertEqual SyntaxOf('h2link_b'), 'mkdLink'
+
+Given markdown;
+# http://h1link.foo
+
+## http://h2link.foo
+
+### http://h3link.foo
+
+#### http://h4link.foo
+
+##### http://h5link.foo
+
+###### http://h6link.foo
+
+http://h1link_b.foo
+===================
+
+http://h2link_b.foo
+-------------------
+
+Execute (inline url in headers):
+  AssertEqual SyntaxOf('h1link'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h2link'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h3link'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h4link'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h5link'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h6link'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h1link_b'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('h2link_b'), 'mkdInlineURL'
+
+Given markdown;
+> [a](b)
+> http://foo.bar
+
+Execute (link in blockquote):
+  AssertEqual SyntaxOf('a'), 'mkdLink'
+  AssertEqual SyntaxOf('foo'), 'mkdInlineURL'
+
 # Code Blocks
 
 Given markdown;

@@ -230,6 +230,13 @@ This is super useful for GitLab and GitHub wiki repositories.
 
 Normal behaviour would be that vim-markup required you to do this `[link text](link-url.md)`, but this is not how the Gitlab and GitHub wiki repositories work. So this option adds some consistency between the two. 
 
+### Auto-write when following link
+
+If you follow a link like this `[link text](link-url)` using the "ge" shortcut, this option will automatically save any edits you made before moving you:
+
+```vim
+let g:vim_markdown_autowrite = 1
+```
 
 ## Mappings
 

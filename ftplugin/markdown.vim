@@ -351,7 +351,7 @@ function! s:Toc(...)
                 endif
             endif
             " keep track of the longest header size (heading level + title)
-            let l:total_len = stridx(l:line, ' ') + len(l:line)
+            let l:total_len = stridx(l:line, ' ') + strdisplaywidth(l:line)
             if l:total_len > l:header_max_len
                 let l:header_max_len = l:total_len
             endif

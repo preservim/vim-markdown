@@ -142,7 +142,7 @@ if get(g:, 'vim_markdown_math', 0)
   syn include @tex syntax/tex.vim
   syn region mkdMath start="\\\@<!\$" end="\$" contains=@tex keepend
   syn region mkdMath start="\\\@<!\$\$" end="\$\$" contains=@tex keepend
-  syn region mkdMath start="\\\@<!\\\\\(" end="\\\\\)" contains=@tex keepend
+  syn region mkdMath start="\\\@<!\\\\(" end="\\\\)" contains=@tex keepend
   syn region mkdMath start="\\\@<!\\\\\[" end="\\\\\]" contains=@tex keepend
 endif
 

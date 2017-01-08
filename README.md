@@ -128,6 +128,9 @@ let g:vim_markdown_emphasis_multiline = 0
 Concealing is set for some syntax.
 
 For example, conceal `[link text](link url)` as just `link text`.
+Also, `_italic_` and `*italic*` will conceal to just _italic_.
+Similarly `__bold__`, `**bold**`, `___italic bold___`, and `***italic bold***`
+will conceal to just __bold__, **bold**, ___italic bold___, and ***italic bold*** respectively.
 
 To enable conceal use Vim's standard conceal configuration.
 

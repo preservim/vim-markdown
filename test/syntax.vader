@@ -167,6 +167,234 @@ Execute (not bold with double underscores):
   AssertNotEqual SyntaxOf('a'), 'htmlBold'
   AssertNotEqual SyntaxOf('b'), 'htmlBold'
 
+Given markdown;
+_a_
+
+Execute (conceal italic):
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 1
+    setlocal conceallevel=0
+  endif
+
+Execute (disable conceal):
+  if has('conceal')
+    let g:vim_markdown_conceal=0
+    syn off | syn on
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 0
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 0
+
+    let g:vim_markdown_conceal=1
+    syn off | syn on
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 1
+
+    setlocal conceallevel=0
+    unlet g:vim_markdown_conceal
+    syn off | syn on
+  endif
+
+Given markdown;
+*a*
+
+Execute (conceal italic):
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 1
+    setlocal conceallevel=0
+  endif
+
+Execute (disable conceal):
+  if has('conceal')
+    let g:vim_markdown_conceal=0
+    syn off | syn on
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 0
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 0
+
+    let g:vim_markdown_conceal=1
+    syn off | syn on
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 1
+
+    setlocal conceallevel=0
+    unlet g:vim_markdown_conceal
+    syn off | syn on
+  endif
+
+Given markdown;
+__a__
+
+Execute (conceal bold):
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 1
+    AssertEqual synconcealed(1, 5)[0], 1
+    setlocal conceallevel=0
+  endif
+
+Execute (disable conceal):
+  if has('conceal')
+    let g:vim_markdown_conceal=0
+    syn off | syn on
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 0
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 0
+
+    let g:vim_markdown_conceal=1
+    syn off | syn on
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 1
+    AssertEqual synconcealed(1, 5)[0], 1
+
+    setlocal conceallevel=0
+    unlet g:vim_markdown_conceal
+    syn off | syn on
+  endif
+
+Given markdown;
+**a**
+
+Execute (conceal bold):
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 1
+    AssertEqual synconcealed(1, 5)[0], 1
+    setlocal conceallevel=0
+  endif
+
+Execute (disable conceal):
+  if has('conceal')
+    let g:vim_markdown_conceal=0
+    syn off | syn on
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 0
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 0
+
+    let g:vim_markdown_conceal=1
+    syn off | syn on
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 1
+    AssertEqual synconcealed(1, 5)[0], 1
+
+    setlocal conceallevel=0
+    unlet g:vim_markdown_conceal
+    syn off | syn on
+  endif
+
+Given markdown;
+___a___
+
+Execute (conceal italic bold):
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 1
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 1
+    AssertEqual synconcealed(1, 6)[0], 1
+    AssertEqual synconcealed(1, 7)[0], 1
+    setlocal conceallevel=0
+  endif
+
+Execute (disable conceal):
+  if has('conceal')
+    let g:vim_markdown_conceal=0
+    syn off | syn on
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 0
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 0
+    AssertEqual synconcealed(1, 6)[0], 0
+    AssertEqual synconcealed(1, 7)[0], 0
+
+    let g:vim_markdown_conceal=1
+    syn off | syn on
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 1
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 1
+    AssertEqual synconcealed(1, 6)[0], 1
+    AssertEqual synconcealed(1, 7)[0], 1
+
+    setlocal conceallevel=0
+    unlet g:vim_markdown_conceal
+    syn off | syn on
+  endif
+
+Given markdown;
+***a***
+
+Execute (conceal italic bold):
+  if has('conceal')
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 1
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 1
+    AssertEqual synconcealed(1, 6)[0], 1
+    AssertEqual synconcealed(1, 7)[0], 1
+    setlocal conceallevel=0
+  endif
+
+Execute (disable conceal):
+  if has('conceal')
+    let g:vim_markdown_conceal=0
+    syn off | syn on
+    setlocal conceallevel=2
+    AssertEqual synconcealed(1, 1)[0], 0
+    AssertEqual synconcealed(1, 2)[0], 0
+    AssertEqual synconcealed(1, 3)[0], 0
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 0
+    AssertEqual synconcealed(1, 6)[0], 0
+    AssertEqual synconcealed(1, 7)[0], 0
+
+    let g:vim_markdown_conceal=1
+    syn off | syn on
+    AssertEqual synconcealed(1, 1)[0], 1
+    AssertEqual synconcealed(1, 2)[0], 1
+    AssertEqual synconcealed(1, 3)[0], 1
+    AssertEqual synconcealed(1, 4)[0], 0
+    AssertEqual synconcealed(1, 5)[0], 1
+    AssertEqual synconcealed(1, 6)[0], 1
+    AssertEqual synconcealed(1, 7)[0], 1
+
+    setlocal conceallevel=0
+    unlet g:vim_markdown_conceal
+    syn off | syn on
+  endif
+
 # Links
 
 Given markdown;

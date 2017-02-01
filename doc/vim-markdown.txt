@@ -150,6 +150,9 @@ Syntax Concealing ~
 Concealing is set for some syntax.
 
 For example, conceal '[link text](link url)' as just 'link text'.
+Also, '_italic_' and '*italic*' will conceal to just 'italic'.
+Similarly '__bold__', '**bold**', '___italic bold___', and '***italic bold***'
+will conceal to 'bold', 'bold', 'italic bold', and 'italic bold' respectively.
 
 To enable conceal use Vim's standard conceal configuration.
 >

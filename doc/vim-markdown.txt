@@ -96,6 +96,10 @@ To fold in a style like python-mode [6], add the following to your '.vimrc':
 Level 1 heading which is served as a document title is not folded.
 'g:vim_markdown_folding_level' setting is not active with this fold style.
 
+To prevent foldtext from being overridden, add the following to your '.vimrc':
+
+  let g:vim_markdown_override_foldtext = 0
+
 -------------------------------------------------------------------------------
                                         *vim-markdown-set-header-folding-level*
 Set header folding level ~
@@ -146,6 +150,9 @@ Syntax Concealing ~
 Concealing is set for some syntax.
 
 For example, conceal '[link text](link url)' as just 'link text'.
+Also, '_italic_' and '*italic*' will conceal to just 'italic'.
+Similarly '__bold__', '**bold**', '___italic bold___', and '***italic bold***'
+will conceal to 'bold', 'bold', 'italic bold', and 'italic bold' respectively.
 
 To enable conceal use Vim's standard conceal configuration.
 >

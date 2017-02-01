@@ -351,7 +351,7 @@ function! s:Toc(...)
                 endif
             endif
             " keep track of the longest header size (heading level + title)
-            let l:total_len = stridx(l:line, ' ') + len(l:line)
+            let l:total_len = stridx(l:line, ' ') + strdisplaywidth(l:line)
             if l:total_len > l:header_max_len
                 let l:header_max_len = l:total_len
             endif
@@ -582,7 +582,14 @@ if !exists("*s:EditUrlUnderCursor")
   function s:EditUrlUnderCursor()
       let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
       if l:url != ''
-          execute 'edit' l:url
+          if get(g:, 'vim_markdown_autowrite', 0)
+            write
+          endif
+          if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
+              execute 'edit' fnamemodify(expand('%:~'), ':p:h').'/'.l:url.'.md'
+          else
+              execute 'edit' l:url 
+          endif
       else
           echomsg 'The cursor is not on a link.'
       endif

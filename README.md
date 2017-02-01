@@ -81,6 +81,12 @@ let g:vim_markdown_folding_style_pythonic = 1
 Level 1 heading which is served as a document title is not folded.
 `g:vim_markdown_folding_level` setting is not active with this fold style.
 
+To prevent foldtext from being set add the following to your `.vimrc`:
+
+```vim
+let g:vim_markdown_override_foldtext = 0
+```
+
 ### Set header folding level
 
 Folding level is a number between 1 and 6. By default, if not specified, it is set to 1.
@@ -128,6 +134,9 @@ let g:vim_markdown_emphasis_multiline = 0
 Concealing is set for some syntax.
 
 For example, conceal `[link text](link url)` as just `link text`.
+Also, `_italic_` and `*italic*` will conceal to just _italic_.
+Similarly `__bold__`, `**bold**`, `___italic bold___`, and `***italic bold***`
+will conceal to just __bold__, **bold**, ___italic bold___, and ***italic bold*** respectively.
 
 To enable conceal use Vim's standard conceal configuration.
 
@@ -219,6 +228,24 @@ vim-markdown automatically insert the indent. By default, the number of spaces o
 let g:vim_markdown_new_list_item_indent = 2
 ```
 
+### Do not require .md extensions for Markdown links
+
+If you want to have a link like this `[link text](link-url)` and follow it for editing in vim using the "ge" command, but have it open the file "link-url.md" instead of the file "link-url", then use this option:
+
+```vim
+let g:vim_markdown_no_extensions_in_markdown = 1
+```
+This is super useful for GitLab and GitHub wiki repositories.
+
+Normal behaviour would be that vim-markup required you to do this `[link text](link-url.md)`, but this is not how the Gitlab and GitHub wiki repositories work. So this option adds some consistency between the two. 
+
+### Auto-write when following link
+
+If you follow a link like this `[link text](link-url)` using the "ge" shortcut, this option will automatically save any edits you made before moving you:
+
+```vim
+let g:vim_markdown_autowrite = 1
+```
 
 ## Mappings
 

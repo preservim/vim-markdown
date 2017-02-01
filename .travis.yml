@@ -24,7 +24,7 @@ before_script: |
     export PATH="/usr/local/bin:$PATH"
     cd "$TRAVIS_BUILD_DIR"
   fi
-  sudo pip install virtualenv
+  sudo -H pip install virtualenv
   stty cols 80
 
 script:

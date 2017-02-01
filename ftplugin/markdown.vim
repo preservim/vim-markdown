@@ -582,7 +582,14 @@ if !exists("*s:EditUrlUnderCursor")
   function s:EditUrlUnderCursor()
       let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
       if l:url != ''
-          execute 'edit' l:url
+          if get(g:, 'vim_markdown_autowrite', 0)
+            write
+          endif
+          if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
+              execute 'edit' fnamemodify(expand('%:~'), ':p:h').'/'.l:url.'.md'
+          else
+              execute 'edit' l:url 
+          endif
       else
           echomsg 'The cursor is not on a link.'
       endif

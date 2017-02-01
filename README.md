@@ -81,6 +81,12 @@ let g:vim_markdown_folding_style_pythonic = 1
 Level 1 heading which is served as a document title is not folded.
 `g:vim_markdown_folding_level` setting is not active with this fold style.
 
+To prevent foldtext from being set add the following to your `.vimrc`:
+
+```vim
+let g:vim_markdown_override_foldtext = 0
+```
+
 ### Set header folding level
 
 Folding level is a number between 1 and 6. By default, if not specified, it is set to 1.

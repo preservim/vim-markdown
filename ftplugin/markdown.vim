@@ -581,13 +581,13 @@ endfunction
 if !exists('*s:EditUrlUnderCursor')
     function s:EditUrlUnderCursor()
         let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
-        let l:anchor = ''
         if l:url != ''
             if get(g:, 'vim_markdown_autowrite', 0)
                 write
             endif
+            let l:anchor = ''
             if get(g:, 'vim_markdown_follow_anchor', 0)
-                let l:parts = split(l:url, '#')
+                let l:parts = split(l:url, '#', 1)
                 if len(l:parts) == 2
                     let [l:url, l:anchor] = parts
                     let l:anchorexpr = get(g:, 'vim_markdown_anchorexpr', '')
@@ -598,10 +598,13 @@ if !exists('*s:EditUrlUnderCursor')
                     endif
                 endif
             endif
-            if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
-                let l:url = fnamemodify(expand('%:~'), ':p:h').'/'.l:url.'.md'
+            if l:url != ''
+                if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
+                    let l:url .= '.md'
+                endif
+                let l:url = fnamemodify(expand('%:h').'/'.l:url, ':.')
+                execute 'edit' l:url
             endif
-            execute 'edit' l:url
             if l:anchor != ''
                 silent! execute '/'.l:anchor
             endif

@@ -36,3 +36,18 @@ Fold Level 2
 Execute (fold level ==, --):
   AssertEqual foldlevel(2), 1, '=='
   AssertEqual foldlevel(4), 2, '--'
+
+Given markdown;
+# H1
+
+## H1.1
+
+## H1.2
+
+# H2
+
+Execute (fold level # in last line):
+  AssertEqual foldlevel(1), 0, '# H1'
+  AssertEqual foldlevel(3), 1, '## H1.1'
+  AssertEqual foldlevel(5), 1, '## H1.2'
+  AssertEqual foldlevel(7), 0, '# H2'

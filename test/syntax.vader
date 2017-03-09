@@ -414,6 +414,15 @@ Execute (link text with newline):
   AssertEqual SyntaxOf('c'), 'mkdURL'
 
 Given markdown;
+[a] b [c](d)
+
+Execute (link text with newline):
+  AssertNotEqual SyntaxOf('a'), 'mkdLink'
+  AssertNotEqual SyntaxOf('b'), 'mkdLink'
+  AssertEqual SyntaxOf('c'), 'mkdLink'
+  AssertEqual SyntaxOf('d'), 'mkdURL'
+
+Given markdown;
 (a)
 
 (b)

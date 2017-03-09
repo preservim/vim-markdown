@@ -423,6 +423,12 @@ Execute (link text with bracket sections):
   AssertEqual SyntaxOf('d'), 'mkdURL'
 
 Given markdown;
+[^a]: b
+
+Execute (footnote is not link):
+  AssertNotEqual SyntaxOf('a'), 'mkdLinkDef'
+
+Given markdown;
 (a)
 
 (b)

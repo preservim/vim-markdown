@@ -416,7 +416,7 @@ Execute (link text with newline):
 Given markdown;
 [a] b [c](d)
 
-Execute (link text with newline):
+Execute (link text with bracket sections):
   AssertNotEqual SyntaxOf('a'), 'mkdLink'
   AssertNotEqual SyntaxOf('b'), 'mkdLink'
   AssertEqual SyntaxOf('c'), 'mkdLink'

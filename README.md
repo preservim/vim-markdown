@@ -230,7 +230,7 @@ let g:vim_markdown_new_list_item_indent = 2
 
 ### Do not require .md extensions for Markdown links
 
-If you want to have a link like this `[link text](link-url)` and follow it for editing in vim using the "ge" command, but have it open the file "link-url.md" instead of the file "link-url", then use this option:
+If you want to have a link like this `[link text](link-url)` and follow it for editing in vim using the `ge` command, but have it open the file "link-url.md" instead of the file "link-url", then use this option:
 
 ```vim
 let g:vim_markdown_no_extensions_in_markdown = 1
@@ -241,7 +241,7 @@ Normal behaviour would be that vim-markup required you to do this `[link text](l
 
 ### Auto-write when following link
 
-If you follow a link like this `[link text](link-url)` using the "ge" shortcut, this option will automatically save any edits you made before moving you:
+If you follow a link like this `[link text](link-url)` using the `ge` shortcut, this option will automatically save any edits you made before moving you:
 
 ```vim
 let g:vim_markdown_autowrite = 1

@@ -167,6 +167,12 @@ your '.vimrc':
 >
   let g:vim_markdown_conceal = 0
 <
+To disable math conceal with LaTeX math syntax enabled, add the following to
+your '.vimrc':
+>
+  let g:tex_conceal = ""
+  let g:vim_markdown_math = 1
+<
 -------------------------------------------------------------------------------
                                      *vim-markdown-fenced-code-block-languages*
 Fenced code block languages ~

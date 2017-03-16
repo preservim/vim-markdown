@@ -150,6 +150,13 @@ To disable conceal regardless of `conceallevel` setting, add the following to yo
 let g:vim_markdown_conceal = 0
 ```
 
+To disable math conceal with LaTeX math syntax enabled, add the following to your `.vimrc`:
+
+```vim
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+```
+
 ### Fenced code block languages
 
 You can use filetype name as fenced code block languages for syntax highlighting.

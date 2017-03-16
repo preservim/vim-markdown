@@ -51,6 +51,45 @@ Execute (gx autolink):
   AssertEqual b:func(1, match(b:line, 'd') + 1), ''
 
 Given markdown;
+[ge_test.md](ge_test.md)
+
+Execute (ge opens file):
+  normal ge
+  AssertEqual @%, 'ge_test.md'
+  AssertEqual getline(1), 'ge test'
+
+Given markdown;
+[ge_test](ge_test)
+
+Execute (ge opens file without .md extensions):
+  let g:vim_markdown_no_extensions_in_markdown = 1
+  normal ge
+  AssertEqual @%, 'ge_test.md'
+  AssertEqual getline(1), 'ge test'
+  unlet g:vim_markdown_no_extensions_in_markdown
+
+Given markdown;
+[ge_test.md](ge_test.md)
+
+Execute (ge does not write before opening file):
+  normal ia
+  normal l
+  normal ge
+  AssertEqual @%, 'ge_test.md'
+  AssertEqual getline(1), 'ge test'
+
+Given markdown;
+[ge_test.md](ge_test.md)
+
+Execute (ge auto-write before opening file):
+  let g:vim_markdown_autowrite = 1
+  normal ia
+  normal l
+  AssertThrows normal ge
+  AssertEqual g:vader_exception, 'Vim(write):E382: Cannot write, ''buftype'' option is set'
+  unlet g:vim_markdown_autowrite
+
+Given markdown;
 # a
 
 b

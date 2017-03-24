@@ -26,7 +26,7 @@ Then run inside Vim:
 
 ```vim
 :so ~/.vimrc
-:PluginInstall
+:PlugInstall
 ```
 
 If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:

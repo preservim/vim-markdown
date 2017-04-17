@@ -451,6 +451,8 @@ endfunction
 " Depends on Tabularize.
 "
 function! s:TableFormat()
+    let l:gdefault = &gdefault
+    set nogdefault
     let l:pos = getpos('.')
     normal! {
     " Search instead of `normal! j` because of the table at beginning of file edge case.
@@ -468,6 +470,7 @@ function! s:TableFormat()
     execute 's/|\( \+\):/|:\1/e' . l:flags
     execute 's/ /-/' . l:flags
     call setpos('.', l:pos)
+    let &gdefault = l:gdefault
 endfunction
 
 " Wrapper to do move commands in visual mode.

@@ -586,9 +586,15 @@ if !exists("*s:EditUrlUnderCursor")
             write
           endif
           if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
-              execute 'edit' fnamemodify(expand('%:~'), ':p:h').'/'.l:url.'.md'
+              " use another file extension if preferred
+              if exists('g:vim_markdown_auto_extension_ext')
+                let l:ext = '.'.g:vim_markdow_auto_extension_ext
+              else
+                let l:ext = '.md'
+              endif
+              execute 'edit' fnameescape(fnamemodify(expand('%:~'), ':p:h').'/'.l:url.l:ext)
           else
-              execute 'edit' l:url 
+              execute 'edit' fnameescape(l:url)
           endif
       else
           echomsg 'The cursor is not on a link.'

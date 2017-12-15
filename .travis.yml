@@ -25,10 +25,10 @@ before_script: |
     cd "$TRAVIS_BUILD_DIR"
   fi
   if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    brew update
-    brew install python
+    pip install virtualenv
+  else
+    sudo -H pip install virtualenv
   fi
-  sudo -H pip install virtualenv
 
 script:
   - make test

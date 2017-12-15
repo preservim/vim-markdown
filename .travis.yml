@@ -25,7 +25,8 @@ before_script: |
     cd "$TRAVIS_BUILD_DIR"
   fi
   if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    export PATH=$PATH:~/Library/Python/2.7/bin
+    brew update
+    brew install python
   fi
   sudo -H pip install virtualenv
 

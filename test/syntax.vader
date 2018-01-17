@@ -629,6 +629,14 @@ Execute (link in blockquote):
   AssertEqual SyntaxOf('a'), 'mkdLink'
   AssertEqual SyntaxOf('foo'), 'mkdInlineURL'
 
+Given markdown;
+[https://domain.tld](https://domain.com) not_a_link
+
+Execute (link with url title):
+  AssertEqual SyntaxOf('https://domain.tld'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('https://domain.com'), 'mkdInlineURL'
+  AssertNotEqual SyntaxOf('not_a_link'), 'mkdInlineURL'
+
 # Code Blocks
 
 Given markdown;

@@ -24,6 +24,9 @@ before_script: |
     export PATH="/usr/local/bin:$PATH"
     cd "$TRAVIS_BUILD_DIR"
   fi
+  if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    sudo -H easy_install pip
+  fi
   sudo -H pip install virtualenv
 
 script:

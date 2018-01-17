@@ -15,15 +15,16 @@ Contents ~
                        |vim-markdown-text-emphasis-restriction-to-single-lines|
   7. Syntax Concealing                         |vim-markdown-syntax-concealing|
   8. Fenced code block languages     |vim-markdown-fenced-code-block-languages|
-  9. Syntax extensions                         |vim-markdown-syntax-extensions|
+  9. Follow named anchors                   |vim-markdown-follow-named-anchors|
+  10. Syntax extensions                        |vim-markdown-syntax-extensions|
    1. LaTeX math                                      |vim-markdown-latex-math|
    2. YAML Front Matter                        |vim-markdown-yaml-front-matter|
    3. TOML Front Matter                        |vim-markdown-toml-front-matter|
    4. JSON Front Matter                        |vim-markdown-json-front-matter|
-  10. Adjust new list item indent    |vim-markdown-adjust-new-list-item-indent|
-  11. Do not require .md extensions for Markdown links
+  11. Adjust new list item indent    |vim-markdown-adjust-new-list-item-indent|
+  12. Do not require .md extensions for Markdown links
                 |vim-markdown-do-not-require-.md-extensions-for-markdown-links|
-  12. Auto-write when following link
+  13. Auto-write when following link
                                   |vim-markdown-auto-write-when-following-link|
  4. Mappings                                            |vim-markdown-mappings|
  5. Commands                                            |vim-markdown-commands|
@@ -190,6 +191,35 @@ This will cause the following to be highlighted using the 'cs' filetype syntax.
   ```
 <
 Default is "['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']".
+
+-------------------------------------------------------------------------------
+                                            *vim-markdown-follow-named-anchors*
+Follow named anchors ~
+
+This feature allows ge to follow named anchors in links of the form
+'file#anchor' or just '#anchor', where file may omit the '.md' extension as
+usual. Two variables control its operation:
+>
+  let g:vim_markdown_follow_anchor = 1
+<
+This tells vim-markdown whether to attempt to follow a named anchor in a link
+or not. When it is 1, and only if a link can be split in two parts by the
+pattern '#', then the first part is interpreted as the file and the second one
+as the named anchor. This also includes urls of the form '#anchor', for which
+the first part is considered empty, meaning that the target file is the current
+one. After the file is opened, the anchor will be searched.
+
+Default is '0'.
+>
+  let g:vim_markdown_anchorexpr = "'<<'.v:anchor.'>>'"
+<
+This expression will be evaluated substituting 'v:anchor' with a quoted string
+that contains the anchor to visit. The result of the evaluation will become the
+real anchor to search in the target file. This is useful in order to convert
+anchors of the form, say, 'my-section-title' to searches of the form 'My
+Section Title' or '<<my-section-title>>'.
+
+Default is "''".
 
 -------------------------------------------------------------------------------
                                                *vim-markdown-syntax-extensions*

@@ -599,6 +599,7 @@ if !exists('*s:EditUrlUnderCursor')
                 endif
             endif
             if l:url != ''
+                let l:ext = ''
                 if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
                     " use another file extension if preferred
                     if exists('g:vim_markdown_auto_extension_ext')

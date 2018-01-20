@@ -285,6 +285,14 @@ If you follow a link like this `[link text](link-url)` using the `ge` shortcut, 
 let g:vim_markdown_autowrite = 1
 ```
 
+### Change default file extension
+
+If you would like to use a file extension other than `.md` you may do so using the `vim_markdown_auto_extension_ext` variable:
+
+```vim
+let g:vim_markdown_auto_extension_ext = 'txt'
+```
+
 ## Mappings
 
 The following work on normal and visual modes:

@@ -26,6 +26,7 @@ Contents ~
                 |vim-markdown-do-not-require-.md-extensions-for-markdown-links|
   13. Auto-write when following link
                                   |vim-markdown-auto-write-when-following-link|
+  14. Change default file extension           |vim-markdown-auto-extension-ext|
  4. Mappings                                            |vim-markdown-mappings|
  5. Commands                                            |vim-markdown-commands|
  6. Credits                                              |vim-markdown-credits|
@@ -308,6 +309,15 @@ If you follow a link like this '[link text](link-url)' using the 'ge' shortcut,
 this option will automatically save any edits you made before moving you:
 >
   let g:vim_markdown_autowrite = 1
+<
+-------------------------------------------------------------------------------
+                                              *vim-markdown-auto-extension-ext*
+Change default file extension ~
+
+If you would like to use a file extension other than '.md' you may do so using
+the 'vim_markdown_auto_extension_ext' variable:
+>
+  let g:vim_markdown_auto_extension_ext = 'txt'
 <
 ===============================================================================
                                                         *vim-markdown-mappings*

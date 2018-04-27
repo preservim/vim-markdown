@@ -293,6 +293,14 @@ If you would like to use a file extension other than `.md` you may do so using t
 let g:vim_markdown_auto_extension_ext = 'txt'
 ```
 
+### Change how to open new files
+
+By default when following a link the target file will be opened in your current buffer.  This behavior can change if you prefer using splits or tabs by using the `vim_markdown_edit_url_in` variable.  Possible values are `tab`, `vsplit`, `hsplit`, `current` opening in a new tab, vertical split, horizontal split, and current buffer respectively.  Defaults to current buffer if not set:
+
+```vim
+let g:vim_markdown_edit_url_in = 'tab'
+```
+
 ## Mappings
 
 The following work on normal and visual modes:

@@ -94,13 +94,13 @@ syn match  htmlH2       /^.\+\n-\+$/ contains=mkdLink,mkdInlineURL,@Spell
 "define Markdown groups
 syn match  mkdLineBreak    /  \+$/
 syn region mkdBlockquote   start=/^\s*>/                   end=/$/ contains=mkdLink,mkdInlineURL,mkdLineBreak,@Spell
-syn region mkdCode         start=/\(\([^\\]\|^\)\\\)\@<!`/ end=/\(\([^\\]\|^\)\\\)\@<!`/
-syn region mkdCode         start=/\s*``[^`]*/              end=/[^`]*``\s*/
-syn region mkdCode         start=/^\s*\z(`\{3,}\)[^`]*$/   end=/^\s*\z1`*\s*$/
-syn region mkdCode         start=/\s*\~\~[^\~]*/           end=/[^\~]*\~\~\s*/
-syn region mkdCode         start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/         end=/^\s*\z1\~*\s*$/
-syn region mkdCode         start="<pre[^>]*\\\@<!>"        end="</pre>"
-syn region mkdCode         start="<code[^>]*\\\@<!>"       end="</code>"
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!`/                     end=/\(\([^\\]\|^\)\\\)\@<!`/'  . s:concealends
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!``/ skip=/[^`]`[^`]/   end=/\(\([^\\]\|^\)\\\)\@<!``/' . s:concealends
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/^\s*\z(`\{3,}\)[^`]*$/                       end=/^\s*\z1`*\s*$/'            . s:concealends
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!\~\~/  end=/\(\([^\\]\|^\)\\\)\@<!\~\~/'               . s:concealends
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/      end=/^\s*\z1\~*\s*$/'           . s:concealends
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start="<pre[^>]*\\\@<!>"                            end="</pre>"'                   . s:concealends
+execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start="<code[^>]*\\\@<!>"                           end="</code>"'                  . s:concealends
 syn region mkdFootnote     start="\[^"                     end="\]"
 syn match  mkdCode         /^\s*\n\(\(\s\{8,}[^ ]\|\t\t\+[^\t]\).*\n\)\+/
 syn match  mkdCode         /\%^\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
@@ -150,6 +150,7 @@ syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,
 "highlighting for Markdown groups
 HtmlHiLink mkdString        String
 HtmlHiLink mkdCode          String
+HtmlHiLink mkdCodeDelimiter String
 HtmlHiLink mkdCodeStart     String
 HtmlHiLink mkdCodeEnd       String
 HtmlHiLink mkdFootnote      Comment

@@ -711,7 +711,7 @@ function! s:MarkdownHighlightSources(force)
                 let filetype = ft
             endif
             let group = 'mkdSnippet' . toupper(substitute(filetype, "[+-]", "_", "g"))
-            if !has_key(b:mkd_included_filetypes, filetype)
+            if a:force || !has_key(b:mkd_included_filetypes, filetype)
                 let include = s:SyntaxInclude(filetype)
                 let b:mkd_included_filetypes[filetype] = 1
             else
@@ -753,6 +753,7 @@ endfunction
 
 function! s:MarkdownRefreshSyntax(force)
     if &filetype == 'markdown' && line('$') > 1
+        let g:vim_markdown_refresh_force = 0
         call s:MarkdownHighlightSources(a:force)
     endif
 endfunction
@@ -763,11 +764,12 @@ function! s:MarkdownClearSyntaxVariables()
     endif
 endfunction
 
+let g:vim_markdown_refresh_force = 1
 augroup Mkd
     autocmd! * <buffer>
-    autocmd BufWinEnter <buffer> call s:MarkdownRefreshSyntax(1)
+    autocmd BufWinEnter <buffer> call s:MarkdownRefreshSyntax(g:vim_markdown_refresh_force)
     autocmd BufUnload <buffer> call s:MarkdownClearSyntaxVariables()
-    autocmd BufWritePost <buffer> call s:MarkdownRefreshSyntax(0)
-    autocmd InsertEnter,InsertLeave <buffer> call s:MarkdownRefreshSyntax(0)
-    autocmd CursorHold,CursorHoldI <buffer> call s:MarkdownRefreshSyntax(0)
+    autocmd BufWritePost <buffer> call s:MarkdownRefreshSyntax(g:vim_markdown_refresh_force)
+    autocmd InsertEnter,InsertLeave <buffer> call s:MarkdownRefreshSyntax(g:vim_markdown_refresh_force)
+    autocmd CursorHold,CursorHoldI <buffer> call s:MarkdownRefreshSyntax(g:vim_markdown_refresh_force)
 augroup END

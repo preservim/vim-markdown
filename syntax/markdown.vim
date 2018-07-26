@@ -82,12 +82,12 @@ syn region mkdLinkTitle matchgroup=mkdDelimiter start=+'+     end=+'+  contained
 syn region mkdLinkTitle matchgroup=mkdDelimiter start=+(+     end=+)+  contained
 
 "HTML headings
-syn region htmlH1       start="^\s*#"                   end="$" contains=mkdLink,mkdInlineURL,@Spell
-syn region htmlH2       start="^\s*##"                  end="$" contains=mkdLink,mkdInlineURL,@Spell
-syn region htmlH3       start="^\s*###"                 end="$" contains=mkdLink,mkdInlineURL,@Spell
-syn region htmlH4       start="^\s*####"                end="$" contains=mkdLink,mkdInlineURL,@Spell
-syn region htmlH5       start="^\s*#####"               end="$" contains=mkdLink,mkdInlineURL,@Spell
-syn region htmlH6       start="^\s*######"              end="$" contains=mkdLink,mkdInlineURL,@Spell
+syn region htmlH1       matchgroup=mkdHeading     start="^\s*#"                   end="$" contains=mkdLink,mkdInlineURL,@Spell
+syn region htmlH2       matchgroup=mkdHeading     start="^\s*##"                  end="$" contains=mkdLink,mkdInlineURL,@Spell
+syn region htmlH3       matchgroup=mkdHeading     start="^\s*###"                 end="$" contains=mkdLink,mkdInlineURL,@Spell
+syn region htmlH4       matchgroup=mkdHeading     start="^\s*####"                end="$" contains=mkdLink,mkdInlineURL,@Spell
+syn region htmlH5       matchgroup=mkdHeading     start="^\s*#####"               end="$" contains=mkdLink,mkdInlineURL,@Spell
+syn region htmlH6       matchgroup=mkdHeading     start="^\s*######"              end="$" contains=mkdLink,mkdInlineURL,@Spell
 syn match  htmlH1       /^.\+\n=\+$/ contains=mkdLink,mkdInlineURL,@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=mkdLink,mkdInlineURL,@Spell
 

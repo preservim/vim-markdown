@@ -309,6 +309,14 @@ well, or you will have to remove an indent each time you add a new list item:
 let g:vim_markdown_new_list_item_indent = 0
 ```
 
+### Change how to open new files
+
+By default when following a link the target file will be opened in your current buffer.  This behavior can change if you prefer using splits or tabs by using the `vim_markdown_edit_url_in` variable.  Possible values are `tab`, `vsplit`, `hsplit`, `current` opening in a new tab, vertical split, horizontal split, and current buffer respectively.  Defaults to current buffer if not set:
+
+```vim
+let g:vim_markdown_edit_url_in = 'tab'
+```
+
 ## Mappings
 
 The following work on normal and visual modes:

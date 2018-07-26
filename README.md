@@ -293,6 +293,22 @@ If you would like to use a file extension other than `.md` you may do so using t
 let g:vim_markdown_auto_extension_ext = 'txt'
 ```
 
+### Do not automatically insert bulletpoints
+
+Automatically inserting bulletpoints can lead to problems when wrapping text
+(see issue #232 for details), so it can be disabled:
+
+```vim
+let g:vim_markdown_auto_insert_bullets = 0
+```
+
+In that case, you probably also want to set the new list item indent to 0 as
+well, or you will have to remove an indent each time you add a new list item:
+
+```vim
+let g:vim_markdown_new_list_item_indent = 0
+```
+
 ### Change how to open new files
 
 By default when following a link the target file will be opened in your current buffer.  This behavior can change if you prefer using splits or tabs by using the `vim_markdown_edit_url_in` variable.  Possible values are `tab`, `vsplit`, `hsplit`, `current` opening in a new tab, vertical split, horizontal split, and current buffer respectively.  Defaults to current buffer if not set:

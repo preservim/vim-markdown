@@ -26,7 +26,11 @@ Contents ~
                 |vim-markdown-do-not-require-.md-extensions-for-markdown-links|
   13. Auto-write when following link
                                   |vim-markdown-auto-write-when-following-link|
-  14. Change default file extension           |vim-markdown-auto-extension-ext|
+  14. Change default file extension
+                                   |vim-markdown-change-default-file-extension|
+  15. Do not automatically insert bulletpoints
+                        |vim-markdown-do-not-automatically-insert-bulletpoints|
+  16. Change how to open new files  |vim-markdown-change-how-to-open-new-files|
  4. Mappings                                            |vim-markdown-mappings|
  5. Commands                                            |vim-markdown-commands|
  6. Credits                                              |vim-markdown-credits|
@@ -144,7 +148,7 @@ never increases its default size (half screen), it only shrinks.
 Text emphasis restriction to single-lines ~
 
 By default text emphasis works across multiple lines until a closing token is
-found. However, it's possible to restrict text emphasis to a single line (ie,
+found. However, it's possible to restrict text emphasis to a single line (i.e.,
 for it to be applied a closing token must be found on the same line). To do so:
 >
   let g:vim_markdown_emphasis_multiline = 0
@@ -197,9 +201,9 @@ Default is "['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']".
                                             *vim-markdown-follow-named-anchors*
 Follow named anchors ~
 
-This feature allows ge to follow named anchors in links of the form
-'file#anchor' or just '#anchor', where file may omit the '.md' extension as
-usual. Two variables control its operation:
+This feature allows the 'ge' command to follow named anchors in links of the
+form 'file#anchor' or just '#anchor', where file may omit the '.md' extension
+as usual. Two variables control its operation:
 >
   let g:vim_markdown_follow_anchor = 1
 <
@@ -311,7 +315,7 @@ this option will automatically save any edits you made before moving you:
   let g:vim_markdown_autowrite = 1
 <
 -------------------------------------------------------------------------------
-                                              *vim-markdown-auto-extension-ext*
+                                   *vim-markdown-change-default-file-extension*
 Change default file extension ~
 
 If you would like to use a file extension other than '.md' you may do so using
@@ -320,15 +324,28 @@ the 'vim_markdown_auto_extension_ext' variable:
   let g:vim_markdown_auto_extension_ext = 'txt'
 <
 -------------------------------------------------------------------------------
-                                                     *vim-markdown-edit-url-in*
+                        *vim-markdown-do-not-automatically-insert-bulletpoints*
+Do not automatically insert bulletpoints ~
+
+Automatically inserting bulletpoints can lead to problems when wrapping text
+(see issue #232 for details), so it can be disabled:
+>
+  let g:vim_markdown_auto_insert_bullets = 0
+<
+In that case, you probably also want to set the new list item indent to 0 as
+well, or you will have to remove an indent each time you add a new list item:
+>
+  let g:vim_markdown_new_list_item_indent = 0
+<
+-------------------------------------------------------------------------------
+                                    *vim-markdown-change-how-to-open-new-files*
 Change how to open new files ~
 
-By default when following a link the target file will be opened in your
-current buffer.  This behavior can change if you prefer using splits or tabs
-by using the 'vim_markdown_edit_url_in' variable.  Possible values are 'tab',
-'vsplit', 'hsplit', 'current' opening in a new tab, vertical split, horizontal
-split, and current buffer respectively.  Defaults to current buffer if not
-set:
+By default when following a link the target file will be opened in your current
+buffer. This behavior can change if you prefer using splits or tabs by using
+the 'vim_markdown_edit_url_in' variable. Possible values are 'tab', 'vsplit',
+'hsplit', 'current' opening in a new tab, vertical split, horizontal split, and
+current buffer respectively. Defaults to current buffer if not set:
 >
   let g:vim_markdown_edit_url_in = 'tab'
 <

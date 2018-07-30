@@ -52,6 +52,37 @@ cd ~/.vim
 tar --strip=1 -zxf vim-markdown-master.tar.gz
 ```
 
+## Basic usage
+
+### Folding
+
+Folding is enabled for headers by default.
+
+The following commands are useful to open and close folds:
+
+- `zr`: reduces fold level throughout the buffer
+- `zR`: opens all folds
+- `zm`: increases fold level throughout the buffer
+- `zM`: folds everything all the way
+- `za`: open a fold your cursor is on
+- `zA`: open a fold your cursor is on recursively
+- `zc`: close a fold your cursor is on
+- `zC`: close a fold your cursor is on recursively
+
+[Options](#options) are available to disable folding or change folding style.
+
+Try `:help fold-expr` and `:help fold-commands` for details.
+
+### Concealing
+
+Concealing is set for some syntax such as bold, italic, code block and link.
+
+Concealing lets you conceal text with other text. The actual source text is not modified. If you put your cursor on the concealed line, the conceal goes away.
+
+[Options](#options) are available to disable or change concealing.
+
+Try `:help concealcursor` and `:help conceallevel` for details.
+
 ## Options
 
 ### Disable Folding

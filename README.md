@@ -5,6 +5,7 @@
 Syntax highlighting, matching rules and mappings for [the original Markdown](http://daringfireball.net/projects/markdown/) and extensions.
 
 1. [Installation](#installation)
+1. [Basic usage](#basic-usage)
 1. [Options](#options)
 1. [Mappings](#mappings)
 1. [Commands](#commands)

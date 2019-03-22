@@ -151,7 +151,7 @@ endif
 
 " Strike through
 if get(g:, 'vim_markdown_strikethrough', 0)
-    syn region mkdStrike matchgroup=mdkCodeDelimiter start="\%(\~\~\)"    end="\%(\~\~\)"
+    syn region mkdStrike matchgroup=mkdStrike start="\%(\~\~\)"    end="\%(\~\~\)"
     HtmlHiLink mkdStrike        htmlStrike
 endif
 

@@ -285,6 +285,14 @@ Strikethrough uses two tildes. `~~Scratch this.~~`
 let g:vim_markdown_strikethrough = 1
 ```
 
+#### PlantUML
+
+Basic PlantUML support. Identify the blocks of PlantUML code and highlight it. 
+
+```vim
+let g:vim_markdown_plantuml = 1
+```
+
 ### Adjust new list item indent
 
 You can adjust a new list indent. For example, you insert a single line like below:

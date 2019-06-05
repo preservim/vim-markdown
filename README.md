@@ -179,7 +179,13 @@ set conceallevel=2
 To disable conceal regardless of `conceallevel` setting, add the following to your `.vimrc`:
 
 ```vim
-let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal = 0 
+```
+
+Disabling conceal for code fences requires an additional setting:
+
+```vim
+let g:vim_markdown_conceal_code_blocks = 0
 ```
 
 To disable math conceal with LaTeX math syntax enabled, add the following to your `.vimrc`:

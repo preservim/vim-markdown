@@ -257,6 +257,13 @@ Syntax Concealing ~
   let g:tex_conceal = ""
   let g:vim_markdown_math = 1
 <
+                                           *g:vim_markdown_conceal_code_blocks*
+- 'g:vim_markdown_conceal_code_blocks'
+
+  Disabling conceal for code fences requires an additional setting:
+>
+  let g:vim_markdown_conceal_code_blocks = 0
+<
 -------------------------------------------------------------------------------
                                      *vim-markdown-fenced-code-block-languages*
 Fenced code block languages ~

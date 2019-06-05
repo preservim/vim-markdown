@@ -16,35 +16,35 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
     function! Foldexpr_markdown(lnum)
         let l1 = getline(a:lnum)
         "~~~~~ keep track of fenced code blocks ~~~~~
-		"If we hit a code block fence
+        "If we hit a code block fence
         if l1 =~ '````*' || l1 =~ '\~\~\~\~*'
-			" toggle the variable that says if we're in a code block
+            " toggle the variable that says if we're in a code block
             if b:fenced_block == 0
                 let b:fenced_block = 1
             elseif b:fenced_block == 1
                 let b:fenced_block = 0
             endif
-		" else, if we're caring about front matter
+        " else, if we're caring about front matter
         elseif g:vim_markdown_frontmatter == 1
-			" if we're in front matter and not on line 1
+            " if we're in front matter and not on line 1
             if b:front_matter == 1 && a:lnum > 2
                 let l0 = getline(a:lnum-1)
-				" if the previous line fenced front matter
+                " if the previous line fenced front matter
                 if l0 == '---'
-					" we must not be in front matter
+                    " we must not be in front matter
                     let b:front_matter = 0
                 endif
-			" else, if we're on line one
+            " else, if we're on line one
             elseif a:lnum == 1
-				" if we hit a front matter fence
+                " if we hit a front matter fence
                 if l1 == '---'
-					" we're in the front matter
+                    " we're in the front matter
                     let b:front_matter = 1
                 endif
             endif
         endif
 
-		" if we're in a code block or front matter
+        " if we're in a code block or front matter
         if b:fenced_block == 1 || b:front_matter == 1
             if a:lnum == 1
                 " fold any 'preamble'
@@ -56,25 +56,25 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
         endif
 
         let l2 = getline(a:lnum+1)
-		" if the next line starts with two or more '='
-		" and is not code
+        " if the next line starts with two or more '='
+        " and is not code
         if l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
             return '>0'
-		" else, if the nex line starts with two or more '-'
-		" and is not code
+        " else, if the nex line starts with two or more '-'
+        " and is not code
         elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
             return '>1'
         endif
 
-		"if we're on a non-code line starting with a pound sign
+        "if we're on a non-code line starting with a pound sign
         if l1 =~ '^#' && !s:is_mkdCode(a:lnum)
-			" set the fold level to the number of hashes -1
+            " set the fold level to the number of hashes -1
             " return '>'.(matchend(l1, '^#\+') - 1)
-			" set the fold level to the number of hashes
+            " set the fold level to the number of hashes
             return '>'.(matchend(l1, '^#\+'))
-		" else, if we're on line 1
+        " else, if we're on line 1
         elseif a:lnum == 1
             " fold any 'preamble'
             return '>1'

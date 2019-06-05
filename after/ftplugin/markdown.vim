@@ -1,4 +1,4 @@
-" vim: ts=4:
+" vim: ts=4 sw=4:
 " folding for Markdown headers, both styles (atx- and setex-)
 " http://daringfireball.net/projects/markdown/syntax#header
 "
@@ -95,7 +95,7 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
         let fillcharcount = windowwidth - len(line) - len(foldedlinecount) + 1
         return line . ' ' . repeat("-", fillcharcount) . ' ' . foldedlinecount
     endfunction
-else " vim_markdown_folding_style_pythonic == 1
+else " vim_markdown_folding_style_pythonic == 0
     function! Foldexpr_markdown(lnum)
         if (a:lnum == 1)
             let l0 = ''
@@ -171,15 +171,27 @@ let b:front_matter = 0
 let s:vim_markdown_folding_level = get(g:, "vim_markdown_folding_level", 1)
 
 function! s:MarkdownSetupFolding()
-  if !get(g:, "vim_markdown_folding_disabled", 0)
-      setlocal foldexpr=Foldexpr_markdown(v:lnum)
-      setlocal foldmethod=expr
-      if get(g:, "vim_markdown_folding_style_pythonic", 0) && get(g:, "vim_markdown_override_foldtext", 1)
-          setlocal foldtext=Foldtext_markdown()
-      endif
-  endif
+    if !get(g:, "vim_markdown_folding_disabled", 0)
+        if get(g:, "vim_markdown_folding_style_pythonic", 0)
+            if get(g:, "vim_markdown_override_foldtext", 1)
+                setlocal foldtext=Foldtext_markdown()
+            endif
+        endif
+        setlocal foldexpr=Foldexpr_markdown(v:lnum)
+        setlocal foldmethod=expr
+    endif
 endfunction
+
+function! s:MarkdownSetupFoldLevel()
+    if get(g:, "vim_markdown_folding_style_pythonic", 0)
+        " set default foldlevel
+        execute "setlocal foldlevel=".s:vim_markdown_folding_level
+    endif
+endfunction
+
+call s:MarkdownSetupFoldLevel()
 call s:MarkdownSetupFolding()
+
 augroup Mkd
     " These autocmds need to be kept in sync with the autocmds calling
     " s:MarkdownRefreshSyntax in ftplugin/markdown.vim.

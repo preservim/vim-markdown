@@ -108,8 +108,8 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
         let g:vim_markdown_folding_style_pythonic = 1
 
-    Level 1 heading which is served as a document title is not folded.
-    `g:vim_markdown_folding_level` setting is not active with this fold style.
+    `g:vim_markdown_folding_level` setting (default 1) is set to `foldlevel`.
+    Thus level 1 heading which is served as a document title is expanded by default.
 
 -   `g:vim_markdown_override_foldtext`
 

@@ -67,7 +67,7 @@ doc: build/html2vimdoc build/vim-tools
 		    -e ":a" -e "s/^(.{1,78})$$/ \1/" -e "ta" -e "# align right" \
 		    -e "G" -e "# append the matched line after the command reference" \
 		    -e "}" \
-		    -e "/^- '[^']*'$$/ {" \
+		    -e "/^- 'g:vim_markdown_[[:alnum:]_]*'$$/ {" \
 		    -e "h" -e "# save the matched line to the hold space" \
 		    -e "s/^- '([^']*)'$$/ \*\1\*/" -e "# make global variable reference" \
 		    -e ":g" -e "s/^(.{1,78})$$/ \1/" -e "tg" -e "# align right" \

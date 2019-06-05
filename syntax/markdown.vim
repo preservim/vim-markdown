@@ -155,6 +155,11 @@ if get(g:, 'vim_markdown_strikethrough', 0)
     HtmlHiLink mkdStrike        htmlStrike
 endif
 
+" PlantUML
+if get(g:, 'vim_markdown_plantuml', 0)
+    syn region mkdCode matchgroup=mkdCodeDelimiter start="\%(@startuml\_s*\)"     end="\%(@enduml\_s*\)"
+endif
+
 syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,htmlStrike
 
 "highlighting for Markdown groups

@@ -283,6 +283,14 @@ The following options control which syntax extensions will be turned on. They ar
 
         let g:vim_markdown_strikethrough = 1
 
+#### PlantUML
+
+Basic PlantUML support. Identify the blocks of PlantUML code and highlight it. 
+
+```vim
+let g:vim_markdown_plantuml = 1
+```
+
 ### Adjust new list item indent
 
 -   `g:vim_markdown_new_list_item_indent`

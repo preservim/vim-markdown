@@ -296,7 +296,7 @@ The following options control which syntax extensions will be turned on. They ar
         * item1
             * item2
 
-    vim-markdown automatically insert the indent. By default, the number of spaces of indent is 4. If you'd like to change the number as 2, just write:
+    vim-markdown automatically insert the indent. By default, the number of spaces of indent is the value of `shiftwidth`. If you'd like to change the number as 2, just write:
 
         let g:vim_markdown_new_list_item_indent = 2
 

@@ -1,6 +1,6 @@
-"TODO print messages when on visual mode. I only see VISUAL, not the messages.
+"TODO print messages when in visual mode. I only see VISUAL, not the messages.
 
-" Function interface phylosophy:
+" Function interface philosophy:
 "
 " - functions take arbitrary line numbers as parameters.
 "    Current cursor line is only a suitable default parameter.
@@ -8,7 +8,7 @@
 " - only functions that bind directly to user actions:
 "
 "    - print error messages.
-"       All intermediate functions limit themselves return `0` to indicate an error.
+"       All intermediate functions return `0` to indicate an error.
 "
 "    - move the cursor. All other functions do not move the cursor.
 "
@@ -56,7 +56,7 @@ let s:levelRegexpDict = {
     \ 6: '\v^######[^#]@='
 \ }
 
-" Maches any header level of any type.
+" Matches any header level of any type.
 "
 " This could be deduced from `s:levelRegexpDict`, but it is more
 " efficient to have a single regexp for this.
@@ -68,7 +68,7 @@ let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
 "
 " If there is no current header, return `0`.
 "
-" @param a:1 The line to look the header of. Default value: `getpos('.')`.
+" @param a:1 The line number where to start looking. Default value: `getpos('.')`.
 "
 function! s:GetHeaderLineNum(...)
     if a:0 == 0
@@ -170,7 +170,7 @@ endfunction
 
 " Move cursor to parent header of the current header.
 "
-" If it does not exit, print a warning and do nothing.
+" If it does not exist, print a warning and do nothing.
 "
 function! s:MoveToParentHeader()
     let l:linenum = s:GetParentHeaderLineNumber()
@@ -199,7 +199,7 @@ function! s:GetParentHeaderLineNumber(...)
     return 0
 endfunction
 
-" Return the line number of the previous header of given level.
+" Return the line number of the previous header of given level,
 " in relation to line `a:1`. If not given, `a:1 = getline()`
 "
 " `a:1` line is included, and this may return the current header.
@@ -456,8 +456,8 @@ function! s:TableFormat()
     " Search instead of `normal! j` because of the table at beginning of file edge case.
     call search('|')
     normal! j
-    " Remove everything that is not a pipe, colon or hyphen next to a colon othewise
-    " well formated tables would grow because of addition of 2 spaces on the separator
+    " Remove everything that is not a pipe, colon or hyphen next to a colon, otherwise
+    " well-formatted tables would grow because of addition of 2 spaces on the separator
     " line by Tabularize /|.
     let l:flags = (&gdefault ? '' : 'g')
     execute 's/\(:\@<!-:\@!\|[^|:-]\)//e' . l:flags
@@ -500,7 +500,7 @@ function! s:FindCornerOfSyntax(lnum, col, step)
 endfunction
 
 " Return the next position of the given syntax name,
-" inclusive on the given position.
+" inclusive of the given position.
 "
 " TODO: multiple lines
 "
@@ -527,13 +527,13 @@ endfunction
 
 " Returns:
 "
-" - a string with the the URL for the link under the cursor
+" - a string with the URL for the link under the cursor
 " - an empty string if the cursor is not on a link
 "
 " TODO
 "
 " - multiline support
-" - give an error if the separator does is not on a link
+" - give an error if the separator is not on a link
 "
 function! s:Markdown_GetUrlForPosition(lnum, col)
     let l:lnum = a:lnum
@@ -698,7 +698,7 @@ else
 endif
 
 function! s:MarkdownHighlightSources(force)
-    " Syntax highlight source code embedded in notes.
+    " Syntax-highlight source code embedded in notes.
     " Look for code blocks in the current file
     let filetypes = {}
     for line in getline(1, '$')

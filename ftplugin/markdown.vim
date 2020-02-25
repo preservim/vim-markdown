@@ -415,6 +415,77 @@ function! s:Toc(...)
     execute 'normal! ' . l:cursor_header . 'G'
 endfunction
 
+function! s:InsertToc(format, ...)
+    if a:0 > 0
+        if type(a:1) != type(0)
+            echohl WarningMsg
+            echomsg '[vim-markdown] Invalid argument, must be an integer >= 2.'
+            echohl None
+            return
+        endif
+        let l:max_level = a:1
+        if l:max_level < 2
+            echohl WarningMsg
+            echomsg '[vim-markdown] Maximum level cannot be smaller than 2.'
+            echohl None
+            return
+        endif
+    else
+        let l:max_level = 0
+    endif
+
+    let l:toc = []
+    let l:header_list = s:GetHeaderList()
+    if len(l:header_list) == 0
+        echom "InsertToc: No headers."
+        return
+    endif
+
+    if a:format ==# 'numbers'
+        let l:h2_count = 0
+        for header in l:header_list
+            if header.level == 2
+                let l:h2_count += 1
+            endif
+        endfor
+        let l:max_h2_number_len = strlen(string(l:h2_count))
+    else
+        let l:max_h2_number_len = 0
+    endif
+
+    let l:h2_count = 0
+    for header in l:header_list
+        let l:level = header.level
+        if l:level == 1
+            " skip level-1 headers
+            continue
+        elseif l:max_level != 0 && l:level > l:max_level
+            " skip unwanted levels
+            continue
+        elseif l:level == 2
+            " list of level-2 headers can be bullets or numbers
+            if a:format ==# 'bullets'
+                let l:indent = ''
+                let l:marker = '* '
+            else
+                let l:h2_count += 1
+                let l:number_len = strlen(string(l:h2_count))
+                let l:indent = repeat(' ', l:max_h2_number_len - l:number_len)
+                let l:marker = l:h2_count . '. '
+            endif
+        else
+            let l:indent = repeat(' ', l:max_h2_number_len + 2 * (l:level - 2))
+            let l:marker = '* '
+        endif
+        let l:text = '[' . header.text . ']'
+        let l:link = '(#' . substitute(tolower(header.text), '\v[ ]+', '-', 'g') . ')'
+        let l:line = l:indent . l:marker . l:text . l:link
+        let l:toc = l:toc + [l:line]
+    endfor
+
+    call append(line('.'), l:toc)
+endfunction
+
 " Convert Setex headers in range `line1 .. line2` to Atx.
 "
 " Return the number of conversions.
@@ -691,6 +762,8 @@ command! -buffer Toc call s:Toc()
 command! -buffer Toch call s:Toc('horizontal')
 command! -buffer Tocv call s:Toc('vertical')
 command! -buffer Toct call s:Toc('tab')
+command! -buffer -nargs=? InsertToc call s:InsertToc('bullets', <args>)
+command! -buffer -nargs=? InsertNToc call s:InsertToc('numbers', <args>)
 
 " Heavily based on vim-notes - http://peterodding.com/code/vim/notes/
 if exists('g:vim_markdown_fenced_languages')

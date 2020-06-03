@@ -461,6 +461,7 @@ Includes code from:
 - Changes default new_list_item_indent from 4 to sw from skewerr/vim-markdown.
 - Fixing single '<' syntax from VVVFO/vim-markdown.
 - Fixing syntax refresh for hovering windows tomtomjhj/vim-markdown.
+- InsertToc from cdelledonne/vim-markdown.
 
 ## License
 

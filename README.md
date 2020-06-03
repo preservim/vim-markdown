@@ -176,6 +176,10 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
         let g:vim_markdown_conceal = 0
 
+    To enable link concealment, add the following to your `.vimrc`:
+
+        let g:vim_markdown_conceal_links = 1
+
     To disable math conceal with LaTeX math syntax enabled, add the following to your `.vimrc`:
 
         let g:tex_conceal = ""

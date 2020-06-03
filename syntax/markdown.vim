@@ -34,15 +34,24 @@ syn spell toplevel
 syn case ignore
 syn sync linebreaks=1
 
+let s:concealflag = 0
 let s:conceal = ''
 let s:concealends = ''
 let s:concealcode = ''
 if has('conceal') && get(g:, 'vim_markdown_conceal', 1)
+  let s:concealflag = 1
   let s:conceal = ' conceal'
   let s:concealends = ' concealends'
 endif
-if has('conceal') && get(g:, 'vim_markdown_conceal_code_blocks', 1)
+if s:concealflag == 1 && get(g:, 'vim_markdown_conceal_code_blocks', 1)
   let s:concealcode = ' concealends'
+endif
+if s:concealflag == 1 && get(g:, 'vim_markdown_conceal_links', 0)
+  let s:conceallink = ' conceal'
+  let s:conceallinkends = ' concealends'
+else
+  let s:conceallink = ''
+  let s:conceallinkends = ''
 endif
 
 " additions to HTML groups
@@ -63,9 +72,9 @@ execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|\s\)\zs
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
-execute 'syn region mkdID matchgroup=mkdDelimiter    start="\["    end="\]" contained oneline' . s:conceal
-execute 'syn region mkdURL matchgroup=mkdDelimiter   start="("     end=")"  contained oneline' . s:conceal
-execute 'syn region mkdLink matchgroup=mkdDelimiter  start="\\\@<!!\?\[\ze[^]\n]*\n\?[^]\n]*\][[(]" end="\]" contains=@mkdNonListItem,@Spell nextgroup=mkdURL,mkdID skipwhite' . s:concealends
+execute 'syn region mkdID matchgroup=mkdDelimiter    start="\["    end="\]" contained oneline' . s:conceallink
+execute 'syn region mkdURL matchgroup=mkdDelimiter   start="("     end=")"  contained oneline' . s:conceallink
+execute 'syn region mkdLink matchgroup=mkdDelimiter  start="\\\@<!!\?\[\ze[^]\n]*\n\?[^]\n]*\][[(]" end="\]" contains=@mkdNonListItem,@Spell nextgroup=mkdURL,mkdID skipwhite' . s:conceallinkends
 
 " Autolink without angle brackets.
 " mkd  inline links:      protocol     optional  user:pass@  sub/domain                    .com, .co.uk, etc         optional port   path/querystring/hash fragment

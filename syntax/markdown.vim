@@ -102,15 +102,24 @@ if get(g:, 'vim_markdown_emphasis_multiline', 1)
 else
     let s:oneline = ' oneline'
 endif
-syn region mkdItalic matchgroup=mkdItalic start="\%(\*\|_\)"    end="\%(\*\|_\)"
-syn region mkdBold matchgroup=mkdBold start="\%(\*\*\|__\)"    end="\%(\*\*\|__\)"
-syn region mkdBoldItalic matchgroup=mkdBoldItalic start="\%(\*\*\*\|___\)"    end="\%(\*\*\*\|___\)"
-execute 'syn region htmlItalic matchgroup=mkdItalic start="\%(^\|\s\)\zs\*\ze[^\\\*\t ]\%(\%([^*]\|\\\*\|\n\)*[^\\\*\t ]\)\?\*\_W" end="[^\\\*\t ]\zs\*\ze\_W" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syn region htmlItalic matchgroup=mkdItalic start="\%(^\|\s\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syn region htmlBold matchgroup=mkdBold start="\%(^\|\s\)\zs\*\*\ze\S" end="\S\zs\*\*" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syn region htmlBold matchgroup=mkdBold start="\%(^\|\s\)\zs__\ze\S" end="\S\zs__" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|\s\)\zs\*\*\*\ze\S" end="\S\zs\*\*\*" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|\s\)\zs___\ze\S" end="\S\zs___" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syn region htmlItalic matchgroup=mkdItalic '
+    \ . 'start="\%(\s\|_\|^\)\@<=\*\%(\s\|\*\|$\)\@!" end="\%(\s\|\*\)\@<!\*" '
+    \ . 'keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syn region htmlItalic matchgroup=mkdItalic '
+    \ . 'start="\%(\s\|\*\|^\)\@<=_\%(\s\|_\|$\)\@!" end="\%(\s\|_\)\@<!_" '
+    \ . 'keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syn region htmlBold matchgroup=mkdBold '
+    \ . 'start="\%(\s\|__\|^\)\@<=\*\*\%(\s\|\*\|$\)\@!" end="\%(\s\|\*\*\)\@<!\*\*" '
+    \ . 'keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syn region htmlBold matchgroup=mkdBold '
+    \ . 'start="\%(\s\|\*\*\|^\)\@<=__\%(\s\|_\|$\)\@!" end="\%(\s\|__\)\@<!__" '
+    \ . 'keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic '
+    \ . 'start="\%(\s\|_\|^\)\@<=\*\*\*\%(\s\|\*\|$\)\@!" end="\%(\s\|\*\)\@<!\*\*\*" '
+    \ . 'keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic '
+    \ . 'start="\%(\s\|\*\|^\)\@<=___\%(\s\|_\|$\)\@!" end="\%(\s\|_\)\@<!___" '
+    \ . 'keepend contains=@Spell' . s:oneline . s:concealends
 
 " Comments
 syn region mkdComment start=/<!--\s\=/ end=/\s\=-->/ keepend contains=mkdCommentStart,mkdCommentEnd,@Spell

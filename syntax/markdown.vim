@@ -112,6 +112,11 @@ execute 'syn region htmlBold matchgroup=mkdBold start="\%(^\|\s\)\zs__\ze\S" end
 execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|\s\)\zs\*\*\*\ze\S" end="\S\zs\*\*\*" keepend contains=@Spell' . s:oneline . s:concealends
 execute 'syn region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|\s\)\zs___\ze\S" end="\S\zs___" keepend contains=@Spell' . s:oneline . s:concealends
 
+" Comments
+syn region mkdComment start=/<!--\s\=/ end=/\s\=-->/ keepend contains=mkdCommentStart,mkdCommentEnd,@Spell
+execute 'syn match mkdCommentStart /<!--/ contained' . s:ConcealChar('html_c_s')
+execute 'syn match mkdCommentEnd /-->/ contained' . s:ConcealChar('html_c_e')
+
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"
 execute 'syn region mkdID matchgroup=mkdDelimiter    start="\["    end="\]" contained oneline' . s:conceallink
@@ -209,10 +214,13 @@ if get(g:, 'vim_markdown_strikethrough', 0)
     HtmlHiLink mkdStrike        htmlStrike
 endif
 
-syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,mkdStrike
+syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdComment,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,mkdStrike
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString        String
+HtmlHiLink mkdComment       Comment
+HtmlHiLink mkdCommentStart  Comment
+HtmlHiLink mkdCommentEnd    Comment
 HtmlHiLink mkdCode          String
 HtmlHiLink mkdCodeDelimiter String
 HtmlHiLink mkdCodeStart     String

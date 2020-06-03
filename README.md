@@ -459,6 +459,7 @@ If you feel that your name should be on this list, please make a pull request li
 Includes code from:
 
 - Changes default new_list_item_indent from 4 to sw from skewerr/vim-markdown.
+- Fixing single '<' syntax from VVVFO/vim-markdown.
 
 ## License
 

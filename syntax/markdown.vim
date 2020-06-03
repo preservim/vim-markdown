@@ -54,6 +54,48 @@ else
   let s:conceallinkends = ''
 endif
 
+if &encoding ==# 'utf-8'
+    let s:cchars = {
+                \'newline': '↵',
+                \'image': '▨',
+                \'super': 'ⁿ',
+                \'sub': 'ₙ',
+                \'strike': 'x̶',
+                \'atx': '§',
+                \'codelang': 'λ',
+                \'codeend': '—',
+                \'abbrev': '→',
+                \'footnote': '†',
+                \'definition': ' ',
+                \'li': '•',
+                \'html_c_s': '‹',
+                \'html_c_e': '›'}
+else
+    " ascii defaults
+    let s:cchars = {
+                \'newline': ' ',
+                \'image': 'i',
+                \'super': '^',
+                \'sub': '_',
+                \'strike': '~',
+                \'atx': '#',
+                \'codelang': 'l',
+                \'codeend': '-',
+                \'abbrev': 'a',
+                \'footnote': 'f',
+                \'definition': ' ',
+                \'li': '*',
+                \'html_c_s': '+',
+                \'html_c_e': '+'}
+endif
+function! s:ConcealChar(conceal_char)
+  if s:concealflag == 1 && get(g:, 'vim_markdown_conceal_chars', 1)
+    return ' conceal cchar='.s:cchars[a:conceal_char]
+  else
+    return ''
+  endif
+endfunction
+
 " additions to HTML groups
 if get(g:, 'vim_markdown_emphasis_multiline', 1)
     let s:oneline = ''
@@ -109,11 +151,14 @@ syn match  mkdLineBreak    /  \+$/
 syn region mkdBlockquote   start=/^\s*>/                   end=/$/ contains=mkdLink,mkdInlineURL,mkdLineBreak,@Spell
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!`/                     end=/`/'  . s:concealcode
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!``/ skip=/[^`]`[^`]/   end=/``/' . s:concealcode
-execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/^\s*\z(`\{3,}\)[^`]*$/                       end=/^\s*\z1`*\s*$/'            . s:concealcode
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!\~\~/  end=/\(\([^\\]\|^\)\\\)\@<!\~\~/'               . s:concealcode
-execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/      end=/^\s*\z1\~*\s*$/'           . s:concealcode
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start="<pre\(\|\_s[^>]*\)\\\@<!>"                   end="</pre>"'                   . s:concealcode
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start="<code\(\|\_s[^>]*\)\\\@<!>"                  end="</code>"'                  . s:concealcode
+syn region mkdCode start=/^\s*\z(`\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/ end=/^\s*\z1`*\s*$/ keepend contains=mkdCodeStart,mkdCodeEnd
+syn region mkdCode start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/ end=/^\s*\z1\~*\s*$/ keepend contains=mkdCodeStart,mkdCodeEnd
+execute 'syn match  mkdCodeStart    /\(\_^\n\_^\(>\s\)\?\([ ]\{4,}\|\t\)\=\)\@<=\(\~\{3,}\~*\|`\{3,}`*\)/ nextgroup=mkdCodeLang contained' . s:ConcealChar('codelang')
+execute 'syn match  mkdCodeEnd      /\(`\{3,}`*\|\~\{3,}\~*\)\(\_$\n\(>\s\)\?\_$\)\@=/ contained' . s:ConcealChar('codeend')
+syn match  mkdCodeLang     /\(\s\?\)\@<=.\+\(\_$\)\@=/ contained
 syn region mkdFootnote     start="\[^"                     end="\]"
 syn match  mkdCode         /^\s*\n\(\(\s\{8,}[^ ]\|\t\t\+[^\t]\).*\n\)\+/
 syn match  mkdCode         /\%^\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
@@ -172,6 +217,7 @@ HtmlHiLink mkdCode          String
 HtmlHiLink mkdCodeDelimiter String
 HtmlHiLink mkdCodeStart     String
 HtmlHiLink mkdCodeEnd       String
+HtmlHiLink mkdCodeLang      Comment
 HtmlHiLink mkdFootnote      Comment
 HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdListItem      Identifier

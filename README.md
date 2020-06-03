@@ -180,14 +180,17 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
         let g:vim_markdown_conceal_links = 1
 
+    To disable delimiter concealment with special chars, add the following to
+    your `.vimrc`:
+
+        let g:vim_markdown_conceal_chars = 0
+
     To disable math conceal with LaTeX math syntax enabled, add the following to your `.vimrc`:
 
         let g:tex_conceal = ""
         let g:vim_markdown_math = 1
 
--   `g:vim_markdown_conceal_code_blocks`
-
-    Disabling conceal for code fences requires an additional setting:
+    To disable code fences concealment, add the following to your `.vimrc`:
 
         let g:vim_markdown_conceal_code_blocks = 0
 

@@ -175,6 +175,7 @@ endfunction
 function! s:MoveToParentHeader()
     let l:linenum = s:GetParentHeaderLineNumber()
     if l:linenum != 0
+        call setpos("''", getpos('.'))
         call cursor(l:linenum, 1)
     else
         echo 'no parent header'

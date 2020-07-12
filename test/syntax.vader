@@ -739,12 +739,18 @@ def a
 end
 ```
 
+```ruby {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
+class b
+end
+```
+
 Execute (fenced code block syntax with a language specifier):
   let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
   call b:func(0)
   AssertEqual SyntaxOf('include'), 'cInclude'
   AssertEqual SyntaxOf('code'), 'mkdSnippetCPP'
   AssertEqual SyntaxOf('def'), 'rubyDefine'
+  AssertEqual SyntaxOf('class'), 'rubyClass'
 
 Given markdown;
 ``` c++

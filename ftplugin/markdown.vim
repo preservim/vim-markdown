@@ -585,16 +585,26 @@ endfunction
 
 " Return the next position of the given syntax name,
 " inclusive on the given position.
-"
-" TODO: multiple lines
-"
 function! s:FindNextSyntax(lnum, col, name)
     let l:col = a:col
-    let l:step = 1
-    while synIDattr(synID(a:lnum, l:col, 1), 'name') !=# a:name
-        let l:col += l:step
+    let l:lnum = a:lnum
+    let l:linelen = strdisplaywidth(getline(l:lnum))
+
+    while 1
+        if l:col > l:linelen " if we're at the end of the line
+            if l:lnum < line('$') " if this is not the last line
+                let l:lnum += 1
+                let l:col = 0
+                let l:linelen = strdisplaywidth(getline(l:lnum))
+            else
+                throw "vim-markdown: FindNextSyntax failed"
+            end
+        elseif synIDattr(synID(l:lnum, l:col, 1), 'name') ==# a:name
+            return [l:lnum, l:col]
+        else
+            let l:col += 1
+        endif
     endwhile
-    return [a:lnum, l:col]
 endfunction
 
 function! s:FindCornersOfSyntax(lnum, col)

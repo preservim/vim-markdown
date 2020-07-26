@@ -59,6 +59,15 @@ Execute (ge opens file):
   AssertEqual getline(1), 'ge test'
 
 Given markdown;
+[This is a long link that
+spans across two lines](ge_test.md)
+
+Execute (ge opens file with multiline link):
+  normal ge
+  AssertEqual @%, 'ge_test.md'
+  AssertEqual getline(1), 'ge test'
+
+Given markdown;
 [ge_test](ge_test)
 
 Execute (ge opens file without .md extensions):

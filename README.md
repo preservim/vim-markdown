@@ -9,6 +9,7 @@ Syntax highlighting, matching rules and mappings for [the original Markdown](htt
 1. [Options](#options)
 1. [Mappings](#mappings)
 1. [Commands](#commands)
+1. [Functions](#commands)
 1. [Credits](#credits)
 1. [License](#license)
 
@@ -446,6 +447,15 @@ The main contributors of vim-markdown are:
 - **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
 
 If you feel that your name should be on this list, please make a pull request listing your contributions.
+
+## Functions
+
+-   `g:MarkdownGetHeader`:
+
+    Returns the full, current header line. Useful to add to statusline, for example if using [airline](https://github.com/vim-airline/vim-airline)
+```
+let g:airline_section_gutter = '%= %{exists(''*MarkdownGetHeader'')?MarkdownGetHeader():""}'
+```
 
 ## License
 

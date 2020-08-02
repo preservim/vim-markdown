@@ -9,7 +9,7 @@ Syntax highlighting, matching rules and mappings for [the original Markdown](htt
 1. [Options](#options)
 1. [Mappings](#mappings)
 1. [Commands](#commands)
-1. [Functions](#commands)
+1. [Functions](#functions)
 1. [Credits](#credits)
 1. [License](#license)
 

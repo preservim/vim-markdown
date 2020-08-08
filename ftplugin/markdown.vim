@@ -583,18 +583,20 @@ function! s:FindCornerOfSyntax(lnum, col, step)
     return l:col - a:step
 endfunction
 
-" Return the next position of the given syntax name,
-" inclusive on the given position.
+" Return the next syntax position, inclusive on the given position.
 "
 " TODO: multiple lines
 "
-function! s:FindNextSyntax(lnum, col, name)
-    let l:col = a:col
-    let l:step = 1
-    while synIDattr(synID(a:lnum, l:col, 1), 'name') !=# a:name
+function! s:FindNextSyntax(lnum, col)
+    let l:init_syn = synIDattr(synID(a:lnum, a:col, 1), 'name')
+    let l:cur_syn  = l:init_syn
+    let l:col      = a:col
+    let l:step     = 1
+    while l:cur_syn ==# l:init_syn
         let l:col += l:step
+        let l:cur_syn = synIDattr(synID(a:lnum, l:col, 1), 'name')
     endwhile
-    return [a:lnum, l:col]
+    return [a:lnum, l:col, l:cur_syn]
 endfunction
 
 function! s:FindCornersOfSyntax(lnum, col)
@@ -607,6 +609,51 @@ endfunction
 
 function! s:FindLeftOfSyntax(lnum, col)
     return <sid>FindCornerOfSyntax(a:lnum, a:col, -1)
+endfunction
+
+" Returns:
+"
+" The position of an associated URL by searching for idname definition as per
+" the mkdLinkDef regular expression definition.
+function! s:FindMkdLinkDefTargetPosition(idname)
+    let l:mkdLinkDefREs = ['^ \{,3}\zs\[',  ']:\s*\ze']
+    let l:mkdLinkDefRE  = l:mkdLinkDefREs[0] . a:idname . l:mkdLinkDefREs[1]
+    let l:lnum          = search(l:mkdLinkDefRE, 'n')
+    let l:line          = getline(l:lnum)
+    if l:lnum != 0
+        return [l:lnum, matchend(l:line, l:mkdLinkDefRE)+1]
+    else
+        return [-1, -1]
+    endif
+endf
+
+" Returns:
+"
+" The position of an associated URL based on that we're presently looking at the
+" mkdID or mkdLinkDef syntax object.
+function! s:GetUrlPositionFromMkdIDOrDef(lnum, col)
+    let [l:left, l:right] = <sid>FindCornersOfSyntax(a:lnum, a:col)
+    return <sid>FindMkdLinkDefTargetPosition(getline(a:lnum)[l:left - 1 : l:right - 1])
+endf
+
+" Returns:
+"
+" The position of an associated URL based on that we're presently looking at the
+" mkdLink syntax object.
+function! s:GetUrlPositionFromMkdLink(lnum, col)
+    let [l:lnum, l:col, l:syn] = <sid>FindNextSyntax(a:lnum, a:col)
+    if l:syn !=# 'mkdDelimiter'
+        return [-1, -1]
+    endif
+    let [l:lnum, l:col, l:syn] = <sid>FindNextSyntax(l:lnum, l:col)
+
+    if l:syn ==# 'mkdURL'
+        return [l:lnum, l:col]
+    elseif l:syn ==# 'mkdID'
+        return <sid>GetUrlPositionFromMkdIDOrDef(l:lnum, l:col)
+    else
+        return [-1, -1]
+    endif
 endfunction
 
 " Returns:
@@ -624,29 +671,39 @@ function! s:Markdown_GetUrlForPosition(lnum, col)
     let l:col = a:col
     let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')
 
+    " First, let's move inside the delimited syntax object
+    if l:syn ==# 'mkdDelimiter'
+        let l:line = getline(l:lnum)
+        let l:char = l:line[col - 1]
+        if l:char ==# '<' || l:char ==# '(' || l:char ==# '['
+            let l:col += 1
+        elseif l:char ==# '>' || l:char ==# ')' || l:char ==# ']'
+            let l:col -= 1
+        else
+            let [l:lnum, l:col] = [-1, -1]
+        endif
+
+        let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')
+    endif
+
+    " Then, we handle the appropriate syntax object
     if l:syn ==# 'mkdInlineURL' || l:syn ==# 'mkdURL' || l:syn ==# 'mkdLinkDefTarget'
         " Do nothing.
     elseif l:syn ==# 'mkdLink'
-        let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')
-        let l:syn = 'mkdURL'
-    elseif l:syn ==# 'mkdDelimiter'
-        let l:line = getline(l:lnum)
-        let l:char = l:line[col - 1]
-        if l:char ==# '<'
-            let l:col += 1
-        elseif l:char ==# '>' || l:char ==# ')'
-            let l:col -= 1
-        elseif l:char ==# '[' || l:char ==# ']' || l:char ==# '('
-            let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')
-        else
-            return ''
-        endif
+        let [l:lnum, l:col] = <sid>GetUrlPositionFromMkdLink(l:lnum, l:col)
+    elseif l:syn ==# 'mkdID' || l:syn ==# 'mkdLinkDef'
+        let [l:lnum, l:col] = <sid>GetUrlPositionFromMkdIDOrDef(l:lnum, l:col)
     else
-        return ''
+        let [l:lnum, l:col] = [-1, -1]
     endif
 
-    let [l:left, l:right] = <sid>FindCornersOfSyntax(l:lnum, l:col)
-    return getline(l:lnum)[l:left - 1 : l:right - 1]
+    if l:lnum == -1 && l:col == -1
+        " We didn't find an appropriate location for the link.
+        return ''
+    else
+        let [l:left, l:right] = <sid>FindCornersOfSyntax(l:lnum, l:col)
+        return getline(l:lnum)[l:left - 1 : l:right - 1]
+    endif
 endfunction
 
 " Front end for GetUrlForPosition.

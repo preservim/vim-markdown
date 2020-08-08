@@ -504,7 +504,16 @@ The following work on normal and visual modes:
   inside a link.
 
   For example, all the following cursor positions will work:
+
 >
+  [myexample]: http://example.com
+  ^  ^    ^ ^  ^       ^
+  1  2    3 4  5       6
+
+  [Example][myexample]
+  ^  ^    ^^   ^
+  1  2    34   5
+
   [Example](http://example.com)
   ^  ^    ^^   ^       ^
   1  2    34   5       6

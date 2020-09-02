@@ -92,7 +92,7 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
         let foldedlinecount = v:foldend - v:foldstart
         let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
         let line = substitute(line, '\%("""\|''''''\)', '', '')
-        let fillcharcount = windowwidth - len(line) - len(foldedlinecount) + 1
+        let fillcharcount = windowwidth - strdisplaywidth(line) - len(foldedlinecount) + 1
         return line . ' ' . repeat("-", fillcharcount) . ' ' . foldedlinecount
     endfunction
 else " vim_markdown_folding_style_pythonic == 0

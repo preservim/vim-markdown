@@ -62,8 +62,9 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
             " next line is underlined (level 1)
             return '>0'
         " else, if the nex line starts with two or more '-'
+        " but is not comment closer (-->)
         " and is not code
-        elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
+        elseif l2 =~ '^--\+\s*$' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
             return '>1'
         endif
@@ -131,7 +132,7 @@ else " vim_markdown_folding_style_pythonic == 0
         if  l2 =~ '^==\+\s*' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 1)
             return '>1'
-        elseif l2 =~ '^--\+\s*' && !s:is_mkdCode(a:lnum+1)
+        elseif l2 =~ '^--\+\s*$' && !s:is_mkdCode(a:lnum+1)
             " next line is underlined (level 2)
             if s:vim_markdown_folding_level >= 2
                 return '>1'

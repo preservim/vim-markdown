@@ -420,8 +420,8 @@ Do not require .md extensions for Markdown links ~
 - 'g:vim_markdown_no_extensions_in_markdown'
 
   If you want to have a link like this '[link text](link-url)' and follow it
-  for editing in vim using the 'ge' command, but have it open the file "link-
-  url.md" instead of the file "link-url", then use this option:
+  for editing in vim using the 'ge' command, but have it open the file
+  "link-url.md" instead of the file "link-url", then use this option:
 >
   let g:vim_markdown_no_extensions_in_markdown = 1
 <
@@ -605,14 +605,25 @@ The following requires ':filetype plugin on'.
                                                                         *:Tocv*
 - ':Tocv': Same as ':Toc' for symmetry with ':Toch' and ':Tocv'.
 
+                                                                   *:InsertToc*
+- ':InsertToc': Insert table of contents at the current line.
+
+  An optional argument can be used to specify how many levels of headers to
+  display in the table of content, e.g., to display up to and including 'h3',
+  use ':InsertToc 3'.
+
+                                                                  *:InsertNToc*
+- ':InsertNToc': Same as ':InsertToc', but the format of 'h2' headers in the
+  table of contents is a numbered list, rather than a bulleted list.
+
 ===============================================================================
                                                          *vim-markdown-credits*
 Credits ~
 
 The main contributors of vim-markdown are:
 
-- **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-
-  markdown. Homepage [12].
+- **Ben Williams** (A.K.A. **plasticboy**). The original developer of
+  vim-markdown. Homepage [12].
 
 If you feel that your name should be on this list, please make a pull request
 listing your contributions.

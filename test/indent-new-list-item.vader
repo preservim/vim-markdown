@@ -13,3 +13,23 @@ Do (new line from the first item of the list and add the second item):
 Expect (insert 2 spaces to the head of second item):
   * item1
     * item2
+
+Given markdown;
+- [ ] item1
+
+Do (new line from the first item of the list and add the second item):
+  A\<Enter>item2
+
+Expect (insert another list item with the empty check-box automatically):
+  - [ ] item1
+  - [ ] item2
+
+Given markdown;
+- [x] item1
+
+Do (new line from the first item of the list and add the second item):
+  A\<Enter>item2
+
+Expect (insert another list item with the empty check-box automatically):
+  - [x] item1
+  - [ ] item2

@@ -665,9 +665,16 @@ function! s:CreateFilePath(filepath, extension)
   let l:filepath = substitute(a:filepath, '^./', '', '')
   let l:current_path_list = split(expand('%:p:h'), '/', 1)
   let l:file_path_list = split(l:filepath, '/', 1)
-  let l:backs = len(matchfuzzy(l:file_path_list, '..'))
-  let l:new_path = l:current_path_list[:-l:backs-1]
-  let l:trail = '/'.join(l:file_path_list[l:backs:], '/').a:extension
+  let l:backs_count = 0
+  "whole for block can be replaced with matchfuzzy if it is supported
+  for i in l:file_path_list
+    if i == '..'
+      let l:backs_count += 1
+    endif
+  endfor
+  "let l:backs = len(matchfuzzy(l:file_path_list, '..'))
+  let l:new_path = l:current_path_list[:-l:backs_count-1]
+  let l:trail = '/'.join(l:file_path_list[l:backs_count:], '/').a:extension
   return fnameescape(join(l:new_path, '/').l:trail)
 endfunction
 

@@ -662,8 +662,9 @@ endfunction
 
 " More general way of creating file path
 function! s:CreateFilePath(filepath, extension)
+  let l:filepath = substitute(a:filepath, '^./', '', '')
   let l:current_path_list = split(expand('%:p:h'), '/', 1)
-  let l:file_path_list = split(a:filepath, '/', 1)
+  let l:file_path_list = split(l:filepath, '/', 1)
   let l:backs = len(matchfuzzy(l:file_path_list, '..'))
   let l:new_path = l:current_path_list[:-l:backs-1]
   let l:trail = '/'.join(l:file_path_list[l:backs:], '/').a:extension

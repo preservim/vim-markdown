@@ -1,10 +1,11 @@
 " Tests atx and setext folding, and :Toc.
 
 Before:
+  setlocal foldexpr=
   source ../after/ftplugin/markdown.vim
 
 After:
-  setlocal foldexpr=0
+  setlocal foldexpr=
   setlocal foldmethod=manual
 
 Given markdown;

@@ -177,8 +177,10 @@ function! s:MarkdownSetupFolding()
                 setlocal foldtext=Foldtext_markdown()
             endif
         endif
-        setlocal foldexpr=Foldexpr_markdown(v:lnum)
-        setlocal foldmethod=expr
+        if &foldexpr == ""
+            setlocal foldexpr=Foldexpr_markdown(v:lnum)
+            setlocal foldmethod=expr
+        endif
     endif
 endfunction
 

@@ -1,10 +1,9 @@
 Before:
-  setlocal foldexpr=
   let g:vim_markdown_folding_style_pythonic = 1
   source ../after/ftplugin/markdown.vim
 
 After:
-  setlocal foldexpr=
+  setlocal foldexpr=0
   setlocal foldmethod=manual
 
 Given markdown;

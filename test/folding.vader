@@ -1,9 +1,8 @@
 Before:
-  setlocal foldexpr=
   source ../after/ftplugin/markdown.vim
 
 After:
-  setlocal foldexpr=
+  setlocal foldexpr=0
   setlocal foldmethod=manual
 
 Given markdown;

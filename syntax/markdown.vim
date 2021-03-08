@@ -147,6 +147,7 @@ if get(g:, 'vim_markdown_math', 0)
   syn include @tex syntax/tex.vim
   syn region mkdMath start="\\\@<!\$" end="\$" skip="\\\$" contains=@tex keepend
   syn region mkdMath start="\\\@<!\$\$" end="\$\$" skip="\\\$" contains=@tex keepend
+  syn region mkdMath start="\\begin{.\{-}}" end="\\end{.\{-}}" contains=@tex,mkdMath keepend extend
 endif
 
 " Strike through

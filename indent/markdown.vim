@@ -24,8 +24,7 @@ function! s:IsMkdCode(lnum)
 endfunction
 
 function! s:IsLiStart(line)
-    return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
-      \    a:line =~ '^\s*[*+-] \+'
+    return a:line =~ '^\s*\([*+-]\|1.\) \+'
 endfunction
 
 function! s:IsHeaderLine(line)

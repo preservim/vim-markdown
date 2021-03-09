@@ -13,12 +13,13 @@ Following example is horizontal item.
 - - -
 * * *
 
-And list item must be specified space after [*-+].
+And list item must be specified space after [*-+]|(\d+\.).
 Following example is list item.
 
 * foo
 - bar
 + baz
+1. baz
 
 But following example is not list item.
 *foo

@@ -71,3 +71,33 @@ Do (new line from the first item of the list and add the second item):
 Expect (insert 4 spaces to the head of second item):
   * item1
       * item2
+
+Given markdown;
+1. item1
+
+Do (insert enter with numbered list)
+  A\<cr>item2
+
+Expect (auto insert '1.' and indent level is same)
+  1. item1
+  1. item2
+
+Given markdown;
+- [ ] item1
+
+Do (new line from the first item of the list and add the second item):
+  A\<Enter>item2
+
+Expect (insert another list item with the empty check-box automatically):
+  - [ ] item1
+  - [ ] item2
+
+Given markdown;
+- [x] item1
+
+Do (new line from the first item of the list and add the second item):
+  A\<Enter>item2
+
+Expect (insert another list item with the empty check-box automatically):
+  - [x] item1
+  - [ ] item2

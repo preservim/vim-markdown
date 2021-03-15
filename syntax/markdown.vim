@@ -169,8 +169,10 @@ execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start=/\(\([^\\]\|^\)\\\)\@<!\~\~/  end=/\(\([^\\]\|^\)\\\)\@<!\~\~/'               . s:concealcode
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start="<pre\(\|\_s[^>]*\)\\\@<!>"                   end="</pre>"'                   . s:concealcode
 execute 'syn region mkdCode matchgroup=mkdCodeDelimiter start="<code\(\|\_s[^>]*\)\\\@<!>"                  end="</code>"'                  . s:concealcode
-syn region mkdCode start=/^\s*\z(`\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/ end=/^\s*\z1`*\s*$/ keepend contains=mkdCodeStart,mkdCodeEnd
-syn region mkdCode start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/ end=/^\s*\z1\~*\s*$/ keepend contains=mkdCodeStart,mkdCodeEnd
+" TODO: use matchgroup for start and end when working with concealment of
+" start/end groups
+execute 'syn region mkdCode matchgroup=mkdCodeStart start=/^\s*\z(`\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/ matchgroup=mkdCodeEnd end=/^\s*\z1`*\s*$/' . s:concealcode
+execute 'syn region mkdCode start=/^\s*\z(\~\{3,}\)\s*[0-9A-Za-z_+-]*\s*$/ end=/^\s*\z1\~*\s*$/ keepend contains=mkdCodeStart,mkdCodeEnd' . s:concealcode
 execute 'syn match  mkdCodeStart    /\(\_^\n\_^\(>\s\)\?\([ ]\{4,}\|\t\)\=\)\@<=\(\~\{3,}\~*\|`\{3,}`*\)/ nextgroup=mkdCodeLang contained' . s:ConcealChar('codelang')
 execute 'syn match  mkdCodeEnd      /\(`\{3,}`*\|\~\{3,}\~*\)\(\_$\n\(>\s\)\?\_$\)\@=/ contained' . s:ConcealChar('codeend')
 syn match  mkdCodeLang     /\(\s\?\)\@<=.\+\(\_$\)\@=/ contained

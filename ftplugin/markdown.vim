@@ -788,7 +788,7 @@ function! s:MarkdownHighlightSources(force)
     " Look for code blocks in the current file
     let filetypes = {}
     for line in getline(1, '$')
-        let ft = matchstr(line, '```\s*\zs[0-9A-Za-z_+-]*\ze.*')
+        let ft = matchstr(line, '\(`\{3,1}\|\~\{3,}\)\s*\zs[0-9A-Za-z_+-]*\ze.*')
         if !empty(ft) && ft !~ '^\d*$' | let filetypes[ft] = 1 | endif
     endfor
     if !exists('b:mkd_known_filetypes')
@@ -819,10 +819,11 @@ function! s:MarkdownHighlightSources(force)
             else
                 let include = '@' . toupper(filetype)
             endif
-            let command = 'syntax region %s start="^\s*\z(`\{3,}\)\s*%s.*$" end="\s*\z1`*\s*$" keepend contains=mkdCodeStart,mkdCodeEnd,%s'
-            execute printf(command, group, ft, include)
-            let command = 'syntax region %s start="^\s*\z(\~\{3,}\)\s*%s.*$" end="\s*\z1\~*\s*$" keepend contains=mkdCodeStart,mkdCodeEnd,%s'
-            execute printf(command, group, ft, include)
+            let concealends = has('conceal') && get(g:, 'vim_markdown_conceal', 1) && get(g:, 'vim_markdown_conceal_code_blocks', 1) ? ' concealends' : ''
+            let command = 'syntax region %s start="^\s*\z(`\{3,}\)\s*%s.*$" end="\s*\z1`*\s*$" keepend contains=mkdCodeStart,mkdCodeEnd,%s%s'
+            execute printf(command, group, ft, include, concealends)
+            let command = 'syntax region %s start="^\s*\z(\~\{3,}\)\s*%s.*$" end="\s*\z1\~*\s*$" keepend contains=mkdCodeStart,mkdCodeEnd,%s%s'
+            execute printf(command, group, ft, include, concealends)
             execute printf('syntax cluster mkdNonListItem add=%s', group)
 
             let b:mkd_known_filetypes[ft] = 1

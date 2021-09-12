@@ -130,6 +130,14 @@ Try `:help concealcursor` and `:help conceallevel` for details.
         :let g:vim_markdown_folding_level = 1
         :edit
 
+### Only recognize Atx headers
+
+-   `g:vim_markdown_atx_only`
+
+    To cause vim_markdown to only recognize Atx-style markdown headers during movement commands, add the following line to your `.vimrc`: 
+
+        let g:vim_markdown_atx_only = 1
+
 ### Disable Default Key Mappings
 
 -   `g:vim_markdown_no_default_key_mappings`

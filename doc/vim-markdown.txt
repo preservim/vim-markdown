@@ -525,7 +525,7 @@ The following work on normal and visual modes:
 - ']]': go to next header. '<Plug>Markdown_MoveToNextHeader'
 
                                                               *vim-markdown-[[*
-- '[[': go to previous header. Contrast with ']c'.
+- '[[': go to previous header. Contrast with ']h'.
   '<Plug>Markdown_MoveToPreviousHeader'
 
                                                               *vim-markdown-][*
@@ -536,8 +536,8 @@ The following work on normal and visual modes:
 - '[]': go to previous sibling header if any.
   '<Plug>Markdown_MoveToPreviousSiblingHeader'
 
-                                                              *vim-markdown-]c*
-- ']c': go to Current header. '<Plug>Markdown_MoveToCurHeader'
+                                                              *vim-markdown-]h*
+- ']h': go to Current header. '<Plug>Markdown_MoveToCurHeader'
 
                                                               *vim-markdown-]u*
 - ']u': go to parent header (Up). '<Plug>Markdown_MoveToParentHeader'

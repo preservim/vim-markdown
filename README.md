@@ -16,7 +16,7 @@ If you use [Vundle](https://github.com/gmarik/vundle), add the following lines t
 
 ```vim
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plugin 'preservim/vim-markdown'
 ```
 
 The `tabular` plugin must come *before* `vim-markdown`.
@@ -32,19 +32,19 @@ If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:
 
 ```sh
 cd ~/.vim/bundle
-git clone https://github.com/plasticboy/vim-markdown.git
+git clone https://github.com/preservim/vim-markdown.git
 ```
 
 To install without Pathogen using the Debian [vim-addon-manager](http://packages.qa.debian.org/v/vim-addon-manager.html), do this:
 
 ```sh
-git clone https://github.com/plasticboy/vim-markdown.git
+git clone https://github.com/preservim/vim-markdown.git
 cd vim-markdown
 sudo make install
 vim-addon-manager install markdown
 ```
 
-If you are not using any package manager, download the [tarball](https://github.com/plasticboy/vim-markdown/archive/master.tar.gz) and do this:
+If you are not using any package manager, download the [tarball](https://github.com/preservim/vim-markdown/archive/master.tar.gz) and do this:
 
 ```sh
 cd ~/.vim
@@ -441,7 +441,7 @@ The following requires `:filetype plugin on`.
 
 The main contributors of vim-markdown are:
 
-- **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
+- **Ben Williams** (A.K.A. @plasticboy). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
 
 If you feel that your name should be on this list, please make a pull request listing your contributions.
 

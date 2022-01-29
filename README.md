@@ -374,13 +374,13 @@ The following work on normal and visual modes:
 
 -   `]]`: go to next header. `<Plug>Markdown_MoveToNextHeader`
 
--   `[[`: go to previous header. Contrast with `]c`. `<Plug>Markdown_MoveToPreviousHeader`
+-   `[[`: go to previous header. Contrast with `]h`. `<Plug>Markdown_MoveToPreviousHeader`
 
 -   `][`: go to next sibling header if any. `<Plug>Markdown_MoveToNextSiblingHeader`
 
 -   `[]`: go to previous sibling header if any. `<Plug>Markdown_MoveToPreviousSiblingHeader`
 
--   `]c`: go to Current header. `<Plug>Markdown_MoveToCurHeader`
+-   `]h`: go to Current header. `<Plug>Markdown_MoveToCurHeader`
 
 -   `]u`: go to parent header (Up). `<Plug>Markdown_MoveToParentHeader`
 

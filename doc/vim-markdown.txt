@@ -287,6 +287,19 @@ Fenced code block languages ~
 <
   Default is "['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']".
 
+                                            *g:vim_markdown_highlight_with_sed*
+- 'g:vim_markdown_highlight_with_sed'
+
+  Vim-markdown needs to search all fenced code blocks for the filetypes to
+  highlight. The default code uses vim's builtin regex engine which is slow
+  dealing with large markdown documents. Enabling this option would use
+  command line utility 'sed' for searching. It's expected to improve performance 
+  around 10x.
+>
+  let g:vim_markdown_highlight_with_sed = 1
+<
+  Default is '0'.
+
 -------------------------------------------------------------------------------
                                             *vim-markdown-follow-named-anchors*
 Follow named anchors ~

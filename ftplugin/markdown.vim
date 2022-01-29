@@ -787,10 +787,19 @@ function! s:MarkdownHighlightSources(force)
     " Syntax highlight source code embedded in notes.
     " Look for code blocks in the current file
     let filetypes = {}
-    for line in getline(1, '$')
-        let ft = matchstr(line, '```\s*\zs[0-9A-Za-z_+-]*\ze.*')
-        if !empty(ft) && ft !~ '^\d*$' | let filetypes[ft] = 1 | endif
-    endfor
+
+    if get(g:, 'vim_markdown_highlight_with_sed', 0)
+        let l:ft_lines = systemlist('sed -n ' . "'" . '/^[[:space:]]*```[[:space:]]*\([0-9A-Za-z_+-]*\).*$/s//\1/p' . "'", bufnr())
+        for ft in l:ft_lines
+            if !empty(ft) && ft !~ '^\d*$' | let filetypes[ft] = 1 | endif
+        endfor
+    else
+        for line in getline(1, '$')
+            let ft = matchstr(line, '```\s*\zs[0-9A-Za-z_+-]*\ze.*')
+            if !empty(ft) && ft !~ '^\d*$' | let filetypes[ft] = 1 | endif
+        endfor
+    endif
+
     if !exists('b:mkd_known_filetypes')
         let b:mkd_known_filetypes = {}
     endif

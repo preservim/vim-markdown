@@ -55,7 +55,7 @@ Given markdown;
 
 Execute (ge opens file):
   normal ge
-  AssertEqual @%, 'ge_test.md'
+  AssertEqual @%, expand('%:p:h').'/ge_test.md'
   AssertEqual getline(1), 'ge test'
 
 Given markdown;
@@ -64,7 +64,7 @@ Given markdown;
 Execute (ge opens file without .md extensions):
   let g:vim_markdown_no_extensions_in_markdown = 1
   normal ge
-  AssertEqual @%, 'ge_test.md'
+  AssertEqual @%, expand('%:p:h').'/ge_test.md'
   AssertEqual getline(1), 'ge test'
   unlet g:vim_markdown_no_extensions_in_markdown
 
@@ -75,7 +75,7 @@ Execute (ge does not write before opening file):
   normal ia
   normal l
   normal ge
-  AssertEqual @%, 'ge_test.md'
+  AssertEqual @%, expand('%:p:h').'/ge_test.md'
   AssertEqual getline(1), 'ge test'
 
 Given markdown;

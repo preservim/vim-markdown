@@ -660,6 +660,24 @@ function! s:OpenUrlUnderCursor()
     endif
 endfunction
 
+" More general way of creating file path
+function! s:CreateFilePath(filepath, extension)
+  let l:filepath = substitute(a:filepath, '^./', '', '')
+  let l:current_path_list = split(expand('%:p:h'), '/', 1)
+  let l:file_path_list = split(l:filepath, '/', 1)
+  let l:backs_count = 0
+  "whole for block can be replaced with matchfuzzy if it is supported
+  for i in l:file_path_list
+    if i == '..'
+      let l:backs_count += 1
+    endif
+  endfor
+  "let l:backs = len(matchfuzzy(l:file_path_list, '..'))
+  let l:new_path = l:current_path_list[:-l:backs_count-1]
+  let l:trail = '/'.join(l:file_path_list[l:backs_count:], '/').a:extension
+  return fnameescape(join(l:new_path, '/').l:trail)
+endfunction
+
 " We need a definition guard because we invoke 'edit' which will reload this
 " script while this function is running. We must not replace it.
 if !exists('*s:EditUrlUnderCursor')
@@ -692,7 +710,7 @@ if !exists('*s:EditUrlUnderCursor')
                         let l:ext = '.md'
                     endif
                 endif
-                let l:url = fnameescape(fnamemodify(expand('%:h').'/'.l:url.l:ext, ':.'))
+                let l:url = s:CreateFilePath(l:url, l:ext)
                 let l:editmethod = ''
                 " determine how to open the linked file (split, tab, etc)
                 if exists('g:vim_markdown_edit_url_in')

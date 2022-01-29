@@ -17,43 +17,43 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
         let l1 = getline(a:lnum)
         "~~~~~ keep track of fenced code blocks ~~~~~
         "If we hit a code block fence
-        if l1 =~ '````*' || l1 =~ '\~\~\~\~*'
-            " toggle the variable that says if we're in a code block
-            if b:fenced_block == 0
-                let b:fenced_block = 1
-            elseif b:fenced_block == 1
-                let b:fenced_block = 0
-            endif
-        " else, if we're caring about front matter
-        elseif g:vim_markdown_frontmatter == 1
-            " if we're in front matter and not on line 1
-            if b:front_matter == 1 && a:lnum > 2
-                let l0 = getline(a:lnum-1)
-                " if the previous line fenced front matter
-                if l0 == '---'
-                    " we must not be in front matter
-                    let b:front_matter = 0
-                endif
-            " else, if we're on line one
-            elseif a:lnum == 1
-                " if we hit a front matter fence
-                if l1 == '---'
-                    " we're in the front matter
-                    let b:front_matter = 1
-                endif
-            endif
-        endif
+        " if l1 =~ '````*' || l1 =~ '\~\~\~\~*'
+        "     " toggle the variable that says if we're in a code block
+        "     if b:fenced_block == 0
+        "         let b:fenced_block = 1
+        "     elseif b:fenced_block == 1
+        "         let b:fenced_block = 0
+        "     endif
+        " " else, if we're caring about front matter
+        " elseif g:vim_markdown_frontmatter == 1
+        "     " if we're in front matter and not on line 1
+        "     if b:front_matter == 1 && a:lnum > 2
+        "         let l0 = getline(a:lnum-1)
+        "         " if the previous line fenced front matter
+        "         if l0 == '---'
+        "             " we must not be in front matter
+        "             let b:front_matter = 0
+        "         endif
+        "     " else, if we're on line one
+        "     elseif a:lnum == 1
+        "         " if we hit a front matter fence
+        "         if l1 == '---'
+        "             " we're in the front matter
+        "             let b:front_matter = 1
+        "         endif
+        "     endif
+        " endif
 
-        " if we're in a code block or front matter
-        if b:fenced_block == 1 || b:front_matter == 1
-            if a:lnum == 1
-                " fold any 'preamble'
-                return '>1'
-            else
-                " keep previous foldlevel
-                return '='
-            endif
-        endif
+        " " if we're in a code block or front matter
+        " if b:fenced_block == 1 || b:front_matter == 1
+        "     if a:lnum == 1
+        "         " fold any 'preamble'
+        "         return '>1'
+        "     else
+        "         " keep previous foldlevel
+        "         return '='
+        "     endif
+        " endif
 
         let l2 = getline(a:lnum+1)
         " if the next line starts with two or more '='

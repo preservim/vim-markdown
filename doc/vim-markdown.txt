@@ -252,6 +252,15 @@ Syntax Concealing ~
 >
   let g:vim_markdown_conceal = 0
 <
+  To enable link concealment, add the following to your '.vimrc':
+
+  let g:vim_markdown_conceal_links = 1
+
+  To disable delimiter concealment with special chars, add the following to
+  your '.vimrc':
+
+  let g:vim_markdown_conceal_chars = 0
+
   To disable math conceal with LaTeX math syntax enabled, add the following
   to your '.vimrc':
 >
@@ -261,7 +270,7 @@ Syntax Concealing ~
                                            *g:vim_markdown_conceal_code_blocks*
 - 'g:vim_markdown_conceal_code_blocks'
 
-  Disabling conceal for code fences requires an additional setting:
+  To disable code fences concealment, add the following to your '.vimrc':
 >
   let g:vim_markdown_conceal_code_blocks = 0
 <
@@ -408,7 +417,8 @@ Adjust new list item indent ~
       * item2
 <
   vim-markdown automatically insert the indent. By default, the number of
-  spaces of indent is 4. If you'd like to change the number as 2, just write:
+  spaces of indent is the value of 'shiftwidth'. If you'd like to change the
+  number as 2, just write:
 >
   let g:vim_markdown_new_list_item_indent = 2
 <

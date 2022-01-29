@@ -174,14 +174,21 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
         let g:vim_markdown_conceal = 0
 
+    To enable link concealment, add the following to your `.vimrc`:
+
+        let g:vim_markdown_conceal_links = 1
+
+    To disable delimiter concealment with special chars, add the following to
+    your `.vimrc`:
+
+        let g:vim_markdown_conceal_chars = 0
+
     To disable math conceal with LaTeX math syntax enabled, add the following to your `.vimrc`:
 
         let g:tex_conceal = ""
         let g:vim_markdown_math = 1
 
--   `g:vim_markdown_conceal_code_blocks`
-
-    Disabling conceal for code fences requires an additional setting:
+    To disable code fences concealment, add the following to your `.vimrc`:
 
         let g:vim_markdown_conceal_code_blocks = 0
 
@@ -294,7 +301,9 @@ The following options control which syntax extensions will be turned on. They ar
         * item1
             * item2
 
-    vim-markdown automatically insert the indent. By default, the number of spaces of indent is 4. If you'd like to change the number as 2, just write:
+    vim-markdown automatically insert the indent. By default, the number of
+    spaces of indent is the value of `shiftwidth`. If you'd like to change the
+    number as 2, just write:
 
         let g:vim_markdown_new_list_item_indent = 2
 
@@ -444,6 +453,13 @@ The main contributors of vim-markdown are:
 - **Ben Williams** (A.K.A. @plasticboy). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
 
 If you feel that your name should be on this list, please make a pull request listing your contributions.
+
+Includes code from:
+
+- Changes default new_list_item_indent from 4 to sw from skewerr/vim-markdown.
+- Fixing single '<' syntax from VVVFO/vim-markdown.
+- Fixing syntax refresh for hovering windows tomtomjhj/vim-markdown.
+- InsertToc from cdelledonne/vim-markdown.
 
 ## License
 

@@ -12,7 +12,7 @@ function! s:is_mkdCode(lnum)
     return (name =~# '^mkd\%(Code$\|Snippet\)' || name !=# '' && name !~? '^\%(mkd\|html\)')
 endfunction
 
-if get(g:, "vim_markdown_folding_style_pythonic", 0)
+if get(g:, 'vim_markdown_folding_style_pythonic', 0)
     function! Foldexpr_markdown(lnum)
         let l1 = getline(a:lnum)
         "~~~~~ keep track of fenced code blocks ~~~~~
@@ -93,7 +93,7 @@ if get(g:, "vim_markdown_folding_style_pythonic", 0)
         let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
         let line = substitute(line, '\%("""\|''''''\)', '', '')
         let fillcharcount = windowwidth - len(line) - len(foldedlinecount) + 1
-        return line . ' ' . repeat("-", fillcharcount) . ' ' . foldedlinecount
+        return line . ' ' . repeat('-', fillcharcount) . ' ' . foldedlinecount
     endfunction
 else " vim_markdown_folding_style_pythonic == 0
     function! Foldexpr_markdown(lnum)
@@ -168,12 +168,12 @@ endif
 
 let b:fenced_block = 0
 let b:front_matter = 0
-let s:vim_markdown_folding_level = get(g:, "vim_markdown_folding_level", 1)
+let s:vim_markdown_folding_level = get(g:, 'vim_markdown_folding_level', 1)
 
 function! s:MarkdownSetupFolding()
-    if !get(g:, "vim_markdown_folding_disabled", 0)
-        if get(g:, "vim_markdown_folding_style_pythonic", 0)
-            if get(g:, "vim_markdown_override_foldtext", 1)
+    if !get(g:, 'vim_markdown_folding_disabled', 0)
+        if get(g:, 'vim_markdown_folding_style_pythonic', 0)
+            if get(g:, 'vim_markdown_override_foldtext', 1)
                 setlocal foldtext=Foldtext_markdown()
             endif
         endif
@@ -183,9 +183,9 @@ function! s:MarkdownSetupFolding()
 endfunction
 
 function! s:MarkdownSetupFoldLevel()
-    if get(g:, "vim_markdown_folding_style_pythonic", 0)
+    if get(g:, 'vim_markdown_folding_style_pythonic', 0)
         " set default foldlevel
-        execute "setlocal foldlevel=".s:vim_markdown_folding_level
+        execute 'setlocal foldlevel='.s:vim_markdown_folding_level
     endif
 endfunction
 

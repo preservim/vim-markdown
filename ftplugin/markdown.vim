@@ -161,11 +161,11 @@ function! s:GetHeaderList()
     let l:fenced_block = 0
     let l:front_matter = 0
     let l:header_list = []
-    let l:vim_markdown_frontmatter = get(g:, "vim_markdown_frontmatter", 0)
+    let l:vim_markdown_frontmatter = get(g:, 'vim_markdown_frontmatter', 0)
     for i in range(1, line('$'))
         let l:lineraw = getline(i)
         let l:l1 = getline(i+1)
-        let l:line = substitute(l:lineraw, "#", "\\\#", "g")
+        let l:line = substitute(l:lineraw, '#', "\\\#", 'g')
         " exclude lines in fenced code blocks
         if l:line =~# '````*' || l:line =~# '\~\~\~\~*'
             if l:fenced_block == 0
@@ -193,7 +193,7 @@ function! s:GetHeaderList()
         endif
         if l:is_header ==# 1 && l:fenced_block ==# 0 && l:front_matter ==# 0
             " remove hashes from atx headers
-            if match(l:line, "^#") > -1
+            if match(l:line, '^#') > -1
                 let l:line = substitute(l:line, '\v^#*[ ]*', '', '')
                 let l:line = substitute(l:line, '\v[ ]*#*$', '', '')
             endif
@@ -361,11 +361,11 @@ function! s:Toc(...)
     let l:header_list = s:GetHeaderList()
     let l:indented_header_list = []
     if len(l:header_list) == 0
-        echom "Toc: No headers."
+        echom 'Toc: No headers.'
         return
     endif
     let l:header_max_len = 0
-    let l:vim_markdown_toc_autofit = get(g:, "vim_markdown_toc_autofit", 0)
+    let l:vim_markdown_toc_autofit = get(g:, 'vim_markdown_toc_autofit', 0)
     for h in l:header_list
         " set header number of the cursor position
         if l:cursor_header == 0
@@ -438,7 +438,7 @@ function! s:InsertToc(format, ...)
     let l:toc = []
     let l:header_list = s:GetHeaderList()
     if len(l:header_list) == 0
-        echom "InsertToc: No headers."
+        echom 'InsertToc: No headers.'
         return
     endif
 
@@ -770,8 +770,8 @@ command! -buffer -nargs=? InsertNToc call s:InsertToc('numbers', <args>)
 if exists('g:vim_markdown_fenced_languages')
     let s:filetype_dict = {}
     for s:filetype in g:vim_markdown_fenced_languages
-        let key = matchstr(s:filetype, "[^=]*")
-        let val = matchstr(s:filetype, "[^=]*$")
+        let key = matchstr(s:filetype, '[^=]*')
+        let val = matchstr(s:filetype, '[^=]*$')
         let s:filetype_dict[key] = val
     endfor
 else
@@ -812,7 +812,7 @@ function! s:MarkdownHighlightSources(force)
             else
                 let filetype = ft
             endif
-            let group = 'mkdSnippet' . toupper(substitute(filetype, "[+-]", "_", "g"))
+            let group = 'mkdSnippet' . toupper(substitute(filetype, '[+-]', '_', 'g'))
             if !has_key(b:mkd_included_filetypes, filetype)
                 let include = s:SyntaxInclude(filetype)
                 let b:mkd_included_filetypes[filetype] = 1

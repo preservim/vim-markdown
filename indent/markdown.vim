@@ -20,20 +20,20 @@ if exists("*GetMarkdownIndent") | finish | endif
 
 function! s:IsMkdCode(lnum)
     let name = synIDattr(synID(a:lnum, 1, 0), 'name')
-    return (name =~ '^mkd\%(Code$\|Snippet\)' || name != '' && name !~ '^\%(mkd\|html\)')
+    return (name =~# '^mkd\%(Code$\|Snippet\)' || name !=# '' && name !~? '^\%(mkd\|html\)')
 endfunction
 
 function! s:IsLiStart(line)
-    return a:line !~ '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
-      \    a:line =~ '^\s*[*+-] \+'
+    return a:line !~# '^ *\([*-]\)\%( *\1\)\{2}\%( \|\1\)*$' &&
+      \    a:line =~# '^\s*[*+-] \+'
 endfunction
 
 function! s:IsHeaderLine(line)
-    return a:line =~ '^\s*#'
+    return a:line =~# '^\s*#'
 endfunction
 
 function! s:IsBlankLine(line)
-    return a:line =~ '^$'
+    return a:line =~# '^$'
 endfunction
 
 function! s:PrevNonBlank(lnum)

@@ -371,19 +371,19 @@ The following work on normal and visual modes:
 
     Known limitation: does not work for links that span multiple lines.
 
--   `ge`: open the link under the cursor in Vim for editing. Useful for relative markdown links. `<Plug>Markdown_EditUrlUnderCursor`
+-   `ge`: open the link under the cursor in Vim for editing. Useful for relative markdown links. Falls back to `gf` with force editing, if not on a markdown link. `<Plug>Markdown_EditUrlUnderCursor`
 
     The rules for the cursor position are the same as the `gx` command.
 
 -   `]]`: go to next header. `<Plug>Markdown_MoveToNextHeader`
 
--   `[[`: go to previous header. Contrast with `]c`. `<Plug>Markdown_MoveToPreviousHeader`
+-   `[[`: go to previous header. Contrast with `]h`. `<Plug>Markdown_MoveToPreviousHeader`
 
 -   `][`: go to next sibling header if any. `<Plug>Markdown_MoveToNextSiblingHeader`
 
 -   `[]`: go to previous sibling header if any. `<Plug>Markdown_MoveToPreviousSiblingHeader`
 
--   `]c`: go to Current header. `<Plug>Markdown_MoveToCurHeader`
+-   `]h`: go to Current header. `<Plug>Markdown_MoveToCurHeader`
 
 -   `]u`: go to parent header (Up). `<Plug>Markdown_MoveToParentHeader`
 

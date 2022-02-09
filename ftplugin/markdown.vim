@@ -550,7 +550,7 @@ function! s:TableFormat()
     " Move colons for alignment to left or right side of the cell.
     execute 's/:\( \+\)|/\1:|/e' . l:flags
     execute 's/|\( \+\):/|:\1/e' . l:flags
-    execute 's/ /-/' . l:flags
+    execute 's/|\zs \+\ze|/\=repeat("-", len(submatch(0)))/' . l:flags
     call setpos('.', l:pos)
 endfunction
 
@@ -664,6 +664,22 @@ endfunction
 " script while this function is running. We must not replace it.
 if !exists('*s:EditUrlUnderCursor')
     function s:EditUrlUnderCursor()
+        let l:editmethod = ''
+        " determine how to open the linked file (split, tab, etc)
+        if exists('g:vim_markdown_edit_url_in')
+          if g:vim_markdown_edit_url_in ==# 'tab'
+            let l:editmethod = 'tabnew'
+          elseif g:vim_markdown_edit_url_in ==# 'vsplit'
+            let l:editmethod = 'vsp'
+          elseif g:vim_markdown_edit_url_in ==# 'hsplit'
+            let l:editmethod = 'sp'
+          else
+            let l:editmethod = 'edit'
+          endif
+        else
+          " default to current buffer
+          let l:editmethod = 'edit'
+        endif
         let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
         if l:url !=# ''
             if get(g:, 'vim_markdown_autowrite', 0)
@@ -693,29 +709,13 @@ if !exists('*s:EditUrlUnderCursor')
                     endif
                 endif
                 let l:url = fnameescape(fnamemodify(expand('%:h').'/'.l:url.l:ext, ':.'))
-                let l:editmethod = ''
-                " determine how to open the linked file (split, tab, etc)
-                if exists('g:vim_markdown_edit_url_in')
-                  if g:vim_markdown_edit_url_in ==# 'tab'
-                    let l:editmethod = 'tabnew'
-                  elseif g:vim_markdown_edit_url_in ==# 'vsplit'
-                    let l:editmethod = 'vsp'
-                  elseif g:vim_markdown_edit_url_in ==# 'hsplit'
-                    let l:editmethod = 'sp'
-                  else
-                    let l:editmethod = 'edit'
-                  endif
-                else
-                  " default to current buffer
-                  let l:editmethod = 'edit'
-                endif
                 execute l:editmethod l:url
             endif
             if l:anchor !=# ''
                 silent! execute '/'.l:anchor
             endif
         else
-            echomsg 'The cursor is not on a link.'
+            execute l:editmethod . ' <cfile>'
         endif
     endfunction
 endif
@@ -750,7 +750,7 @@ if !get(g:, 'vim_markdown_no_default_key_mappings', 0)
     call <sid>MapNotHasmapto('][', 'Markdown_MoveToNextSiblingHeader')
     call <sid>MapNotHasmapto('[]', 'Markdown_MoveToPreviousSiblingHeader')
     call <sid>MapNotHasmapto(']u', 'Markdown_MoveToParentHeader')
-    call <sid>MapNotHasmapto(']c', 'Markdown_MoveToCurHeader')
+    call <sid>MapNotHasmapto(']h', 'Markdown_MoveToCurHeader')
     call <sid>MapNotHasmapto('gx', 'Markdown_OpenUrlUnderCursor')
     call <sid>MapNotHasmapto('ge', 'Markdown_EditUrlUnderCursor')
 endif

@@ -87,7 +87,7 @@ if get(g:, 'vim_markdown_folding_style_pythonic', 0)
     function! Foldtext_markdown()
         let line = getline(v:foldstart)
         let has_numbers = &number || &relativenumber
-        let nucolwidth = &fdc + has_numbers * &numberwidth
+        let nucolwidth = &foldcolumn + has_numbers * &numberwidth
         let windowwidth = winwidth(0) - nucolwidth - 6
         let foldedlinecount = v:foldend - v:foldstart
         let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))

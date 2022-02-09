@@ -550,7 +550,7 @@ function! s:TableFormat()
     " Move colons for alignment to left or right side of the cell.
     execute 's/:\( \+\)|/\1:|/e' . l:flags
     execute 's/|\( \+\):/|:\1/e' . l:flags
-    execute 's/ /-/' . l:flags
+    execute 's/|:\?\zs[ -]\+\ze:\?|/\=repeat("-", len(submatch(0)))/' . l:flags
     call setpos('.', l:pos)
 endfunction
 

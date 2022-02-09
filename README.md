@@ -1,5 +1,8 @@
 # Vim Markdown
 
+[![Vint](https://github.com/preservim/vim-markdown/workflows/Vint/badge.svg)](https://github.com/preservim/vim-markdown/actions?workflow=Vint)
+[![Vader](https://github.com/preservim/vim-markdown/workflows/Vader/badge.svg)](https://github.com/preservim/vim-markdown/actions?workflow=Vader)
+
 Syntax highlighting, matching rules and mappings for [the original Markdown](http://daringfireball.net/projects/markdown/) and extensions.
 
 1. [Installation](#installation)
@@ -441,7 +444,7 @@ The following requires `:filetype plugin on`.
 
 The main contributors of vim-markdown are:
 
-- **Ben Williams** (A.K.A. @plasticboy). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
+- **Ben Williams** (A.K.A. **@plasticboy**). The original developer of vim-markdown. [Homepage](http://plasticboy.com/).
 
 If you feel that your name should be on this list, please make a pull request listing your contributions.
 

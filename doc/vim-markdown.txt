@@ -294,7 +294,7 @@ Follow named anchors ~
                                                  *g:vim_markdown_follow_anchor*
 - 'g:vim_markdown_follow_anchor'
 
-  This feature allows the 'ge' command to follow named anchors in links of
+  This feature allows the 'gy' command to follow named anchors in links of
   the form 'file#anchor' or just '#anchor', where file may omit the '.md'
   extension as usual. Two variables control its operation:
 >
@@ -420,7 +420,7 @@ Do not require .md extensions for Markdown links ~
 - 'g:vim_markdown_no_extensions_in_markdown'
 
   If you want to have a link like this '[link text](link-url)' and follow it
-  for editing in vim using the 'ge' command, but have it open the file "link-
+  for editing in vim using the 'gy' command, but have it open the file "link-
   url.md" instead of the file "link-url", then use this option:
 >
   let g:vim_markdown_no_extensions_in_markdown = 1
@@ -438,7 +438,7 @@ Auto-write when following link ~
                                                      *g:vim_markdown_autowrite*
 - 'g:vim_markdown_autowrite'
 
-  If you follow a link like this '[link text](link-url)' using the 'ge'
+  If you follow a link like this '[link text](link-url)' using the 'gy'
   shortcut, this option will automatically save any edits you made before
   moving you:
 >
@@ -515,8 +515,8 @@ The following work on normal and visual modes:
 <
   Known limitation: does not work for links that span multiple lines.
 
-                                                              *vim-markdown-ge*
-- 'ge': open the link under the cursor in Vim for editing. Useful for
+                                                              *vim-markdown-gy*
+- 'gy': open the link under the cursor in Vim for editing. Useful for
   relative markdown links. '<Plug>Markdown_EditUrlUnderCursor'
 
   The rules for the cursor position are the same as the 'gx' command.

@@ -209,7 +209,7 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
 -   `g:vim_markdown_follow_anchor`
 
-    This feature allows the `ge` command to follow named anchors in links of the form
+    This feature allows the `gy` command to follow named anchors in links of the form
     `file#anchor` or just `#anchor`, where file may omit the `.md` extension as
     usual. Two variables control its operation:
 
@@ -305,7 +305,7 @@ The following options control which syntax extensions will be turned on. They ar
 
 -   `g:vim_markdown_no_extensions_in_markdown`
 
-    If you want to have a link like this `[link text](link-url)` and follow it for editing in vim using the `ge` command, but have it open the file "link-url.md" instead of the file "link-url", then use this option:
+    If you want to have a link like this `[link text](link-url)` and follow it for editing in vim using the `gy` command, but have it open the file "link-url.md" instead of the file "link-url", then use this option:
 
         let g:vim_markdown_no_extensions_in_markdown = 1
 
@@ -317,7 +317,7 @@ The following options control which syntax extensions will be turned on. They ar
 
 -   `g:vim_markdown_autowrite`
 
-    If you follow a link like this `[link text](link-url)` using the `ge` shortcut, this option will automatically save any edits you made before moving you:
+    If you follow a link like this `[link text](link-url)` using the `gy` shortcut, this option will automatically save any edits you made before moving you:
 
         let g:vim_markdown_autowrite = 1
 
@@ -371,7 +371,7 @@ The following work on normal and visual modes:
 
     Known limitation: does not work for links that span multiple lines.
 
--   `ge`: open the link under the cursor in Vim for editing. Useful for relative markdown links. Falls back to `gf` with force editing, if not on a markdown link. `<Plug>Markdown_EditUrlUnderCursor`
+-   `gy`: open the link under the cursor in Vim for editing. Useful for relative markdown links. Falls back to `gf` with force editing, if not on a markdown link. `<Plug>Markdown_EditUrlUnderCursor`
 
     The rules for the cursor position are the same as the `gx` command.
 

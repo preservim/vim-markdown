@@ -52,12 +52,12 @@ endif
 syntax region mkdItalic matchgroup=mkdItalic start="\%(\*\|_\)"    end="\%(\*\|_\)"
 syntax region mkdBold matchgroup=mkdBold start="\%(\*\*\|__\)"    end="\%(\*\*\|__\)"
 syntax region mkdBoldItalic matchgroup=mkdBoldItalic start="\%(\*\*\*\|___\)"    end="\%(\*\*\*\|___\)"
-execute 'syntax region htmlItalic matchgroup=mkdItalic start="\%(^\|[[:space:][:punct:]　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs\*\ze[^\\\*\t ]\%(\%([^*]\|\\\*\|\n\)*[^\\\*\t ]\)\?\*\_W" end="[^\\\*\t ]\zs\*\ze\_W" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syntax region htmlItalic matchgroup=mkdItalic start="\%(^\|[[:space:][:punct:]　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syntax region htmlBold matchgroup=mkdBold start="\%(^\|[[:space:][:punct:]　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs\*\*\ze\S" end="\S\zs\*\*" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syntax region htmlBold matchgroup=mkdBold start="\%(^\|[[:space:][:punct:]　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs__\ze\S" end="\S\zs__" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syntax region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|[[:space:][:punct:]　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs\*\*\*\ze\S" end="\S\zs\*\*\*" keepend contains=@Spell' . s:oneline . s:concealends
-execute 'syntax region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|[[:space:][:punct:]　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs___\ze\S" end="\S\zs___" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syntax region htmlItalic matchgroup=mkdItalic start="\%(^\|[[:space:],.!?"''''#$%&+\-/:;^|~<>=@()[\]{}　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs\*\ze[^\\\*\t ]\%(\%([^*]\|\\\*\|\n\)*[^\\\*\t ]\)\?\*\_W" end="[^\\\*\t ]\zs\*\ze\_W" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syntax region htmlItalic matchgroup=mkdItalic start="\%(^\|[[:space:],.!?"''''#$%&+\-/:;^|~<>=@()[\]{}　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs_\ze[^\\_\t ]" end="[^\\_\t ]\zs_\ze\_W" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syntax region htmlBold matchgroup=mkdBold start="\%(^\|[[:space:],.!?"''''#$%&+\-/:;^|~<>=@()[\]{}　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs\*\*\ze\S" end="\S\zs\*\*" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syntax region htmlBold matchgroup=mkdBold start="\%(^\|[[:space:],.!?"''''#$%&+\-/:;^|~<>=@()[\]{}　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs__\ze\S" end="\S\zs__" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syntax region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|[[:space:],.!?"''''#$%&+\-/:;^|~<>=@()[\]{}　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs\*\*\*\ze\S" end="\S\zs\*\*\*" keepend contains=@Spell' . s:oneline . s:concealends
+execute 'syntax region htmlBoldItalic matchgroup=mkdBoldItalic start="\%(^\|[[:space:],.!?"''''#$%&+\-/:;^|~<>=@()[\]{}　、。（）「」『』［］【】〚〛｛｝〈〉《》‹›«»〔〕〘〙‘’❛❜“”❝❞]\)\zs___\ze\S" end="\S\zs___" keepend contains=@Spell' . s:oneline . s:concealends
 
 " [link](URL) | [link][id] | [link][] | ![image](URL)
 syntax region mkdFootnotes matchgroup=mkdDelimiter start="\[^"    end="\]"

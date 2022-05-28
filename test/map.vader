@@ -90,6 +90,41 @@ Execute (ge auto-write before opening file):
   unlet g:vim_markdown_autowrite
 
 Given markdown;
+ge_test.md
+
+Execute (ge falls back to edit <cfile> when not on a markdown link):
+  normal ge
+  AssertEqual @%, 'ge_test.md'
+  AssertEqual getline(1), 'ge test'
+
+Given markdown;
+
+Execute (ge falls back to edit <cfile> which throws if cursor is not on a link):
+  " TODO: Fix this to be consistent with gx
+  AssertThrows normal ge
+  AssertEqual g:vader_exception, 'Vim(edit):E446: No file name under cursor'
+
+Given markdown;
+ge_test
+
+Execute (ge fallback does not respect g:vim_markdown_no_extensions_in_markdown):
+  let g:vim_markdown_no_extensions_in_markdown = 1
+  normal ge
+  AssertEqual @%, 'ge_test'
+  unlet g:vim_markdown_no_extensions_in_markdown
+
+Given markdown;
+ge_test.md
+
+Execute (ge fallback does not respect g:vim_markdown_autowrite):
+  " TODO: Fix this
+  let g:vim_markdown_autowrite = 1
+  normal ia
+  normal l
+  normal ge " this would throw if file write was attempted
+  unlet g:vim_markdown_autowrite
+
+Given markdown;
 # a
 
 b

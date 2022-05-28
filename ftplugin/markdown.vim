@@ -664,8 +664,10 @@ endfunction
 " script while this function is running. We must not replace it.
 if !exists('*s:EditUrlUnderCursor')
     function s:EditUrlUnderCursor()
-        let l:editmethod = ''
+        let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
+
         " determine how to open the linked file (split, tab, etc)
+        let l:editmethod = ''
         if exists('g:vim_markdown_edit_url_in')
           if g:vim_markdown_edit_url_in ==# 'tab'
             let l:editmethod = 'tabnew'
@@ -680,7 +682,6 @@ if !exists('*s:EditUrlUnderCursor')
           " default to current buffer
           let l:editmethod = 'edit'
         endif
-        let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
 
         " fallback if cursor is not on a markdown link
         if l:url ==# ''
@@ -691,6 +692,8 @@ if !exists('*s:EditUrlUnderCursor')
         if get(g:, 'vim_markdown_autowrite', 0)
             write
         endif
+
+        " parse anchor
         let l:anchor = ''
         if get(g:, 'vim_markdown_follow_anchor', 0)
             let l:parts = split(l:url, '#', 1)
@@ -705,6 +708,7 @@ if !exists('*s:EditUrlUnderCursor')
             endif
         endif
 
+        " add file extension
         let l:ext = ''
         if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
             " use another file extension if preferred
@@ -715,8 +719,8 @@ if !exists('*s:EditUrlUnderCursor')
             endif
         endif
         let l:url = fnameescape(fnamemodify(expand('%:h').'/'.l:url.l:ext, ':.'))
-        execute l:editmethod l:url
 
+        execute l:editmethod l:url
         if l:anchor !=# ''
             silent! execute '/'.l:anchor
         endif

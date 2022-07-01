@@ -546,7 +546,23 @@ function! s:TableFormat()
     let l:flags = (&gdefault ? '' : 'g')
     execute 's/\(:\@<!-:\@!\|[^|:-]\)//e' . l:flags
     execute 's/--/-/e' . l:flags
-    Tabularize /|
+    if get(g:, 'vim_markdown_table_align_with_colons', 1)
+        let l:align = 'c0'
+        for l:line in split(getbufline(bufname(), line('.'))[0], '|', 1)[1:-2]
+            let l:align .= 'c1'
+            if l:line ==# '-:'
+                let l:align .= 'r1'
+            elseif l:line ==# ':-:'
+                let l:align .= 'c1'
+            else
+                let l:align .= 'l1'
+            endif
+        endfor
+        let l:align .= 'c0'
+        execute 'Tabularize /|/' . l:align
+    else
+        Tabularize /|
+    endif 
     " Move colons for alignment to left or right side of the cell.
     execute 's/:\( \+\)|/\1:|/e' . l:flags
     execute 's/|\( \+\):/|:\1/e' . l:flags

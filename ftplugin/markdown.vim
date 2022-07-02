@@ -548,7 +548,7 @@ function! s:TableFormat()
     execute 's/--/-/e' . l:flags
     if get(g:, 'vim_markdown_table_align_with_colons', 1)
         let l:align = 'c0'
-        for l:line in split(getbufline(bufname(), line('.'))[0], '|', 1)[1:-2]
+        for l:line in split(getline(line('.')), '|', 1)[1:-2]
             let l:align .= 'c1'
             if l:line ==# '-:'
                 let l:align .= 'r1'

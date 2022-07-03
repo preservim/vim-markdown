@@ -35,6 +35,8 @@ Contents ~
   15. Do not automatically insert bulletpoints
                         |vim-markdown-do-not-automatically-insert-bulletpoints|
   16. Change how to open new files  |vim-markdown-change-how-to-open-new-files|
+  17. Do not align table according to colons
+                          |vim-markdown-do-not-align-table-according-to-colons|
  5. Mappings                                            |vim-markdown-mappings|
  6. Commands                                            |vim-markdown-commands|
  7. Credits                                              |vim-markdown-credits|
@@ -45,14 +47,16 @@ Contents ~
                                                     *vim-markdown-introduction*
 Introduction ~
 
-Syntax highlighting, matching rules and mappings for the original Markdown [1]
+Image: Vint [1] Image: Vader [3]
+
+Syntax highlighting, matching rules and mappings for the original Markdown [5]
 and extensions.
 
 ===============================================================================
                                                     *vim-markdown-installation*
 Installation ~
 
-If you use Vundle [2], add the following lines to your '~/.vimrc':
+If you use Vundle [6], add the following lines to your '~/.vimrc':
 >
   Plugin 'godlygeek/tabular'
   Plugin 'preservim/vim-markdown'
@@ -64,19 +68,19 @@ Then run inside Vim:
   :so ~/.vimrc
   :PluginInstall
 <
-If you use Pathogen [3], do this:
+If you use Pathogen [7], do this:
 >
   cd ~/.vim/bundle
   git clone https://github.com/preservim/vim-markdown.git
 <
-To install without Pathogen using the Debian vim-addon-manager [4], do this:
+To install without Pathogen using the Debian vim-addon-manager [8], do this:
 >
   git clone https://github.com/preservim/vim-markdown.git
   cd vim-markdown
   sudo make install
   vim-addon-manager install markdown
 <
-If you are not using any package manager, download the tarball [5] and do this:
+If you are not using any package manager, download the tarball [9] and do this:
 >
   cd ~/.vim
   tar --strip=1 -zxf vim-markdown-master.tar.gz
@@ -156,7 +160,7 @@ Change fold style ~
                                         *g:vim_markdown_folding_style_pythonic*
 - 'g:vim_markdown_folding_style_pythonic'
 
-  To fold in a style like python-mode [6], add the following to your
+  To fold in a style like python-mode [10], add the following to your
   '.vimrc':
 >
   let g:vim_markdown_folding_style_pythonic = 1
@@ -348,7 +352,7 @@ YAML Front Matter ~
                                                    *g:vim_markdown_frontmatter*
 - 'g:vim_markdown_frontmatter'
 
-  Highlight YAML front matter as used by Jekyll or Hugo [7].
+  Highlight YAML front matter as used by Jekyll or Hugo [11].
 >
   let g:vim_markdown_frontmatter = 1
 <
@@ -359,9 +363,9 @@ TOML Front Matter ~
                                               *g:vim_markdown_toml_frontmatter*
 - 'g:vim_markdown_toml_frontmatter'
 
-  Highlight TOML front matter as used by Hugo [7].
+  Highlight TOML front matter as used by Hugo [11].
 
-  TOML syntax highlight requires vim-toml [8].
+  TOML syntax highlight requires vim-toml [12].
 >
   let g:vim_markdown_toml_frontmatter = 1
 <
@@ -372,9 +376,9 @@ JSON Front Matter ~
                                               *g:vim_markdown_json_frontmatter*
 - 'g:vim_markdown_json_frontmatter'
 
-  Highlight JSON front matter as used by Hugo [7].
+  Highlight JSON front matter as used by Hugo [11].
 
-  JSON syntax highlight requires vim-json [9].
+  JSON syntax highlight requires vim-json [13].
 >
   let g:vim_markdown_json_frontmatter = 1
 <
@@ -420,8 +424,8 @@ Do not require .md extensions for Markdown links ~
 - 'g:vim_markdown_no_extensions_in_markdown'
 
   If you want to have a link like this '[link text](link-url)' and follow it
-  for editing in vim using the 'ge' command, but have it open the file "link-
-  url.md" instead of the file "link-url", then use this option:
+  for editing in vim using the 'ge' command, but have it open the file
+  "link-url.md" instead of the file "link-url", then use this option:
 >
   let g:vim_markdown_no_extensions_in_markdown = 1
 <
@@ -490,6 +494,19 @@ Change how to open new files ~
 >
   let g:vim_markdown_edit_url_in = 'tab'
 <
+-------------------------------------------------------------------------------
+                          *vim-markdown-do-not-align-table-according-to-colons*
+Do not align table according to colons ~
+
+                                       *g:vim_markdown_table_align_with_colons*
+- 'g:vim_markdown_table_align_with_colons'
+
+  Colons can be added the delimiter row of a table to indicate left, right or
+  center alignment (https://github.github.com/gfm/#tables-extension-).
+  ':TableFormat' follow these colons by default, you can disable it by:
+>
+  let g:vim_markdown_table_align_with_colons = 0
+<
 ===============================================================================
                                                         *vim-markdown-mappings*
 Mappings ~
@@ -517,7 +534,8 @@ The following work on normal and visual modes:
 
                                                               *vim-markdown-ge*
 - 'ge': open the link under the cursor in Vim for editing. Useful for
-  relative markdown links. '<Plug>Markdown_EditUrlUnderCursor'
+  relative markdown links. Falls back to 'gf' with force editing, if not on a
+  markdown link. '<Plug>Markdown_EditUrlUnderCursor'
 
   The rules for the cursor position are the same as the 'gx' command.
 
@@ -581,9 +599,9 @@ The following requires ':filetype plugin on'.
   range.
 
                                                                  *:TableFormat*
-- ':TableFormat': Format the table under the cursor like this [10].
+- ':TableFormat': Format the table under the cursor like this [14].
 
-  Requires Tabular [11].
+  Requires Tabular [15].
 
   The input table _must_ already have a separator line as the second line of
   the table. That line only needs to contain the correct pipes '|', nothing
@@ -605,14 +623,25 @@ The following requires ':filetype plugin on'.
                                                                         *:Tocv*
 - ':Tocv': Same as ':Toc' for symmetry with ':Toch' and ':Tocv'.
 
+                                                                   *:InsertToc*
+- ':InsertToc': Insert table of contents at the current line.
+
+  An optional argument can be used to specify how many levels of headers to
+  display in the table of content, e.g., to display up to and including 'h3',
+  use ':InsertToc 3'.
+
+                                                                  *:InsertNToc*
+- ':InsertNToc': Same as ':InsertToc', but the format of 'h2' headers in the
+  table of contents is a numbered list, rather than a bulleted list.
+
 ===============================================================================
                                                          *vim-markdown-credits*
 Credits ~
 
 The main contributors of vim-markdown are:
 
-- **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-
-  markdown. Homepage [12].
+- **Ben Williams** (A.K.A. **@plasticboy**). The original developer of
+  vim-markdown. Homepage [16].
 
 If you feel that your name should be on this list, please make a pull request
 listing your contributions.
@@ -647,17 +676,21 @@ SOFTWARE.
                                                       *vim-markdown-references*
 References ~
 
-[1] http://daringfireball.net/projects/markdown/
-[2] https://github.com/gmarik/vundle
-[3] https://github.com/tpope/vim-pathogen
-[4] http://packages.qa.debian.org/v/vim-addon-manager.html
-[5] https://github.com/preservim/vim-markdown/archive/master.tar.gz
-[6] https://github.com/klen/python-mode
-[7] https://gohugo.io/content/front-matter/
-[8] https://github.com/cespare/vim-toml
-[9] https://github.com/elzr/vim-json
-[10] http://www.cirosantilli.com/markdown-style-guide/#tables
-[11] https://github.com/godlygeek/tabular
-[12] http://plasticboy.com/
+[1] https://github.com/preservim/vim-markdown/actions?workflow=Vint
+[2] https://github.com/preservim/vim-markdown/workflows/Vint/badge.svg
+[3] https://github.com/preservim/vim-markdown/actions?workflow=Vader
+[4] https://github.com/preservim/vim-markdown/workflows/Vader/badge.svg
+[5] http://daringfireball.net/projects/markdown/
+[6] https://github.com/gmarik/vundle
+[7] https://github.com/tpope/vim-pathogen
+[8] http://packages.qa.debian.org/v/vim-addon-manager.html
+[9] https://github.com/preservim/vim-markdown/archive/master.tar.gz
+[10] https://github.com/klen/python-mode
+[11] https://gohugo.io/content/front-matter/
+[12] https://github.com/cespare/vim-toml
+[13] https://github.com/elzr/vim-json
+[14] http://www.cirosantilli.com/markdown-style-guide/#tables
+[15] https://github.com/godlygeek/tabular
+[16] http://plasticboy.com/
 
 vim: ft=help

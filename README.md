@@ -351,6 +351,14 @@ The following options control which syntax extensions will be turned on. They ar
 
         let g:vim_markdown_edit_url_in = 'tab'
 
+### Do not align table according to colons
+
+-   `g:vim_markdown_table_align_with_colons`
+
+    Colons can be added the delimiter row of a table to indicate left, right or center alignment (<https://github.github.com/gfm/#tables-extension->). `:TableFormat` follow these colons by default, you can disable it by:
+
+        let g:vim_markdown_table_align_with_colons = 0
+
 ## Mappings
 
 The following work on normal and visual modes:

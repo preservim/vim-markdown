@@ -89,3 +89,29 @@ Expect (no changes):
   ##### e
 
   ###### f
+
+Given markdown;
+## a
+
+##hashtag
+
+Execute (HeaderDecrease with hashtag):
+  :HeaderDecrease
+
+Expect (hashtags are not affected):
+  # a
+
+  ##hashtag
+
+Given markdown;
+# a
+
+#hashtag
+
+Execute (HeaderIncrease with hashtag):
+  :HeaderIncrease
+
+Expect (hashtags are not affected):
+  ## a
+
+  #hashtag

@@ -48,12 +48,12 @@
 " For each level, contains the regexp that matches at that level only.
 "
 let s:levelRegexpDict = {
-    \ 1: '\v^(#[^#]@=|.+\n\=+$)',
-    \ 2: '\v^(##[^#]@=|.+\n-+$)',
-    \ 3: '\v^###[^#]@=',
-    \ 4: '\v^####[^#]@=',
-    \ 5: '\v^#####[^#]@=',
-    \ 6: '\v^######[^#]@='
+    \ 1: '\v^(#[^#]@=\s+|.+\n\=+$)',
+    \ 2: '\v^(##[^#]@=\s+|.+\n-+$)',
+    \ 3: '\v^###[^#]@=\s+',
+    \ 4: '\v^####[^#]@=\s+',
+    \ 5: '\v^#####[^#]@=\s+',
+    \ 6: '\v^######[^#]@=\s+'
 \ }
 
 " Maches any header level of any type.
@@ -61,7 +61,7 @@ let s:levelRegexpDict = {
 " This could be deduced from `s:levelRegexpDict`, but it is more
 " efficient to have a single regexp for this.
 "
-let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
+let s:headersRegexp = '\v^(#{1,6}\s+|.+\n(\=+|-+)$)'
 
 " Returns the line number of the first header before `line`, called the
 " current header.
@@ -526,7 +526,7 @@ function! s:HeaderDecrease(line1, line2, ...)
     let l:numSubstitutions = s:SetexToAtx(a:line1, a:line2)
     let l:flags = (&gdefault ? '' : 'g')
     for l:level in range(replaceLevels[0], replaceLevels[1], -l:levelDelta)
-        execute 'silent! ' . a:line1 . ',' . (a:line2 - l:numSubstitutions) . 'substitute/' . s:levelRegexpDict[l:level] . '/' . repeat('#', l:level + l:levelDelta) . '/' . l:flags
+        execute 'silent! ' . a:line1 . ',' . (a:line2 - l:numSubstitutions) . 'substitute/' . s:levelRegexpDict[l:level] . '/' . repeat('#', l:level + l:levelDelta) . ' /' . l:flags
     endfor
 endfunction
 

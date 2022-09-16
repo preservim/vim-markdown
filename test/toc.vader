@@ -138,14 +138,11 @@ Execute (Toc multiple headers):
 
 Expect (multiple headers):
   h1 space
-  h1 nospace
   h1 2 spaces
   h1 trailing hash
     h2 space
-    h2 nospace
     h2 trailing hash
       h3 space
-      h3 nospace
       h3 trailing hash
         h4
           h5

@@ -94,6 +94,8 @@ Given markdown;
 
 b
 
+#ignore
+
 # c
 
 d
@@ -101,7 +103,7 @@ d
 Execute (]] same level):
   AssertEqual line('.'), 1
   normal ]]
-  AssertEqual line('.'), 5
+  AssertEqual line('.'), 7
   normal [[
   AssertEqual line('.'), 1
 
@@ -109,6 +111,8 @@ Given markdown;
 # a
 
 b
+
+##ignore
 
 ## c
 
@@ -117,7 +121,7 @@ d
 Execute (]] different levels level):
   AssertEqual line('.'), 1
   normal ]]
-  AssertEqual line('.'), 5
+  AssertEqual line('.'), 7
   normal [[
   AssertEqual line('.'), 1
 
@@ -125,6 +129,8 @@ Given markdown;
 # a
 
 b
+
+#ignore
 
 ## c
 
@@ -137,7 +143,7 @@ f
 Execute (][ different levels level):
   AssertEqual line('.'), 1
   normal ][
-  AssertEqual line('.'), 9
+  AssertEqual line('.'), 11
   normal []
   AssertEqual line('.'), 1
 

@@ -115,3 +115,29 @@ Expect (hashtags are not affected):
   ## a
 
   #hashtag
+
+Given markdown;
+#
+
+##
+
+Execute (HeaderIncrease with empty atx headings):
+  :HeaderIncrease
+
+Expect (increase level of all headers):
+  ##
+
+  ###
+
+Given markdown;
+##
+
+###
+
+Execute (HeaderDecrease with empty atx headings):
+  :HeaderDecrease
+
+Expect (decrease level of all headers):
+  #
+
+  ##

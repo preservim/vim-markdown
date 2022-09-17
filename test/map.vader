@@ -157,3 +157,23 @@ Execute (]h):
   AssertEqual line('.'), 3
   normal ]h
   AssertEqual line('.'), 1
+
+Given markdown;
+#
+
+##
+
+#
+
+##
+
+Execute (]] empty atx heading):
+  AssertEqual line('.'), 1
+  normal ]]
+  AssertEqual line('.'), 3
+  normal [[
+  AssertEqual line('.'), 1
+  normal ][
+  AssertEqual line('.'), 5
+  normal []
+  AssertEqual line('.'), 1

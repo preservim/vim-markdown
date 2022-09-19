@@ -51,41 +51,41 @@ Execute (gx autolink):
   AssertEqual b:func(1, match(b:line, 'd') + 1), ''
 
 Given markdown;
-[gy_test.md](gy_test.md)
+[gl_test.md](gl_test.md)
 
-Execute (gy opens file):
-  normal gy
-  AssertEqual @%, 'gy_test.md'
-  AssertEqual getline(1), 'gy test'
+Execute (gl opens file):
+  normal gl
+  AssertEqual @%, 'gl_test.md'
+  AssertEqual getline(1), 'gl test'
 
 Given markdown;
-[gy_test](gy_test)
+[gl_test](gl_test)
 
-Execute (gy opens file without .md extensions):
+Execute (gl opens file without .md extensions):
   let g:vim_markdown_no_extensions_in_markdown = 1
-  normal gy
-  AssertEqual @%, 'gy_test.md'
-  AssertEqual getline(1), 'gy test'
+  normal gl
+  AssertEqual @%, 'gl_test.md'
+  AssertEqual getline(1), 'gl test'
   unlet g:vim_markdown_no_extensions_in_markdown
 
 Given markdown;
-[gy_test.md](gy_test.md)
+[gl_test.md](gl_test.md)
 
-Execute (gy does not write before opening file):
+Execute (gl does not write before opening file):
   normal ia
   normal l
-  normal gy
-  AssertEqual @%, 'gy_test.md'
-  AssertEqual getline(1), 'gy test'
+  normal gl
+  AssertEqual @%, 'gl_test.md'
+  AssertEqual getline(1), 'gl test'
 
 Given markdown;
-[gy_test.md](gy_test.md)
+[gl_test.md](gl_test.md)
 
-Execute (gy auto-write before opening file):
+Execute (gl auto-write before opening file):
   let g:vim_markdown_autowrite = 1
   normal ia
   normal l
-  AssertThrows normal gy
+  AssertThrows normal gl
   AssertEqual g:vader_exception, 'Vim(write):E382: Cannot write, ''buftype'' option is set'
   unlet g:vim_markdown_autowrite
 

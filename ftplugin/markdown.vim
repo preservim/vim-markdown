@@ -377,7 +377,7 @@ function! s:Toc(...)
             endif
         endif
         " indent header based on level
-        let l:text = repeat('  ', h.level-1) . h.text
+        let l:text = repeat('#', h.level) . ' ' . h.text
         " keep track of the longest header size (heading level + title)
         let l:total_len = strdisplaywidth(l:text)
         if l:total_len > l:header_max_len

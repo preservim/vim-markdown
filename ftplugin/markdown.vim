@@ -405,14 +405,6 @@ function! s:Toc(...)
     else
         lopen
     endif
-    setlocal modifiable
-    for i in range(1, line('$'))
-        " this is the location-list data for the current item
-        let d = getloclist(0)[i-1]
-        call setline(i, d.text)
-    endfor
-    setlocal nomodified
-    setlocal nomodifiable
     execute 'normal! ' . l:cursor_header . 'G'
 endfunction
 

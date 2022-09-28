@@ -192,11 +192,6 @@ function! s:GetHeaderList()
             let l:is_header = 0
         endif
         if l:is_header ==# 1 && l:fenced_block ==# 0 && l:front_matter ==# 0
-            " remove hashes from atx headers
-            if match(l:line, '^#') > -1
-                let l:line = substitute(l:line, '\v^#*[ ]*', '', '')
-                let l:line = substitute(l:line, '\v[ ]*#*$', '', '')
-            endif
             " append line to list
             let l:level = s:GetHeaderLevel(i)
             let l:item = {'level': l:level, 'text': l:line, 'lnum': i, 'bufnr': bufnr}

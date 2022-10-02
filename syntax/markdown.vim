@@ -159,25 +159,26 @@ endif
 syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,mkdStrike
 
 "highlighting for Markdown groups
-HtmlHiLink mkdString        String
-HtmlHiLink mkdCode          String
-HtmlHiLink mkdCodeDelimiter String
-HtmlHiLink mkdCodeStart     String
-HtmlHiLink mkdCodeEnd       String
-HtmlHiLink mkdFootnote      Comment
-HtmlHiLink mkdBlockquote    Comment
-HtmlHiLink mkdListItem      Identifier
-HtmlHiLink mkdRule          Identifier
-HtmlHiLink mkdLineBreak     Visual
-HtmlHiLink mkdFootnotes     htmlLink
-HtmlHiLink mkdLink          htmlLink
-HtmlHiLink mkdURL           htmlString
-HtmlHiLink mkdInlineURL     htmlLink
-HtmlHiLink mkdID            Identifier
-HtmlHiLink mkdLinkDef       mkdID
-HtmlHiLink mkdLinkDefTarget mkdURL
-HtmlHiLink mkdLinkTitle     htmlString
-HtmlHiLink mkdDelimiter     Delimiter
+HtmlHiLink mkdString           String
+HtmlHiLink mkdCode             String
+HtmlHiLink mkdCodeDelimiter    String
+HtmlHiLink mkdCodeStart        String
+HtmlHiLink mkdCodeEnd          String
+HtmlHiLink mkdFootnote         Comment
+HtmlHiLink mkdBlockquote       Comment
+HtmlHiLink mkdListItem         Identifier
+HtmlHiLink mkdListItemCheckbox Identifier
+HtmlHiLink mkdRule             Identifier
+HtmlHiLink mkdLineBreak        Visual
+HtmlHiLink mkdFootnotes        htmlLink
+HtmlHiLink mkdLink             htmlLink
+HtmlHiLink mkdURL              htmlString
+HtmlHiLink mkdInlineURL        htmlLink
+HtmlHiLink mkdID               Identifier
+HtmlHiLink mkdLinkDef          mkdID
+HtmlHiLink mkdLinkDefTarget    mkdURL
+HtmlHiLink mkdLinkTitle        htmlString
+HtmlHiLink mkdDelimiter        Delimiter
 
 let b:current_syntax = 'mkd'
 

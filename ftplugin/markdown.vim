@@ -624,7 +624,7 @@ function! s:Markdown_GetUrlForPosition(lnum, col)
     let l:col = a:col
     let l:syn = synIDattr(synID(l:lnum, l:col, 1), 'name')
 
-    if l:syn ==# 'mkdInlineURL' || l:syn ==# 'mkdURL' || l:syn ==# 'mkdLinkDefTarget'
+    if l:syn ==# 'mkdInlineURL' || l:syn ==# 'mkdURL' || l:syn ==# 'mkdLinkDefTarget' || l:syn ==# 'mkdWikiLink'
         " Do nothing.
     elseif l:syn ==# 'mkdLink'
         let [l:lnum, l:col] = <sid>FindNextSyntax(l:lnum, l:col, 'mkdURL')

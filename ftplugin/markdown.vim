@@ -494,7 +494,9 @@ endfunction
 function! s:SetexToAtx(line1, line2)
     let l:originalNumLines = line('$')
     execute 'silent! ' . a:line1 . ',' . a:line2 . 'substitute/\v(.*\S.*)\n\=+$/# \1/'
-    execute 'silent! ' . a:line1 . ',' . a:line2 . 'substitute/\v(.*\S.*)\n-+$/## \1/'
+
+    let l:changed = l:originalNumLines - line('$')
+    execute 'silent! ' . a:line1 . ',' . (a:line2 - l:changed) . 'substitute/\v(.*\S.*)\n-+$/## \1'
     return l:originalNumLines - line('$')
 endfunction
 

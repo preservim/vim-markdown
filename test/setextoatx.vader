@@ -20,3 +20,29 @@ Expect (convert setex-style headings to atx):
   ## b
 
   ## b
+
+Given markdown;
+a
+=
+
+b
+=
+
+c
+-
+
+d
+-
+
+Execute (SetexToAtx with range):
+  :1,8SetexToAtx
+
+Expect (only convert setex headings in original range):
+  # a
+
+  # b
+
+  ## c
+
+  d
+  -

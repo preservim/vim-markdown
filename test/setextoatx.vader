@@ -1,0 +1,22 @@
+Given markdown;
+# a
+
+a
+=
+
+## b
+
+b
+-
+
+Execute (SetexToAtx):
+  :SetexToAtx
+
+Expect (convert setex-style headings to atx):
+  # a
+
+  # a
+
+  ## b
+
+  ## b

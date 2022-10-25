@@ -89,3 +89,28 @@ Expect (no changes):
   ##### e
 
   ###### f
+
+Given markdown;
+a
+=
+
+b
+-
+
+Execute (HeaderIncrease with setext headers):
+  :HeaderIncrease
+
+Expect (convert to atx headers):
+  ## a
+
+  ### b
+
+Given markdown;
+a
+-
+
+Execute (HeaderDecrease with setext headers):
+  :HeaderDecrease
+
+Expect (convert to atx headers):
+  # a

@@ -68,3 +68,17 @@ Expect (preserve colons to align text):
     | left | right | center |   |
     |:-----|------:|:------:|:--|
     | left | right | center |   |
+
+Given markdown (table with colons and rows containing text of different length);
+| left |extra right|  c  |left|
+| :- | --: |:---:|:|
+| left more |right|  center | l |
+
+Execute (format table with colons and rows containing text of different length):
+  TableFormat
+
+Expect (align text in accordance with the colons):
+  | left      | extra right |    c   | left |
+  |:----------|------------:|:------:|:-----|
+  | left more |       right | center | l    |
+

@@ -854,19 +854,23 @@ function! s:SyntaxInclude(filetype)
     return grouplistname
 endfunction
 
+function! s:IsHighlightSourcesEnabledForBuffer()
+    " Enable for markdown buffers, and for liquid buffers with markdown format
+    return &filetype =~# 'markdown' || get(b:, 'liquid_subtype', '') =~# 'markdown'
+endfunction
 
 function! s:MarkdownRefreshSyntax(force)
     " Use != to compare &syntax's value to use the same logic run on
     " $VIMRUNTIME/syntax/synload.vim.
     "
     " vint: next-line -ProhibitEqualTildeOperator
-    if &filetype =~# 'markdown' && line('$') > 1 && &syntax != 'OFF'
+    if s:IsHighlightSourcesEnabledForBuffer() && line('$') > 1 && &syntax != 'OFF'
         call s:MarkdownHighlightSources(a:force)
     endif
 endfunction
 
 function! s:MarkdownClearSyntaxVariables()
-    if &filetype =~# 'markdown'
+    if s:IsHighlightSourcesEnabledForBuffer()
         unlet! b:mkd_included_filetypes
     endif
 endfunction

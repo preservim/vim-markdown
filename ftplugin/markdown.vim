@@ -48,12 +48,12 @@
 " For each level, contains the regexp that matches at that level only.
 "
 let s:levelRegexpDict = {
-    \ 1: '\v^(#[^#]@=|.+\n\=+$)',
-    \ 2: '\v^(##[^#]@=|.+\n-+$)',
-    \ 3: '\v^###[^#]@=',
-    \ 4: '\v^####[^#]@=',
-    \ 5: '\v^#####[^#]@=',
-    \ 6: '\v^######[^#]@='
+    \ 1: '\v^(#\_s@=|.+\n\=+$)',
+    \ 2: '\v^(##\_s@=|.+\n-+$)',
+    \ 3: '\v^###\_s@=',
+    \ 4: '\v^####\_s@=',
+    \ 5: '\v^#####\_s@=',
+    \ 6: '\v^######\_s@='
 \ }
 
 " Maches any header level of any type.
@@ -61,7 +61,7 @@ let s:levelRegexpDict = {
 " This could be deduced from `s:levelRegexpDict`, but it is more
 " efficient to have a single regexp for this.
 "
-let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
+let s:headersRegexp = '\v^(#{1,6}\_s|.+\n(\=+|-+)$)'
 
 " Returns the line number of the first header before `line`, called the
 " current header.

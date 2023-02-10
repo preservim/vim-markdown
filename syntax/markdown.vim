@@ -7,7 +7,7 @@
 
 
 " Read the HTML syntax to start with
-if version < 600
+if v:version < 600
   so <sfile>:p:h/html.vim
 else
   runtime! syntax/html.vim
@@ -17,14 +17,14 @@ else
   endif
 endif
 
-if version < 600
+if v:version < 600
   syntax clear
-elseif exists("b:current_syntax")
+elseif exists('b:current_syntax')
   finish
 endif
 
 " don't use standard HiLink, it will not work with included syntax files
-if version < 508
+if v:version < 508
   command! -nargs=+ HtmlHiLink hi link <args>
 else
   command! -nargs=+ HtmlHiLink hi def link <args>
@@ -109,8 +109,9 @@ syn region mkdFootnote     start="\[^"                     end="\]"
 syn match  mkdCode         /^\s*\n\(\(\s\{8,}[^ ]\|\t\t\+[^\t]\).*\n\)\+/
 syn match  mkdCode         /\%^\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
 syn match  mkdCode         /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/ contained
-syn match  mkdListItem     /^\s*\%([-*+]\|\d\+\.\)\ze\s\+/ contained
-syn region mkdListItemLine start="^\s*\%([-*+]\|\d\+\.\)\s\+" end="$" oneline contains=@mkdNonListItem,mkdListItem,@Spell
+syn match  mkdListItem     /^\s*\%([-*+]\|\d\+\.\)\ze\s\+/ contained nextgroup=mkdListItemCheckbox
+syn match  mkdListItemCheckbox     /\[[xXoO ]\]\ze\s\+/ contained contains=mkdListItem
+syn region mkdListItemLine start="^\s*\%([-*+]\|\d\+\.\)\s\+" end="$" oneline contains=@mkdNonListItem,mkdListItem,mkdListItemCheckbox,@Spell
 syn region mkdNonListItemBlock start="\(\%^\(\s*\([-*+]\|\d\+\.\)\s\+\)\@!\|\n\(\_^\_$\|\s\{4,}[^ ]\|\t+[^\t]\)\@!\)" end="^\(\s*\([-*+]\|\d\+\.\)\s\+\)\@=" contains=@mkdNonListItem,@Spell
 syn match  mkdRule         /^\s*\*\s\{0,1}\*\s\{0,1}\*\(\*\|\s\)*$/
 syn match  mkdRule         /^\s*-\s\{0,1}-\s\{0,1}-\(-\|\s\)*$/
@@ -158,27 +159,28 @@ endif
 syn cluster mkdNonListItem contains=@htmlTop,htmlItalic,htmlBold,htmlBoldItalic,mkdFootnotes,mkdInlineURL,mkdLink,mkdLinkDef,mkdLineBreak,mkdBlockquote,mkdCode,mkdRule,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,mkdMath,mkdStrike
 
 "highlighting for Markdown groups
-HtmlHiLink mkdString        String
-HtmlHiLink mkdCode          String
-HtmlHiLink mkdCodeDelimiter String
-HtmlHiLink mkdCodeStart     String
-HtmlHiLink mkdCodeEnd       String
-HtmlHiLink mkdFootnote      Comment
-HtmlHiLink mkdBlockquote    Comment
-HtmlHiLink mkdListItem      Identifier
-HtmlHiLink mkdRule          Identifier
-HtmlHiLink mkdLineBreak     Visual
-HtmlHiLink mkdFootnotes     htmlLink
-HtmlHiLink mkdLink          htmlLink
-HtmlHiLink mkdURL           htmlString
-HtmlHiLink mkdInlineURL     htmlLink
-HtmlHiLink mkdID            Identifier
-HtmlHiLink mkdLinkDef       mkdID
-HtmlHiLink mkdLinkDefTarget mkdURL
-HtmlHiLink mkdLinkTitle     htmlString
-HtmlHiLink mkdDelimiter     Delimiter
+HtmlHiLink mkdString           String
+HtmlHiLink mkdCode             String
+HtmlHiLink mkdCodeDelimiter    String
+HtmlHiLink mkdCodeStart        String
+HtmlHiLink mkdCodeEnd          String
+HtmlHiLink mkdFootnote         Comment
+HtmlHiLink mkdBlockquote       Comment
+HtmlHiLink mkdListItem         Identifier
+HtmlHiLink mkdListItemCheckbox Identifier
+HtmlHiLink mkdRule             Identifier
+HtmlHiLink mkdLineBreak        Visual
+HtmlHiLink mkdFootnotes        htmlLink
+HtmlHiLink mkdLink             htmlLink
+HtmlHiLink mkdURL              htmlString
+HtmlHiLink mkdInlineURL        htmlLink
+HtmlHiLink mkdID               Identifier
+HtmlHiLink mkdLinkDef          mkdID
+HtmlHiLink mkdLinkDefTarget    mkdURL
+HtmlHiLink mkdLinkTitle        htmlString
+HtmlHiLink mkdDelimiter        Delimiter
 
-let b:current_syntax = "mkd"
+let b:current_syntax = 'mkd'
 
 delcommand HtmlHiLink
 " vim: ts=8

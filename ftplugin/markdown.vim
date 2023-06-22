@@ -61,7 +61,7 @@ let s:levelRegexpDict = {
 " This could be deduced from `s:levelRegexpDict`, but it is more
 " efficient to have a single regexp for this.
 "
-let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
+let s:headersRegexp = '\v^(#{1,6}\s|.+\n(\=+|-+)$)'
 
 " Returns the line number of the first header before `line`, called the
 " current header.

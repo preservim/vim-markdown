@@ -45,9 +45,9 @@ Execute (toc window autofit width):
   :Toc
   let real_width = winwidth(0)
   :lclose
-  let expected_width = len(line) + 1 + 3
+  let expected_width = len(line) - len(matchstr(line, '^#\+ *')) + 1 + 3 + len('N# ')
   AssertEqual real_width, expected_width
   set nonumber
 " 1 space for first header + 3 spaces for line numbers.
-" 7 chars ('###### ') are removed, but added to `:Toc` again.
+" 7 chars ('###### ') are removed, and 3 char `N# ` are added.
 

@@ -1,6 +1,6 @@
 "TODO print messages when on visual mode. I only see VISUAL, not the messages.
 
-" Function interface phylosophy:
+" Function interface philosophy:
 "
 " - functions take arbitrary line numbers as parameters.
 "    Current cursor line is only a suitable default parameter.
@@ -56,7 +56,7 @@ let s:levelRegexpDict = {
     \ 6: '\v^######[^#]@='
 \ }
 
-" Maches any header level of any type.
+" Matches any header level of any type.
 "
 " This could be deduced from `s:levelRegexpDict`, but it is more
 " efficient to have a single regexp for this.

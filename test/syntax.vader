@@ -1302,3 +1302,67 @@ Execute (HTML tag in text):
   AssertEqual SyntaxOf('span'), 'htmlTagName'
   AssertEqual SyntaxOf('<span>'), 'htmlTag'
   AssertEqual SyntaxOf('</span>'), 'htmlEndTag'
+
+Given markdown;
+# _h1_
+
+## _h2_
+
+### _h3_
+
+#### _h4_
+
+##### _h5_
+
+###### _h6_
+
+Execute (underscore italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlItalic'
+
+Given markdown;
+# *h1*
+
+## *h2*
+
+### *h3*
+
+#### *h4*
+
+##### *h5*
+
+###### *h6*
+
+Execute (asterisk italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlItalic'
+
+Given markdown;
+_h1_
+=
+
+_h2_
+-
+
+Execute (underscore italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+
+Given markdown;
+*h1*
+=
+
+*h2*
+-
+
+Execute (asterisk italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'

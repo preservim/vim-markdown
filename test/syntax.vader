@@ -1430,3 +1430,67 @@ Given markdown;
 Execute (asterisk bold text in setext headings):
   AssertEqual SyntaxOf('h1'), 'htmlBold'
   AssertEqual SyntaxOf('h2'), 'htmlBold'
+
+Given markdown;
+# ___h1___
+
+## ___h2___
+
+### ___h3___
+
+#### ___h4___
+
+##### ___h5___
+
+###### ___h6___
+
+Execute (underscore bold italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlBoldItalic'
+
+Given markdown;
+# ***h1***
+
+## ***h2***
+
+### ***h3***
+
+#### ***h4***
+
+##### ***h5***
+
+###### ***h6***
+
+Execute (asterisk bold italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlBoldItalic'
+
+Given markdown;
+___h1___
+=
+
+___h2___
+-
+
+Execute (underscore bold italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+
+Given markdown;
+***h1***
+=
+
+***h2***
+-
+
+Execute (asterisk bold italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'

@@ -1366,3 +1366,67 @@ Given markdown;
 Execute (asterisk italic text in setext headings):
   AssertEqual SyntaxOf('h1'), 'htmlItalic'
   AssertEqual SyntaxOf('h2'), 'htmlItalic'
+
+Given markdown;
+# __h1__
+
+## __h2__
+
+### __h3__
+
+#### __h4__
+
+##### __h5__
+
+###### __h6__
+
+Execute (underscore bold text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+  AssertEqual SyntaxOf('h3'), 'htmlBold'
+  AssertEqual SyntaxOf('h4'), 'htmlBold'
+  AssertEqual SyntaxOf('h5'), 'htmlBold'
+  AssertEqual SyntaxOf('h6'), 'htmlBold'
+
+Given markdown;
+# **h1**
+
+## **h2**
+
+### **h3**
+
+#### **h4**
+
+##### **h5**
+
+###### **h6**
+
+Execute (asterisk bold text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+  AssertEqual SyntaxOf('h3'), 'htmlBold'
+  AssertEqual SyntaxOf('h4'), 'htmlBold'
+  AssertEqual SyntaxOf('h5'), 'htmlBold'
+  AssertEqual SyntaxOf('h6'), 'htmlBold'
+
+Given markdown;
+__h1__
+=
+
+__h2__
+-
+
+Execute (underscore bold text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+
+Given markdown;
+**h1**
+=
+
+**h2**
+-
+
+Execute (asterisk bold text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'

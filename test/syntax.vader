@@ -1494,3 +1494,35 @@ Given markdown;
 Execute (asterisk bold italic text in setext headings):
   AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
   AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+
+Given markdown;
+# [^h1]
+
+## [^h2]
+
+### [^h3]
+
+#### [^h4]
+
+##### [^h5]
+
+###### [^h6]
+
+Execute (footnotes in atx headings):
+  AssertEqual SyntaxOf('h1'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h2'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h3'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h4'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h5'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h6'), 'mkdFootnotes'
+
+Given markdown;
+[^h1]
+=
+
+[^h2]
+-
+
+Execute (footnotes in setext headings):
+  AssertEqual SyntaxOf('h1'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h2'), 'mkdFootnotes'

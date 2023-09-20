@@ -1302,3 +1302,40 @@ Execute (HTML tag in text):
   AssertEqual SyntaxOf('span'), 'htmlTagName'
   AssertEqual SyntaxOf('<span>'), 'htmlTag'
   AssertEqual SyntaxOf('</span>'), 'htmlEndTag'
+
+Given markdown;
+<!--TODO FIXME XXX TBD hello -->
+
+Execute (todo inside HTML comment):
+  AssertEqual SyntaxOf('TODO'), 'mkdTodo'
+  AssertEqual SyntaxOf('FIXME'), 'mkdTodo'
+  AssertEqual SyntaxOf('XXX'), 'mkdTodo'
+  AssertEqual SyntaxOf('TBD'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('hello'), 'mkdTodo'
+
+Given markdown;
+<!--ATODO BFIXME CXXX DTBD -->
+
+Execute (fake todo inside HTML comment):
+  AssertNotEqual SyntaxOf('TODO'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('FIXME'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('XXX'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('TBD'), 'mkdTodo'
+
+Given markdown;
+TODO FIXME XXX TBD
+
+Execute (todo outside HTML comment):
+  AssertNotEqual SyntaxOf('TODO'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('FIXME'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('XXX'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('TBD'), 'mkdTodo'
+
+Given markdown;
+> TODO FIXME XXX TBD
+
+Execute (todo inside non-HTML comment):
+  AssertNotEqual SyntaxOf('TODO'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('FIXME'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('XXX'), 'mkdTodo'
+  AssertNotEqual SyntaxOf('TBD'), 'mkdTodo'

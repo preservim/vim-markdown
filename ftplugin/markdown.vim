@@ -671,8 +671,10 @@ endfunction
 " script while this function is running. We must not replace it.
 if !exists('*s:EditUrlUnderCursor')
     function s:EditUrlUnderCursor()
-        let l:editmethod = ''
+        let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
+
         " determine how to open the linked file (split, tab, etc)
+        let l:editmethod = ''
         if exists('g:vim_markdown_edit_url_in')
           if g:vim_markdown_edit_url_in ==# 'tab'
             let l:editmethod = 'tabnew'
@@ -687,42 +689,47 @@ if !exists('*s:EditUrlUnderCursor')
           " default to current buffer
           let l:editmethod = 'edit'
         endif
-        let l:url = s:Markdown_GetUrlForPosition(line('.'), col('.'))
-        if l:url !=# ''
-            if get(g:, 'vim_markdown_autowrite', 0)
-                write
-            endif
-            let l:anchor = ''
-            if get(g:, 'vim_markdown_follow_anchor', 0)
-                let l:parts = split(l:url, '#', 1)
-                if len(l:parts) == 2
-                    let [l:url, l:anchor] = parts
-                    let l:anchorexpr = get(g:, 'vim_markdown_anchorexpr', '')
-                    if l:anchorexpr !=# ''
-                        let l:anchor = eval(substitute(
-                            \ l:anchorexpr, 'v:anchor',
-                            \ escape('"'.l:anchor.'"', '"'), ''))
-                    endif
-                endif
-            endif
-            if l:url !=# ''
-                let l:ext = ''
-                if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
-                    " use another file extension if preferred
-                    if exists('g:vim_markdown_auto_extension_ext')
-                        let l:ext = '.'.g:vim_markdown_auto_extension_ext
-                    else
-                        let l:ext = '.md'
-                    endif
-                endif
-                let l:url = fnameescape(fnamemodify(expand('%:h').'/'.l:url.l:ext, ':.'))
-                execute l:editmethod l:url
-            endif
-            if l:anchor !=# ''
-                silent! execute '/'.l:anchor
-            endif
-        else
+
+        " fallback if cursor is not on a markdown link
+        if l:url ==# ''
             execute l:editmethod . ' <cfile>'
+            return
+        endif
+
+        if get(g:, 'vim_markdown_autowrite', 0)
+            write
+        endif
+
+        " parse anchor
+        let l:anchor = ''
+        if get(g:, 'vim_markdown_follow_anchor', 0)
+            let l:parts = split(l:url, '#', 1)
+            if len(l:parts) == 2
+                let [l:url, l:anchor] = parts
+                let l:anchorexpr = get(g:, 'vim_markdown_anchorexpr', '')
+                if l:anchorexpr !=# ''
+                    let l:anchor = eval(substitute(
+                        \ l:anchorexpr, 'v:anchor',
+                        \ escape('"'.l:anchor.'"', '"'), ''))
+                endif
+            endif
+        endif
+
+        " add file extension
+        let l:ext = ''
+        if get(g:, 'vim_markdown_no_extensions_in_markdown', 0)
+            " use another file extension if preferred
+            if exists('g:vim_markdown_auto_extension_ext')
+                let l:ext = '.'.g:vim_markdown_auto_extension_ext
+            else
+                let l:ext = '.md'
+            endif
+        endif
+        let l:url = fnameescape(fnamemodify(expand('%:h').'/'.l:url.l:ext, ':.'))
+
+        execute l:editmethod l:url
+        if l:anchor !=# ''
+            silent! execute '/'.l:anchor
         endif
     endfunction
 endif

@@ -1304,7 +1304,7 @@ Execute (HTML tag in text):
   AssertEqual SyntaxOf('</span>'), 'htmlEndTag'
 
 Given markdown;
-<!--TODO FIXME XXX TBD hello -->
+<!-- TODO FIXME XXX TBD hello -->
 
 Execute (todo inside HTML comment):
   AssertEqual SyntaxOf('TODO'), 'mkdTodo'
@@ -1314,7 +1314,7 @@ Execute (todo inside HTML comment):
   AssertNotEqual SyntaxOf('hello'), 'mkdTodo'
 
 Given markdown;
-<!--ATODO BFIXME CXXX DTBD -->
+<!-- ATODO BFIXME CXXX DTBD -->
 
 Execute (fake todo inside HTML comment):
   AssertNotEqual SyntaxOf('TODO'), 'mkdTodo'

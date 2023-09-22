@@ -68,3 +68,16 @@ Expect (preserve colons to align text):
     | left | right | center |   |
     |:-----|------:|:------:|:--|
     | left | right | center |   |
+
+Given markdown (borderless table);
+   left |right|  center 
+   :- | --: |:---:
+   left |right|  center  
+
+Execute (format borderless table):
+  TableFormat
+
+Expect (table with borders):
+     | left | right | center |
+     |:-----|------:|:------:|
+     | left | right | center |

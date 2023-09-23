@@ -75,6 +75,7 @@ Given markdown (borderless table);
    left |right|  center  
 
 Execute (format borderless table):
+  let g:vim_markdown_borderless_table = 1
   TableFormat
 
 Expect (table with borders):

@@ -539,13 +539,17 @@ endfunction
 function! s:TableFormat()
     let l:pos = getpos('.')
 
-    normal! {
-    call search('|')
-    execute 'silent .,''}s/\v^(\s{0,})\|?([^\|])/\1|\2/e'
+    if get(g:, 'vim_markdown_borderless_table', 0)
+      " add `|` to the beginning of the line if it isn't present
+      normal! {
+      call search('|')
+      execute 'silent .,''}s/\v^(\s{0,})\|?([^\|])/\1|\2/e'
 
-    normal! {
-    call search('|')
-    execute 'silent .,''}s/\v([^\|])\|?(\s{0,})$/\1|\2/e'
+      " add `|` to the end of the line if it isn't present
+      normal! {
+      call search('|')
+      execute 'silent .,''}s/\v([^\|])\|?(\s{0,})$/\1|\2/e'
+    endif
 
     normal! {
     " Search instead of `normal! j` because of the table at beginning of file edge case.

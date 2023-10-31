@@ -719,7 +719,7 @@ if !exists('*s:EditUrlUnderCursor')
                 execute l:editmethod l:url
             endif
             if l:anchor !=# ''
-                silent! execute '/'.l:anchor
+                call search(l:anchor, 's')
             endif
         else
             execute l:editmethod . ' <cfile>'

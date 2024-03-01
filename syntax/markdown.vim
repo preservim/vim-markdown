@@ -116,6 +116,7 @@ syn region mkdNonListItemBlock start="\(\%^\(\s*\([-*+]\|\d\+\.\)\s\+\)\@!\|\n\(
 syn match  mkdRule         /^\s*\*\s\{0,1}\*\s\{0,1}\*\(\*\|\s\)*$/
 syn match  mkdRule         /^\s*-\s\{0,1}-\s\{0,1}-\(-\|\s\)*$/
 syn match  mkdRule         /^\s*_\s\{0,1}_\s\{0,1}_\(_\|\s\)*$/
+syn keyword mkdTodo TODO FIXME XXX TBD contained containedin=htmlComment,htmlCommentPart
 
 " YAML frontmatter
 if get(g:, 'vim_markdown_frontmatter', 0)
@@ -180,6 +181,7 @@ HtmlHiLink mkdLinkDef          mkdID
 HtmlHiLink mkdLinkDefTarget    mkdURL
 HtmlHiLink mkdLinkTitle        htmlString
 HtmlHiLink mkdDelimiter        Delimiter
+HtmlHiLink mkdTodo             Todo
 
 let b:current_syntax = 'mkd'
 

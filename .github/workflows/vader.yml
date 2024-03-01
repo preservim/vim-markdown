@@ -23,7 +23,7 @@ jobs:
         ${{ matrix.vimFlavor }} --version
     - name: Fetch Vader and other dependencies
       run: |
-        make build/tabular build/vim-toml build/vim-json build/vader.vim
+        make build/tabular build/vader.vim
     - name: Run test suite
       run: |
         cd test

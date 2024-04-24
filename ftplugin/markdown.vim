@@ -392,7 +392,7 @@ function! s:Toc(...)
     if l:window_type ==# 'horizontal'
         lopen
     elseif l:window_type ==# 'vertical'
-        if g:vim_markdown_toc_location ==# 'right'
+        if exists('g:vim_markdown_toc_location') && g:vim_markdown_toc_location ==# 'right'
             vertical botright lopen
         else
             vertical topleft lopen

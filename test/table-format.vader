@@ -4,33 +4,33 @@ Before:
 After:
   let &gdefault = 0
 
-Given markdown;
-| normal |no space|  2 spaces  ||
-| - |-|  --- ||
-| normal |no space|  2 spaces  ||
+Given markdown:
+  | normal |no space|  2 spaces  ||
+  | - |-|  --- ||
+  | normal |no space|  2 spaces  ||
 
 Execute (format unformatted table):
   TableFormat
 
 Expect (table is formatted):
-  | normal | no space | 2 spaces |  |
-  |--------|----------|----------|--|
-  | normal | no space | 2 spaces |  |
+   | normal | no space | 2 spaces |  |
+   |--------|----------|----------|--|
+   | normal | no space | 2 spaces |  |
 
-Given markdown;
-| a | b |
-|---|---|
-| c | d |
+Given markdown:
+  | a | b |
+  |---|---|
+  | c | d |
 
 Execute (format well formatted table):
   TableFormat
 
 Expect (table is not modified):
-  | a | b |
-  |---|---|
-  | c | d |
+   | a | b |
+   |---|---|
+   | c | d |
 
-Given markdown (indented table);
+Given markdown (indented table):
   | a | b |
   |---|---|
   | c | d |
@@ -39,24 +39,24 @@ Execute (format well formatted, indented table):
   TableFormat
 
 Expect (table is not modified):
-    | a | b |
-    |---|---|
-    | c | d |
+   | a | b |
+   |---|---|
+   | c | d |
 
-Given markdown;
-| left |right|  center  ||
-| :- | --: |:---:|:|
-| left |right|  center  ||
+Given markdown:
+  | left |right|  center  ||
+  | :- | --: |:---:|:|
+  | left |right|  center  ||
 
 Execute (format table with colons):
   TableFormat
 
 Expect (preserve colons to align text):
-  | left | right | center |   |
-  |:-----|------:|:------:|:--|
-  | left | right | center |   |
+   | left | right | center |   |
+   |:-----|------:|:------:|:--|
+   | left | right | center |   |
 
-Given markdown (indented table with colons);
+Given markdown (indented table with colons):
   | left |right|  center  ||
   | :- | --: |:---:|:|
   | left |right|  center  ||
@@ -65,11 +65,11 @@ Execute (format indented table with colons):
   TableFormat
 
 Expect (preserve colons to align text):
-    | left | right | center |   |
-    |:-----|------:|:------:|:--|
-    | left | right | center |   |
+   | left | right | center |   |
+   |:-----|------:|:------:|:--|
+   | left | right | center |   |
 
-Given markdown (borderless table);
+Given markdown (borderless table):
    left |right|  center 
    :- | --: |:---:
    left |right|  center  
@@ -80,6 +80,6 @@ Execute (format borderless table):
   unlet g:vim_markdown_borderless_table
 
 Expect (table with borders):
-     | left | right | center |
-     |:-----|------:|:------:|
-     | left | right | center |
+    | left | right | center |
+    |:-----|------:|:------:|
+    | left | right | center |

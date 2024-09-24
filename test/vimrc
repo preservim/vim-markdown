@@ -3,11 +3,11 @@ set nocompatible
 let $LANG='en_US'
 
 filetype off
-set runtimepath+=../
-set runtimepath+=../build/tabular/
-set runtimepath+=../build/vim-toml/
-set runtimepath+=../build/vim-json/
-set runtimepath+=../build/vader.vim/
+set runtimepath^=../
+set runtimepath^=../build/tabular/
+set runtimepath^=../build/vim-toml/
+set runtimepath^=../build/vim-json/
+set runtimepath^=../build/vader.vim/
 filetype on
 
 filetype plugin indent on

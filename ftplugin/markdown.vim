@@ -63,6 +63,14 @@ let s:levelRegexpDict = {
 "
 let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
 
+
+" Returns full header line if there is one
+"
+function! g:MarkdownGetHeader()
+  return getline(s:GetHeaderLineNum())
+endfunction
+
+
 " Returns the line number of the first header before `line`, called the
 " current header.
 "

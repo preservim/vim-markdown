@@ -81,13 +81,9 @@ Try `:help fold-expr` and `:help fold-commands` for details.
 
 ### Concealing
 
-Concealing is set for some syntax such as bold, italic, code block and link.
+Concealing is a vim feature that lets you visually replace text with another text. The actual source text is not modified. See `:h conceallevel` and `:h concealcursor` for vim's official documentation on this feature.
 
-Concealing lets you conceal text with other text. The actual source text is not modified. If you put your cursor on the concealed line, the conceal goes away.
-
-[Options](#options) are available to disable or change concealing.
-
-Try `:help concealcursor` and `:help conceallevel` for details.
+By default, Vim Markdown enables concealing for bolds, italics, code blocks and links. Concealing of math inside LaTeX blocks can be enabled optionally. See [Options](#options) below for instructions on enabling and disabling concealing.
 
 ## Options
 
@@ -166,29 +162,59 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
 -   `g:vim_markdown_conceal`
 
-    Concealing is set for some syntax.
+    Concealing for bolds, italics, code blocks and links is enabled by default. LaTeX math conceiling can be enabled optionally.
 
-    For example, conceal `[link text](link url)` as just `link text`.
-    Also, `_italic_` and `*italic*` will conceal to just _italic_.
-    Similarly `__bold__`, `**bold**`, `___italic bold___`, and `***italic bold***`
-    will conceal to just __bold__, **bold**, ___italic bold___, and ***italic bold*** respectively.
+    Here is an example of how bolds, italics, code blocks and links will be appear on the screen when concealing is enabled:
+    
+    | Source code             | Rendered conceal  |
+    | ----------------------- | ----------------- |
+    | `__bold__`              | __bold__          |
+    | `**bold**`              | **bold**          |
+    | `_italic_`              | _italic_          |
+    | `*italic*`              | *italic*          |
+    | `___italic bold___`     | ___italic bold___ |
+    | `***italic bold***`     | ***italic bold*** |
+    | `` `code block` ``      | code block        |
+    | `[link text](link url)` | link text         |
 
-    To enable conceal use Vim's standard conceal configuration.
+    And some examples of LaTeX concealing:
+
+    | Source code                 | Rendered conceal        |
+    | --------------------------- | ------------------------|
+    | `$ \pi \leq \tau $`         | `π ≤ τ`                 |
+    | `$\varphi^2 = \varphi + 1$` | `φ² = φ + 1`            |
+    | `$\int e^xdx = e^x +C$`     | `∫ eˣdx = eˣ +C`        |
+    | `$e^{\pi i} = -1$`          | `e\pi ⁱ = -1`           |
+    | `$\sin^2 x + \cos^2 x = 1$` | `\sin² x + \cos² x = 1` |
+    | `$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$` | `\sumₙ=₁\infty \frac{1}{n²} = \frac{π²}{6}` |
+
+    As you can see, simple LaTeX math concealing works well, but it breaks if the LaTeX code gets more involved. 
+    
+
+    To enable Vim's concealing feature, use:
 
         set conceallevel=2
-
-    To disable conceal regardless of `conceallevel` setting, add the following to your `.vimrc`:
+    
+    To disable concealing of bolds, italics and links regardless of `conceallevel`, add the following to your `.vimrc`:
 
         let g:vim_markdown_conceal = 0
+    
+    To enable concealing of math inside LaTeX blocks, add the following to your `.vimrc`:
 
-    To disable math conceal with LaTeX math syntax enabled, add the following to your `.vimrc`:
+        let g:vim_markdown_math = 1
+    
+    To disable concealing of LaTeX math while preserving its syntax highlighting, add the following to your `.vimrc`:
 
         let g:tex_conceal = ""
         let g:vim_markdown_math = 1
 
+    To disable LaTeX math concealing and syntax highlighting, add the following to your `.vimrc`:
+
+        let g:vim_markdown_math = 0
+    
 -   `g:vim_markdown_conceal_code_blocks`
 
-    Disabling conceal for code fences requires an additional setting:
+    To disable concealing of code blocks, add the following to your `.vimrc`:
 
         let g:vim_markdown_conceal_code_blocks = 0
 

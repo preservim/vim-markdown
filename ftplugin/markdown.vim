@@ -744,7 +744,9 @@ if !exists('*s:EditUrlUnderCursor')
 endif
 
 function! s:VersionAwareNetrwBrowseX(url)
-    if has('patch-7.4.567')
+    if has('patch-9.1.1868')
+        call netrw#BrowseX(a:url)
+    elseif has('patch-7.4.567')
         call netrw#BrowseX(a:url, 0)
     else
         call netrw#NetrwBrowseX(a:url, 0)

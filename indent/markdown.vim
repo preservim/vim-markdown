@@ -68,7 +68,7 @@ function GetMarkdownIndent()
         else
             " Last line is the first line of a list item, increase indent
             return ind + list_ind
-        end
+        endif
     else
         return ind
     endif

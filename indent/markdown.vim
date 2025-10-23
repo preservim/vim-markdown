@@ -2,6 +2,8 @@
 " SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
 " SPDX-License-Identifier: MIT
 
+scriptencoding utf-8
+
 if exists('b:did_indent') | finish | endif
 let b:did_indent = 1
 

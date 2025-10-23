@@ -2,6 +2,8 @@
 " SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
 " SPDX-License-Identifier: MIT
 
+scriptencoding utf-8
+
 " Read the HTML syntax to start with
 if v:version < 600
   source <sfile>:p:h/html.vim

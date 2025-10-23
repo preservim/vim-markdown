@@ -10,6 +10,8 @@
 "
 " original version from Steve Losh's gist: https://gist.github.com/1038710
 
+scriptencoding utf-8
+
 function! s:is_mkdCode(lnum)
     let name = synIDattr(synID(a:lnum, 1, 0), 'name')
     return (name =~# '^mkd\%(Code$\|Snippet\)' || name !=# '' && name !~? '^\%(mkd\|html\)')

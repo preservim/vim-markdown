@@ -2,6 +2,8 @@
 " SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
 " SPDX-License-Identifier: MIT
 
+scriptencoding utf-8
+
 "TODO print messages when on visual mode. I only see VISUAL, not the messages.
 
 " Function interface philosophy:

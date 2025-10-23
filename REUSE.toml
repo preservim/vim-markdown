@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = ["*.vim", "doc/*.txt"]
+SPDX-FileCopyrightText = "Benjamin D. Williams, Caleb Maclennan"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = [
+	".editorconfig",
+	".github/**/*.yml",
+	".gitignore",
+	".vintrc.yaml",
+	"Justfile",
+	"Makefile",
+	"registry/markdown.yaml",
+]
+SPDX-FileCopyrightText = "Benjamin D. Williams, Caleb Maclennan"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+	"README.md",
+	"CONTRIBUTING.md",
+	"test/*.md",
+	"test/*.vader",
+	"test/*.sh",
+	"test/vimrc",
+]
+SPDX-FileCopyrightText = "Benjamin D. Williams, Caleb Maclennan"
+SPDX-License-Identifier = "CC0-1.0"

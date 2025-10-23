@@ -1,3 +1,7 @@
+" SPDX-FileCopyrightText: © 2022 Caleb Maclennan <caleb@alerque.com>
+" SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
+" SPDX-License-Identifier: MIT
+
 " folding for Markdown headers, both styles (atx- and setex-)
 " http://daringfireball.net/projects/markdown/syntax#header
 "

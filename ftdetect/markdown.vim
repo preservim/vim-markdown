@@ -1,3 +1,7 @@
+" SPDX-FileCopyrightText: © 2022 Caleb Maclennan <caleb@alerque.com>
+" SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
+" SPDX-License-Identifier: MIT
+
 if !has('patch-7.4.480')
     " Before this patch, vim used modula2 for .md.
     autocmd! filetypedetect BufRead,BufNewFile *.md

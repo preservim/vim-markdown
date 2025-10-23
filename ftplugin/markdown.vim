@@ -1,3 +1,7 @@
+" SPDX-FileCopyrightText: © 2022 Caleb Maclennan <caleb@alerque.com>
+" SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
+" SPDX-License-Identifier: MIT
+
 "TODO print messages when on visual mode. I only see VISUAL, not the messages.
 
 " Function interface philosophy:

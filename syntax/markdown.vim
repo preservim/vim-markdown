@@ -1,3 +1,7 @@
+" SPDX-FileCopyrightText: © 2022 Caleb Maclennan <caleb@alerque.com>
+" SPDX-FileCopyrightText: © 2009 Benjamin D. Williams <benw@plasticboy.com>
+" SPDX-License-Identifier: MIT
+
 " Read the HTML syntax to start with
 if v:version < 600
   source <sfile>:p:h/html.vim

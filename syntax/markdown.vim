@@ -1,11 +1,3 @@
-" Vim syntax file
-" Language:	Markdown
-" Maintainer:	Ben Williams <benw@plasticboy.com>
-" URL:		http://plasticboy.com/markdown-vim-mode/
-" Remark:	Uses HTML syntax file
-" TODO: 	Handle stuff contained within stuff (e.g. headings within blockquotes)
-
-
 " Read the HTML syntax to start with
 if v:version < 600
   source <sfile>:p:h/html.vim
@@ -184,4 +176,3 @@ HtmlHiLink mkdDelimiter        Delimiter
 let b:current_syntax = 'mkd'
 
 delcommand HtmlHiLink
-" vim: ts=8

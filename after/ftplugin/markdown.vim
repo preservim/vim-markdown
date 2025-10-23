@@ -1,4 +1,3 @@
-" vim: ts=4 sw=4:
 " folding for Markdown headers, both styles (atx- and setex-)
 " http://daringfireball.net/projects/markdown/syntax#header
 "
@@ -174,7 +173,6 @@ else " vim_markdown_folding_style_pythonic == 0
         endif
     endfunction
 endif
-
 
 let b:fenced_block = 0
 let b:front_matter = 0

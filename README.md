@@ -149,8 +149,7 @@ Try `:help concealcursor` and `:help conceallevel` for details.
 
 -   `g:vim_markdown_toc_autofit`
 
-    Allow for the TOC window to auto-fit when it's possible for it to shrink.
-    It never increases its default size (half screen), it only shrinks.
+    Fit vertical TOC window to its contents. It will occupy half the screen, otherwise. Length will be truncated if longer than half the screen.
 
         let g:vim_markdown_toc_autofit = 1
 

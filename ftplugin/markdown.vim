@@ -401,7 +401,11 @@ function! s:Toc(...)
     if l:window_type ==# 'horizontal'
         lopen
     elseif l:window_type ==# 'vertical'
-        vertical lopen
+        if exists('g:vim_markdown_toc_location') && g:vim_markdown_toc_location ==# 'right'
+            vertical botright lopen
+        else
+            vertical topleft lopen
+        endif
         " auto-fit toc window when possible to shrink it
         if (&columns/2) > l:header_max_len && l:vim_markdown_toc_autofit == 1
             " header_max_len + 1 space for first header + 3 spaces for line numbers

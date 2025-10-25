@@ -53,21 +53,34 @@ scriptencoding utf-8
 
 " For each level, contains the regexp that matches at that level only.
 "
-let s:levelRegexpDict = {
-    \ 1: '\v^(#[^#]@=|.+\n\=+$)',
-    \ 2: '\v^(##[^#]@=|.+\n-+$)',
-    \ 3: '\v^###[^#]@=',
-    \ 4: '\v^####[^#]@=',
-    \ 5: '\v^#####[^#]@=',
-    \ 6: '\v^######[^#]@='
-\ }
 
 " Matches any header level of any type.
 "
 " This could be deduced from `s:levelRegexpDict`, but it is more
 " efficient to have a single regexp for this.
 "
-let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
+let s:vim_markdown_atx_only = get(g:, "vim_markdown_atx_only", 0)
+if s:vim_markdown_atx_only == 1
+    let s:headersRegexp = '^#'
+    let s:levelRegexpDict = {
+        \ 1: '\v^#[^#]@=',
+        \ 2: '\v^##[^#]@=',
+        \ 3: '\v^###[^#]@=',
+        \ 4: '\v^####[^#]@=',
+        \ 5: '\v^#####[^#]@=',
+        \ 6: '\v^######[^#]@='
+    \ }
+else
+    let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
+    let s:levelRegexpDict = {
+        \ 1: '\v^(#[^#]@=|.+\n\=+$)',
+        \ 2: '\v^(##[^#]@=|.+\n-+$)',
+        \ 3: '\v^###[^#]@=',
+        \ 4: '\v^####[^#]@=',
+        \ 5: '\v^#####[^#]@=',
+        \ 6: '\v^######[^#]@='
+    \ }
+endif
 
 " Returns the line number of the first header before `line`, called the
 " current header.

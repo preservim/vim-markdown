@@ -191,8 +191,10 @@ function! s:MarkdownSetupFolding()
                 setlocal foldtext=Foldtext_markdown()
             endif
         endif
-        setlocal foldexpr=Foldexpr_markdown(v:lnum)
-        setlocal foldmethod=expr
+        if ( &foldexpr ==# "0" || &foldexpr ==# "" ) && &foldmethod != "diff"
+            setlocal foldexpr=Foldexpr_markdown(v:lnum)
+            setlocal foldmethod=expr
+        endif
     endif
 endfunction
 

@@ -28,11 +28,14 @@ test
 
 Execute (Toc setex headers):
   :Toc
+  :setl modifiable
+  :%s/\m^\([^|]*|\)\{2} //
+  :setl nomodifiable nomodified
 
 Expect (setex headers):
-  header 1
-    header 2
-      header 3
+  1# header 1
+  2# header 2
+  3# header 3
 
 Given markdown;
 # header 1
@@ -49,11 +52,14 @@ test
 
 Execute (Toc atx headers):
   :Toc
+  :setl modifiable
+  :%s/\m^\([^|]*|\)\{2} //
+  :setl nomodifiable nomodified
 
 Expect (atx headers):
-  header 1
-    header 2
-      header 3
+  1# header 1
+  2# header 2
+  3# header 3
 
 Given markdown;
 ATX tests.
@@ -135,34 +141,37 @@ setex h2
 
 Execute (Toc multiple headers):
   :Toc
+  :setl modifiable
+  :%s/\m^\([^|]*|\)\{2} //
+  :setl nomodifiable nomodified
 
 Expect (multiple headers):
-  h1 space
-  h1 nospace
-  h1 2 spaces
-  h1 trailing hash
-    h2 space
-    h2 nospace
-    h2 trailing hash
-      h3 space
-      h3 nospace
-      h3 trailing hash
-        h4
-          h5
-            h6
-  h1 before h2
-    h2 between h1s
-  h1 after h2
-  setex h1
-    setex h2
-  setex h1 single punctuation
-  setex h1 punctuation longer than header
-  setex h1 before atx
-    atx h2
-      atx h3
-  atx h1
-    setex h2
-      atx h3 2
+  1# h1 space
+  1# h1 nospace
+  1# h1 2 spaces
+  1# h1 trailing hash
+  2# h2 space
+  2# h2 nospace
+  2# h2 trailing hash
+  3# h3 space
+  3# h3 nospace
+  3# h3 trailing hash
+  4# h4
+  5# h5
+  6# h6
+  1# h1 before h2
+  2# h2 between h1s
+  1# h1 after h2
+  1# setex h1
+  2# setex h2
+  1# setex h1 single punctuation
+  1# setex h1 punctuation longer than header
+  1# setex h1 before atx
+  2# atx h2
+  3# atx h3
+  1# atx h1
+  2# setex h2
+  3# atx h3 2
 
 Execute:
   :lclose

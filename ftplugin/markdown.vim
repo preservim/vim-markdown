@@ -386,7 +386,7 @@ function! s:Toc(...)
             endif
         endif
         " indent header based on level
-        let l:text = repeat('  ', h.level-1) . h.text
+        let l:text = h.level . '# ' . h.text
         " keep track of the longest header size (heading level + title)
         let l:total_len = strdisplaywidth(l:text)
         if l:total_len > l:header_max_len
@@ -414,14 +414,6 @@ function! s:Toc(...)
     else
         lopen
     endif
-    setlocal modifiable
-    for i in range(1, line('$'))
-        " this is the location-list data for the current item
-        let d = getloclist(0)[i-1]
-        call setline(i, d.text)
-    endfor
-    setlocal nomodified
-    setlocal nomodifiable
     execute 'normal! ' . l:cursor_header . 'G'
 endfunction
 

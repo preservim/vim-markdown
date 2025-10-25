@@ -364,8 +364,6 @@ TOML Front Matter ~
 - 'g:vim_markdown_toml_frontmatter'
 
   Highlight TOML front matter as used by Hugo [7].
-
-  TOML syntax highlight requires vim-toml [8].
 >
   let g:vim_markdown_toml_frontmatter = 1
 <
@@ -377,8 +375,6 @@ JSON Front Matter ~
 - 'g:vim_markdown_json_frontmatter'
 
   Highlight JSON front matter as used by Hugo [7].
-
-  JSON syntax highlight requires vim-json [9].
 >
   let g:vim_markdown_json_frontmatter = 1
 <
@@ -609,9 +605,9 @@ The following requires ':filetype plugin on'.
   range.
 
                                                                  *:TableFormat*
-- ':TableFormat': Format the table under the cursor like this [10].
+- ':TableFormat': Format the table under the cursor like this [8].
 
-  Requires Tabular [11].
+  Requires Tabular [9].
 
   The input table _must_ already have a separator line as the second line of
   the table. That line only needs to contain the correct pipes '|', nothing
@@ -640,7 +636,7 @@ Credits ~
 The main contributors of vim-markdown are:
 
 - **Ben Williams** (A.K.A. **plasticboy**). The original developer of vim-
-  markdown. Homepage [12].
+  markdown. Homepage [10].
 
 If you feel that your name should be on this list, please make a pull request
 listing your contributions.
@@ -683,10 +679,8 @@ References ~
 [5] https://github.com/preservim/vim-markdown/archive/master.tar.gz
 [6] https://github.com/klen/python-mode
 [7] https://gohugo.io/content/front-matter/
-[8] https://github.com/cespare/vim-toml
-[9] https://github.com/elzr/vim-json
-[10] http://www.cirosantilli.com/markdown-style-guide/#tables
-[11] https://github.com/godlygeek/tabular
-[12] http://plasticboy.com/
+[8] http://www.cirosantilli.com/markdown-style-guide/#tables
+[9] https://github.com/godlygeek/tabular
+[10] http://plasticboy.com/
 
 vim: ft=help
